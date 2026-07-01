@@ -13,7 +13,7 @@
 | 6 | Booking flows (`/book` wizard) | ✅ Done | — |
 | 7 | Customer dashboard | ✅ Done | — |
 | 8 | Admin panel | ✅ Done | — |
-| 9 | Final validation | ⬜ Pending | — |
+| 9 | Final validation | ✅ Done | — |
 
 ## Notes
 
@@ -71,3 +71,11 @@ See `BLOCKERS.md` for the phone+password limitation. Proceeding with email+passw
 - `/admin/slots` — `SlotsManager` (client) + server page computes a Monday-start week (`?week=` offset search param) and cross-references `time_slots` against non-cancelled `appointments` to classify each cell as Open/Full(booked)/Blocked/none(not yet generated). Clicking an Open or Blocked cell toggles it directly (no confirm modal — it's a reversible, non-destructive status flip, unlike every delete/cancel action elsewhere). "Full" and ungenerated cells aren't clickable. "+ Add slot" opens a small date-picker modal that generates a full day (11:00 AM–8:30 PM, 30-min increments) via `generateDaySlots`, mirroring `scripts/seed-slots.ts`'s logic so future weeks aren't stuck empty.
 - Every delete/cancel action across Appointments, Bookings, Services, and Gallery goes through the shared `DeleteConfirmModal` — no separate confirm UI was built anywhere in the admin panel.
 - All admin server actions (`actions/admin/*.ts`) re-check `role='admin'` server-side via `requireAdmin()` before mutating — not just relying on the `proxy.ts` middleware — since Server Actions can in principle be invoked directly.
+
+### Step 9 — Final validation
+- `npm run build` passes clean (zero TypeScript errors) as of this commit; `next lint` does not run in this environment (pre-existing `eslint`/`eslint-config-next` version incompatibility unrelated to app code — see `FINAL_REVIEW.md`).
+- Added a toast-notification gap fix: `BookingWizard`'s confirm step previously only showed an inline error banner on failure with no toast, and no success toast (the full-screen confirmation state was the only success signal). Added `toast.error`/`toast.success` calls so it's consistent with every other async action in the app.
+- Fixed a units bug caught during this pass: `bookings.agreed_price` is documented in `DATABASE_DESIGN.md` as stored in **paise** (like `services.price_from`), but the Step 8 admin Bookings code had been treating it as plain rupees in three places (`actions/admin/bookings.ts`, `app/admin/bookings/page.tsx`, the dashboard revenue calc). Corrected all three so the admin form still shows/accepts rupees but converts to/from paise at the boundary.
+- Removed the admin dashboard's "+ Add booking" button — it linked to `/admin/bookings` but that page has no create-new flow (deliberately out of scope, see `FINAL_REVIEW.md` deviation #5), so the button was a dead end. Kept only "View site."
+- Verified (by grep/read, not a live browser session — no Supabase project has been connected in this environment): every async action app-wide has loading + success + error states with toast notifications; all `IMPLEMENTATION_PLAN.md` §7 mobile adaptations are in place except two pre-existing, low-risk deviations noted in `FINAL_REVIEW.md`; every admin destructive action goes through `DeleteConfirmModal`; `proxy.ts` middleware protects `/dashboard/*` and `/admin/*`; no obvious hydration-mismatch patterns (unguarded `window`/`Date.now()`/`Math.random()` in a render path) in any client component.
+- Wrote `FINAL_REVIEW.md` (features, deviations, known limitations, what hasn't been verified, recommended next steps) and `README.md` (setup, env vars, schema setup, seed scripts, first-admin-user creation).

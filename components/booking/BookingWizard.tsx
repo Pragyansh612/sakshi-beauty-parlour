@@ -2,6 +2,7 @@
 
 import { useState } from 'react';
 import Link from 'next/link';
+import { toast } from 'sonner';
 import { cn } from '@/lib/utils';
 import { createAppointment } from '@/actions/appointments';
 import { createBooking } from '@/actions/bookings';
@@ -125,10 +126,12 @@ export function BookingWizard({
       setSubmitting(false);
       if (!result.success) {
         setSubmitError(result.error ?? 'Something went wrong.');
+        toast.error(result.error ?? 'Something went wrong.');
         return;
       }
       setReference(result.reference ?? null);
       setConfirmed(true);
+      toast.success('Appointment requested!');
     } else {
       const result = await createBooking({
         service_id: service.id,
@@ -142,10 +145,12 @@ export function BookingWizard({
       setSubmitting(false);
       if (!result.success) {
         setSubmitError(result.error ?? 'Something went wrong.');
+        toast.error(result.error ?? 'Something went wrong.');
         return;
       }
       setReference(result.reference ?? null);
       setConfirmed(true);
+      toast.success('Booking requested!');
     }
   }
 
