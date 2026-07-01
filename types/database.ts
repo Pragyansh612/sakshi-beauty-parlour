@@ -39,6 +39,7 @@ export type Database = {
           avatar_url?: string | null;
           updated_at?: string;
         };
+        Relationships: [];
       };
       service_categories: {
         Row: {
@@ -66,6 +67,7 @@ export type Database = {
           icon_shape?: string | null;
           display_order?: number;
         };
+        Relationships: [];
       };
       services: {
         Row: {
@@ -115,6 +117,15 @@ export type Database = {
           display_order?: number;
           updated_at?: string;
         };
+        Relationships: [
+          {
+            foreignKeyName: 'services_category_id_fkey';
+            columns: ['category_id'];
+            isOneToOne: false;
+            referencedRelation: 'service_categories';
+            referencedColumns: ['id'];
+          },
+        ];
       };
       combo_offers: {
         Row: {
@@ -150,6 +161,7 @@ export type Database = {
           status?: 'active' | 'draft';
           display_order?: number;
         };
+        Relationships: [];
       };
       combo_offer_items: {
         Row: {
@@ -168,6 +180,15 @@ export type Database = {
           description?: string;
           display_order?: number;
         };
+        Relationships: [
+          {
+            foreignKeyName: 'combo_offer_items_combo_id_fkey';
+            columns: ['combo_id'];
+            isOneToOne: false;
+            referencedRelation: 'combo_offers';
+            referencedColumns: ['id'];
+          },
+        ];
       };
       time_slots: {
         Row: {
@@ -187,6 +208,7 @@ export type Database = {
         Update: {
           status?: 'open' | 'blocked';
         };
+        Relationships: [];
       };
       appointments: {
         Row: {
@@ -223,6 +245,29 @@ export type Database = {
           cancellation_reason?: string | null;
           updated_at?: string;
         };
+        Relationships: [
+          {
+            foreignKeyName: 'appointments_customer_id_fkey';
+            columns: ['customer_id'];
+            isOneToOne: false;
+            referencedRelation: 'profiles';
+            referencedColumns: ['id'];
+          },
+          {
+            foreignKeyName: 'appointments_service_id_fkey';
+            columns: ['service_id'];
+            isOneToOne: false;
+            referencedRelation: 'services';
+            referencedColumns: ['id'];
+          },
+          {
+            foreignKeyName: 'appointments_slot_id_fkey';
+            columns: ['slot_id'];
+            isOneToOne: false;
+            referencedRelation: 'time_slots';
+            referencedColumns: ['id'];
+          },
+        ];
       };
       bookings: {
         Row: {
@@ -282,6 +327,22 @@ export type Database = {
           cancelled_at?: string | null;
           updated_at?: string;
         };
+        Relationships: [
+          {
+            foreignKeyName: 'bookings_customer_id_fkey';
+            columns: ['customer_id'];
+            isOneToOne: false;
+            referencedRelation: 'profiles';
+            referencedColumns: ['id'];
+          },
+          {
+            foreignKeyName: 'bookings_service_id_fkey';
+            columns: ['service_id'];
+            isOneToOne: false;
+            referencedRelation: 'services';
+            referencedColumns: ['id'];
+          },
+        ];
       };
       gallery_images: {
         Row: {
@@ -314,6 +375,7 @@ export type Database = {
           alt_text?: string | null;
           display_order?: number;
         };
+        Relationships: [];
       };
       contact_messages: {
         Row: {
@@ -336,16 +398,18 @@ export type Database = {
         Update: {
           is_read?: boolean;
         };
+        Relationships: [];
       };
     };
     Views: Record<string, never>;
     Functions: {
       is_admin: {
-        Args: Record<string, never>;
+        Args: Record<PropertyKey, never>;
         Returns: boolean;
       };
     };
     Enums: Record<string, never>;
+    CompositeTypes: Record<string, never>;
   };
 };
 
