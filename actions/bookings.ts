@@ -54,3 +54,29 @@ export async function createBooking(
 
   return { success: true, reference: inserted.reference };
 }
+
+export async function cancelBooking(
+  reference: string
+): Promise<{ success: boolean; error?: string }> {
+  const supabase = await createClient();
+  const {
+    data: { user },
+  } = await supabase.auth.getUser();
+
+  if (!user) {
+    return { success: false, error: 'Please sign in to manage your bookings.' };
+  }
+
+  const { error } = await supabase
+    .from('bookings')
+    .update({ status: 'cancelled', cancelled_at: new Date().toISOString() })
+    .eq('reference', reference)
+    .eq('customer_id', user.id);
+
+  if (error) {
+    console.error('Booking cancel error:', error.message);
+    return { success: false, error: 'Could not cancel this booking. Please try again.' };
+  }
+
+  return { success: true };
+}

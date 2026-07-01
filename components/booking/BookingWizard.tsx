@@ -34,14 +34,26 @@ interface BookingWizardProps {
   days: DayOption[];
   slotsByDate: Record<string, SlotOption[]>;
   isAuthenticated: boolean;
+  rescheduleRef?: string | null;
+  initialMode?: 'appt' | 'book';
+  initialServiceId?: string | null;
 }
 
 type Mode = 'appt' | 'book';
 
-export function BookingWizard({ apptServices, bookServices, days, slotsByDate, isAuthenticated }: BookingWizardProps) {
-  const [mode, setMode] = useState<Mode>('appt');
-  const [step, setStep] = useState(1);
-  const [serviceId, setServiceId] = useState<string | null>(null);
+export function BookingWizard({
+  apptServices,
+  bookServices,
+  days,
+  slotsByDate,
+  isAuthenticated,
+  rescheduleRef = null,
+  initialMode,
+  initialServiceId = null,
+}: BookingWizardProps) {
+  const [mode, setMode] = useState<Mode>(initialMode ?? 'appt');
+  const [step, setStep] = useState(initialServiceId ? 2 : 1);
+  const [serviceId, setServiceId] = useState<string | null>(initialServiceId);
   const [dateIdx, setDateIdx] = useState<number | null>(null);
   const [slotId, setSlotId] = useState<string | null>(null);
   const [reqType, setReqType] = useState('');
@@ -192,6 +204,13 @@ export function BookingWizard({ apptServices, bookServices, days, slotsByDate, i
 
   return (
     <div>
+      {rescheduleRef && (
+        <div className="max-w-[1240px] mx-auto px-6 md:px-11 pt-7">
+          <div className="bg-[#f6efdb] border border-[#e2d3b8] text-[#9a7b2e] text-sm rounded-2xl px-5 py-3.5 text-center">
+            Rescheduling <b>{rescheduleRef}</b> — service pre-filled. Pick a new date{isAppt ? ' and time' : ''} below.
+          </div>
+        </div>
+      )}
       {/* MODE TOGGLE */}
       <div className="max-w-[1240px] mx-auto px-6 md:px-11 flex justify-center pt-7">
         <div className="inline-flex bg-[#efe6d6] border border-[#e2d3b8] rounded-[30px] p-[5px]">

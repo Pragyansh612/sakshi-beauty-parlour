@@ -46,3 +46,29 @@ export async function createAppointment(
 
   return { success: true, reference: inserted.reference };
 }
+
+export async function cancelAppointment(
+  reference: string
+): Promise<{ success: boolean; error?: string }> {
+  const supabase = await createClient();
+  const {
+    data: { user },
+  } = await supabase.auth.getUser();
+
+  if (!user) {
+    return { success: false, error: 'Please sign in to manage your appointments.' };
+  }
+
+  const { error } = await supabase
+    .from('appointments')
+    .update({ status: 'cancelled', cancelled_at: new Date().toISOString() })
+    .eq('reference', reference)
+    .eq('customer_id', user.id);
+
+  if (error) {
+    console.error('Appointment cancel error:', error.message);
+    return { success: false, error: 'Could not cancel this appointment. Please try again.' };
+  }
+
+  return { success: true };
+}

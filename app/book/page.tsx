@@ -22,12 +22,43 @@ function formatSlotTime(time: string) {
 const DOW = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
 const MON = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
 
-export default async function BookPage() {
+export default async function BookPage({
+  searchParams,
+}: {
+  searchParams: Promise<{ reschedule?: string }>;
+}) {
   const supabase = await createClient();
+  const { reschedule } = await searchParams;
 
   const {
     data: { user },
   } = await supabase.auth.getUser();
+
+  let prefillMode: 'appt' | 'book' | undefined;
+  let prefillServiceId: string | null = null;
+  if (reschedule && user) {
+    const { data: apptMatch } = await supabase
+      .from('appointments')
+      .select('service_id')
+      .eq('reference', reschedule)
+      .eq('customer_id', user.id)
+      .maybeSingle();
+    if (apptMatch) {
+      prefillMode = 'appt';
+      prefillServiceId = apptMatch.service_id;
+    } else {
+      const { data: bookingMatch } = await supabase
+        .from('bookings')
+        .select('service_id')
+        .eq('reference', reschedule)
+        .eq('customer_id', user.id)
+        .maybeSingle();
+      if (bookingMatch) {
+        prefillMode = 'book';
+        prefillServiceId = bookingMatch.service_id;
+      }
+    }
+  }
 
   const today = new Date();
   const dateStrings: string[] = [];
@@ -128,6 +159,9 @@ export default async function BookPage() {
           days={days}
           slotsByDate={slotsByDate}
           isAuthenticated={!!user}
+          rescheduleRef={prefillServiceId ? (reschedule ?? null) : null}
+          initialMode={prefillMode}
+          initialServiceId={prefillServiceId}
         />
       </main>
 
