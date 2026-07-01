@@ -94,7 +94,21 @@ export function RecordDrawer({
               {fields.map((field) => (
                 <div key={field.key} className="space-y-1.5">
                   <Label>{field.label}</Label>
-                  {mode === 'edit' && field.editable !== false ? (
+                  {mode === 'edit' && field.editable !== false && field.type === 'select' ? (
+                    <select
+                      value={draft[field.key] ?? ''}
+                      onChange={(e) =>
+                        setDraft((prev) => ({ ...prev, [field.key]: e.target.value }))
+                      }
+                      className="flex h-10 w-full rounded-md border border-[#e7dcc8] bg-[#FAF6EF] px-3 py-2 text-sm text-[#2e2823] focus:outline-none focus:ring-2 focus:ring-[#b5904f] focus:border-transparent"
+                    >
+                      {(field.options ?? []).map((opt) => (
+                        <option key={opt.value} value={opt.value}>
+                          {opt.label}
+                        </option>
+                      ))}
+                    </select>
+                  ) : mode === 'edit' && field.editable !== false ? (
                     <Input
                       type={field.type === 'date' ? 'date' : 'text'}
                       value={draft[field.key] ?? ''}
