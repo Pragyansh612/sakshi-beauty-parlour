@@ -7,8 +7,8 @@
 | 0 | `.gitignore` | ✅ Done | b656a7c |
 | 1 | Project scaffold | ✅ Done | — |
 | 2 | Database (schema.sql + seed script) | ✅ Done | — |
-| 3 | Shared components | 🔄 In progress | — |
-| 4 | Public pages | ⬜ Pending | — |
+| 3 | Shared components | ✅ Done | 5d5f6d9 |
+| 4 | Public pages | 🔄 In progress (Home done) | — |
 | 5 | Auth | ⬜ Pending | — |
 | 6 | Booking flows | ⬜ Pending | — |
 | 7 | Customer dashboard | ⬜ Pending | — |
@@ -29,3 +29,7 @@
 
 ### Auth Blocker
 See `BLOCKERS.md` for the phone+password limitation. Proceeding with email+password for Supabase Auth. Email is required in the register form. Phone stored in profiles for display/contact throughout the app.
+
+### Step 4 — Public pages
+- `/` (Home) — done: hero, trust strip, why-choose-us, featured services (hover/accordion price cards via `components/home/ServiceHoverCard.tsx`), bridal banner, gallery preview strip, testimonial, contact CTA. Matches `design/Sakshi Beauty Parlour.dc.html`.
+- Remaining: `/services`, `/gallery`, `/about`, `/contact`, `/book`, `/login`.
