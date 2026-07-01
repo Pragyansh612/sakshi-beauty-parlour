@@ -36,4 +36,5 @@ See `BLOCKERS.md` for the phone+password limitation. Proceeding with email+passw
 - Note: pages use static hardcoded content matching the design files rather than DB fetches — no live Supabase project is connected yet (`.env.local` not created). DB wiring for services/gallery can be swapped in once a real Supabase project + seed data exists.
 - `/gallery` — done: header, filter pills + masonry grid + lightbox (`components/gallery/GalleryMasonry.tsx`, client), achievements/credentials grid, CTA strip. Matches `design/Gallery.dc.html`. Uses static placeholder tiles (gradients), not real photos yet — real gallery photo integration awaits Supabase Storage wiring (`scripts/seed-images.ts` already exists for that from Step 2).
 - `/about` — done: hero, stats band, mission/vision, standards, commitment section, founder quote. Fully static/server-rendered. Matches `design/About.dc.html`.
-- Remaining: `/contact`, `/book`, `/login`.
+- `/contact` — done: header, quick contact cards (call/WhatsApp/social), studio details + map placeholder + `ContactForm` (existing from Step 3), CTA strip. Matches `design/Contact.dc.html`.
+- Remaining: `/book`, `/login`.
