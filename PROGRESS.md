@@ -34,4 +34,5 @@ See `BLOCKERS.md` for the phone+password limitation. Proceeding with email+passw
 - `/` (Home) — done: hero, trust strip, why-choose-us, featured services (hover/accordion price cards via `components/home/ServiceHoverCard.tsx`), bridal banner, gallery preview strip, testimonial, contact CTA. Matches `design/Sakshi Beauty Parlour.dc.html`.
 - `/services` — done: header, filter pills (anchor links), 6 category blocks (`components/services/ServiceCategoryBlock.tsx`), combo offers (`components/services/ComboCard.tsx`), CTA strip. Matches `design/Services.dc.html`.
 - Note: pages use static hardcoded content matching the design files rather than DB fetches — no live Supabase project is connected yet (`.env.local` not created). DB wiring for services/gallery can be swapped in once a real Supabase project + seed data exists.
-- Remaining: `/gallery`, `/about`, `/contact`, `/book`, `/login`.
+- `/gallery` — done: header, filter pills + masonry grid + lightbox (`components/gallery/GalleryMasonry.tsx`, client), achievements/credentials grid, CTA strip. Matches `design/Gallery.dc.html`. Uses static placeholder tiles (gradients), not real photos yet — real gallery photo integration awaits Supabase Storage wiring (`scripts/seed-images.ts` already exists for that from Step 2).
+- Remaining: `/about`, `/contact`, `/book`, `/login`.
