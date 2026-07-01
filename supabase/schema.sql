@@ -9,19 +9,6 @@
 CREATE EXTENSION IF NOT EXISTS "pgcrypto";
 
 -- =========================================================
--- HELPER: is_admin()
--- Returns true if the calling user has role = 'admin'
--- SECURITY DEFINER so it runs with elevated privileges
--- =========================================================
-CREATE OR REPLACE FUNCTION is_admin()
-RETURNS boolean AS $$
-  SELECT EXISTS (
-    SELECT 1 FROM profiles
-    WHERE id = auth.uid() AND role = 'admin'
-  );
-$$ LANGUAGE sql SECURITY DEFINER STABLE;
-
--- =========================================================
 -- PROFILES
 -- Extends auth.users — one row per user, auto-created by trigger
 -- =========================================================
@@ -38,6 +25,21 @@ CREATE TABLE profiles (
 
 CREATE INDEX idx_profiles_phone ON profiles(phone);
 CREATE INDEX idx_profiles_role  ON profiles(role);
+
+-- =========================================================
+-- HELPER: is_admin()
+-- Returns true if the calling user has role = 'admin'
+-- SECURITY DEFINER so it runs with elevated privileges
+-- Defined here (after `profiles` exists) because PostgreSQL resolves
+-- table references in LANGUAGE sql function bodies at creation time.
+-- =========================================================
+CREATE OR REPLACE FUNCTION is_admin()
+RETURNS boolean AS $$
+  SELECT EXISTS (
+    SELECT 1 FROM profiles
+    WHERE id = auth.uid() AND role = 'admin'
+  );
+$$ LANGUAGE sql SECURITY DEFINER STABLE;
 
 ALTER TABLE profiles ENABLE ROW LEVEL SECURITY;
 
