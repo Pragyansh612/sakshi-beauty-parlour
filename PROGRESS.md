@@ -8,9 +8,9 @@
 | 1 | Project scaffold | ✅ Done | — |
 | 2 | Database (schema.sql + seed script) | ✅ Done | — |
 | 3 | Shared components | ✅ Done | 5d5f6d9 |
-| 4 | Public pages | 🔄 In progress (Home done) | — |
-| 5 | Auth | ⬜ Pending | — |
-| 6 | Booking flows | ⬜ Pending | — |
+| 4 | Public pages (Home, Services, Gallery, About, Contact) | ✅ Done | — |
+| 5 | Auth (`/login` — Login/Register/Forgot password) | 🔄 In progress | — |
+| 6 | Booking flows (`/book` wizard) | ⬜ Pending | — |
 | 7 | Customer dashboard | ⬜ Pending | — |
 | 8 | Admin panel | ⬜ Pending | — |
 | 9 | Final validation | ⬜ Pending | — |
@@ -37,4 +37,4 @@ See `BLOCKERS.md` for the phone+password limitation. Proceeding with email+passw
 - `/gallery` — done: header, filter pills + masonry grid + lightbox (`components/gallery/GalleryMasonry.tsx`, client), achievements/credentials grid, CTA strip. Matches `design/Gallery.dc.html`. Uses static placeholder tiles (gradients), not real photos yet — real gallery photo integration awaits Supabase Storage wiring (`scripts/seed-images.ts` already exists for that from Step 2).
 - `/about` — done: hero, stats band, mission/vision, standards, commitment section, founder quote. Fully static/server-rendered. Matches `design/About.dc.html`.
 - `/contact` — done: header, quick contact cards (call/WhatsApp/social), studio details + map placeholder + `ContactForm` (existing from Step 3), CTA strip. Matches `design/Contact.dc.html`.
-- Remaining: `/book`, `/login`.
+- Step 4 complete: all 5 marketing pages built. `/book` and `/login` moved to Steps 6 and 5 respectively (they need real backend wiring — Supabase Auth, slot/booking DB logic — not just static UI).
