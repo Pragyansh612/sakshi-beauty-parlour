@@ -1,0 +1,94 @@
+@import "tailwindcss";
+
+@theme {
+  /* Brand colours — from design analysis */
+  --color-brand-bg: #FAF6EF;
+  --color-brand-text: #2e2823;
+  --color-brand-gold: #b5904f;
+  --color-brand-gold-light: #d9b97e;
+  --color-brand-lead: #6b5f54;
+  --color-brand-border: #e7dcc8;
+  --color-brand-muted: #8a7b6e;
+
+  /* Semantic colours */
+  --color-background: #FAF6EF;
+  --color-foreground: #2e2823;
+
+  /* Font families — matched to design */
+  --font-heading: var(--font-cormorant), 'Georgia', serif;
+  --font-script: var(--font-dancing), cursive;
+  --font-body: var(--font-jost), 'Helvetica Neue', sans-serif;
+
+  /* Spacing overrides */
+  --radius: 0.5rem;
+}
+
+/* shadcn/ui CSS variables (Tailwind v4 style) */
+:root {
+  --background: 42 43% 97%;
+  --foreground: 20 14% 16%;
+  --card: 42 43% 97%;
+  --card-foreground: 20 14% 16%;
+  --popover: 0 0% 100%;
+  --popover-foreground: 20 14% 16%;
+  --primary: 36 45% 51%;
+  --primary-foreground: 42 43% 97%;
+  --secondary: 36 25% 90%;
+  --secondary-foreground: 20 14% 16%;
+  --muted: 36 25% 93%;
+  --muted-foreground: 24 12% 43%;
+  --accent: 36 25% 90%;
+  --accent-foreground: 20 14% 16%;
+  --destructive: 0 84.2% 60.2%;
+  --destructive-foreground: 0 0% 98%;
+  --border: 36 30% 85%;
+  --input: 36 30% 85%;
+  --ring: 36 45% 51%;
+  --radius: 0.5rem;
+}
+
+body {
+  background-color: #FAF6EF;
+  color: #2e2823;
+  font-family: var(--font-body);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* Smooth scrolling for anchor links */
+html {
+  scroll-behavior: smooth;
+}
+
+/* Custom utility classes that match the design system */
+@layer utilities {
+  .font-heading {
+    font-family: var(--font-heading);
+  }
+  .font-script {
+    font-family: var(--font-script);
+  }
+  .font-body {
+    font-family: var(--font-body);
+  }
+
+  /* Gold gradient used in headings */
+  .text-gold-gradient {
+    background: linear-gradient(135deg, #b5904f 0%, #d9b97e 50%, #b5904f 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+
+  /* Brand card shadow */
+  .shadow-brand {
+    box-shadow: 0 4px 24px rgba(46, 40, 35, 0.08);
+  }
+
+  /* Frosted glass nav */
+  .glass-nav {
+    background-color: rgba(250, 246, 239, 0.85);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+  }
+}

@@ -1,0 +1,340 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet data-dc-atomics>
+<title>Sakshi Beauty Parlour — Premium Salon & Bridal Studio</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500&family=Dancing+Script:wght@500;600;700&family=Jost:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+  *{box-sizing:border-box}
+  html{scroll-behavior:smooth}
+  body{margin:0;background:#FAF6EF;color:#2e2823;font-family:'Jost',system-ui,sans-serif;-webkit-font-smoothing:antialiased}
+  ::selection{background:#e7d3ab}
+  .wrap{max-width:1240px;margin:0 auto;padding:0 44px}
+  .nav{position:sticky;top:0;z-index:100;background:rgba(250,246,239,.82);backdrop-filter:blur(12px);border-bottom:1px solid #e7dcc8}
+  .nav-in{max-width:1240px;margin:0 auto;padding:16px 44px;display:flex;align-items:center;justify-content:space-between;gap:24px}
+  .logo{font-family:'Cormorant Garamond',serif;font-weight:500;font-size:25px;line-height:.86;letter-spacing:.01em;text-decoration:none;color:#2e2823}
+  .logo small{display:block;font-family:'Jost',sans-serif;font-weight:400;font-size:8px;letter-spacing:.42em;text-transform:uppercase;color:#b5904f;margin-top:4px}
+  .navlinks{display:flex;gap:30px;list-style:none;margin:0;padding:0}
+  .navlinks a{text-decoration:none;font-size:13.5px;font-weight:400;letter-spacing:.02em;color:#4a4038;position:relative;padding:4px 0;transition:color .18s}
+  .navlinks a:hover{color:#b5904f}
+  .navlinks a.active{color:#b5904f}
+  .navlinks a.active::after{content:"";position:absolute;left:0;right:0;bottom:-2px;height:1px;background:#b5904f}
+  .navcta{display:flex;align-items:center;gap:18px}
+  .navphone{font-size:13px;color:#6b5f54;text-decoration:none;white-space:nowrap}
+  .navphone b{color:#2e2823;font-weight:500}
+  .btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;text-decoration:none;border-radius:30px;font-family:'Jost',sans-serif;font-weight:500;font-size:13.5px;letter-spacing:.02em;padding:13px 26px;cursor:pointer;border:none;transition:transform .16s,box-shadow .22s,border-color .18s,color .18s}
+  .btn-dark{background:#2e2823;color:#f6ede0}
+  .btn-dark:hover{box-shadow:0 12px 26px -10px rgba(46,40,35,.6);transform:translateY(-1px)}
+  .btn-ghost{background:transparent;color:#2e2823;border:1px solid #d8c6a6}
+  .btn-ghost:hover{border-color:#b5904f;color:#b5904f}
+  .btn-gold{background:#b5904f;color:#fff}
+  .btn-gold:hover{box-shadow:0 12px 26px -10px rgba(181,144,79,.7);transform:translateY(-1px)}
+  .btn-lg{padding:16px 32px;font-size:14.5px}
+  .eyebrow{font-family:ui-monospace,Menlo,monospace;font-size:11px;letter-spacing:.32em;text-transform:uppercase;color:#b5904f;margin:0}
+  .hs{font-family:'Cormorant Garamond',serif;font-weight:500;letter-spacing:-.01em;color:#2e2823;margin:0}
+  .script{font-family:'Dancing Script',cursive;color:#b5904f;font-weight:600}
+  .lead{font-weight:300;color:#6b5f54;line-height:1.65}
+  .ph{position:relative;overflow:hidden;background:linear-gradient(150deg,#f3e3dc,#efe1d0)}
+  .ph::before{content:"";position:absolute;inset:0;background-image:repeating-linear-gradient(135deg,rgba(181,144,79,.08) 0 12px,transparent 12px 24px)}
+  .ph-tag{position:absolute;left:50%;bottom:16px;transform:translateX(-50%);white-space:nowrap;padding:5px 13px;font-family:ui-monospace,Menlo,monospace;font-size:9px;letter-spacing:.16em;text-transform:uppercase;color:#7a6a52;background:rgba(255,255,255,.72);border-radius:20px;z-index:2}
+  .rule{height:1px;background:#e7dcc8;border:none}
+  .reveal{opacity:1}
+  @keyframes revealin{from{opacity:0;transform:translateY(24px)}to{opacity:1;transform:none}}
+  @supports (animation-timeline:view()){
+    .reveal{opacity:1;animation:revealin .9s cubic-bezier(.16,1,.3,1) both;animation-timeline:view();animation-range:entry 4% entry 30%}
+  }
+  .card{background:#fff;border:1px solid #eee3d4;border-radius:18px}
+  .foot a{transition:color .18s}
+  .foot a:hover{color:#d9b97e}
+  .scrollx{display:flex;overflow-x:auto;scrollbar-width:none}
+  .scrollx::-webkit-scrollbar{display:none}
+  .disc{display:inline-flex;align-items:center;gap:5px;font-family:'Jost',sans-serif;font-size:9.5px;font-weight:600;letter-spacing:.09em;text-transform:uppercase;color:#8a6a1f;background:#f6ecca;border:1px solid #e6d3a0;padding:4px 9px;border-radius:20px}
+  .fcard{position:relative;display:block;text-decoration:none}
+  .fcard-in{transition:transform .2s,box-shadow .25s}
+  .fcard:hover .fcard-in{box-shadow:0 24px 46px -28px rgba(60,45,30,.5);transform:translateY(-2px)}
+  .fcard:hover{z-index:41}
+  .fdetail{position:absolute;left:0;right:0;top:calc(100% - 12px);z-index:40;background:#2e2823;color:#e8dcc8;border-radius:16px;padding:16px 16px 18px;box-shadow:0 34px 60px -22px rgba(46,40,35,.7);opacity:0;visibility:hidden;transform:translateY(8px);transition:opacity .2s ease,transform .2s ease;pointer-events:none}
+  .fcard:hover .fdetail{opacity:1;visibility:visible;transform:translateY(0)}
+  .fgroup{border-top:1px solid #463e36;padding-top:9px;margin-top:9px}
+  .fgroup:first-child{border-top:none;padding-top:0;margin-top:0}
+  .fgroup-h{font-family:'Cormorant Garamond',serif;font-weight:600;font-size:15px;color:#f6ede0;margin-bottom:5px}
+  .frow{display:flex;justify-content:space-between;gap:10px;font-size:11.5px;line-height:1.55;font-weight:300}
+  .frow span:first-child{color:#cdbfae}
+  .frow span:last-child{color:#e7d3ab;font-weight:400;white-space:nowrap}
+</style>
+</helmet>
+
+<div>
+  <!-- NAV -->
+  <nav class="nav">
+    <div class="nav-in">
+      <a class="logo" href="Sakshi Beauty Parlour.dc.html">Sakshi<small>Beauty Parlour</small></a>
+      <ul class="navlinks">
+        <li><a class="active" href="Sakshi Beauty Parlour.dc.html">Home</a></li>
+        <li><a href="Services.dc.html">Services</a></li>
+        <li><a href="Gallery.dc.html">Gallery</a></li>
+        <li><a href="About.dc.html">About</a></li>
+        <li><a href="Contact.dc.html">Contact</a></li>
+      </ul>
+      <div class="navcta">
+        <a class="navphone" href="tel:+919876543210">☎ <b>+91 98765 43210</b></a>
+        <a class="btn btn-dark" href="Booking.dc.html">Book Appointment</a>
+      </div>
+    </div>
+  </nav>
+
+  <!-- HERO -->
+  <header class="wrap" style="padding-top:56px;padding-bottom:18px">
+    <div style="display:grid;grid-template-columns:1.05fr 1fr;gap:56px;align-items:center">
+      <div>
+        <p class="eyebrow" style="margin-bottom:22px">Bridal &nbsp;·&nbsp; Beauty &nbsp;·&nbsp; Care</p>
+        <h1 class="hs" style="font-size:74px;line-height:1.02">Welcome to <span class="script" style="font-size:88px;display:inline-block;line-height:.8">Sakshi</span><br>Beauty Parlour</h1>
+        <p class="lead" style="font-size:18px;margin:28px 0 0;max-width:460px">A premium salon &amp; bridal studio in the heart of Pune — where skin, hair and your most important day are treated with quiet, expert luxury.</p>
+        <div style="display:flex;gap:14px;margin-top:38px">
+          <a class="btn btn-dark btn-lg" href="Booking.dc.html">Book Appointment</a>
+          <a class="btn btn-ghost btn-lg" href="Services.dc.html">Explore Services</a>
+        </div>
+        <div style="display:flex;gap:30px;margin-top:46px;align-items:center">
+          <div><div class="hs" style="font-weight:600;font-size:34px;color:#b5904f;line-height:1">12+</div><div style="font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:#9b8e84;margin-top:4px;font-weight:300">Years of artistry</div></div>
+          <div style="width:1px;height:38px;background:#e7dcc8"></div>
+          <div><div class="hs" style="font-weight:600;font-size:34px;color:#b5904f;line-height:1">600+</div><div style="font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:#9b8e84;margin-top:4px;font-weight:300">Brides styled</div></div>
+          <div style="width:1px;height:38px;background:#e7dcc8"></div>
+          <div><div class="hs" style="font-weight:600;font-size:34px;color:#b5904f;line-height:1">8k+</div><div style="font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:#9b8e84;margin-top:4px;font-weight:300">Happy clients</div></div>
+        </div>
+      </div>
+      <div style="position:relative">
+        <div class="ph" style="height:560px;border-radius:220px 220px 22px 22px"><span class="ph-tag">Bridal hero portrait · your photo</span></div>
+        <div class="card" style="position:absolute;left:-30px;bottom:42px;padding:16px 20px;display:flex;align-items:center;gap:13px;box-shadow:0 22px 50px -26px rgba(60,45,30,.5)">
+          <div style="display:flex">
+            <span style="width:30px;height:30px;border-radius:50%;background:linear-gradient(135deg,#f1e2da,#e6d2c6);border:2px solid #fff"></span>
+            <span style="width:30px;height:30px;border-radius:50%;background:linear-gradient(135deg,#efe1d8,#e4d0c4);border:2px solid #fff;margin-left:-10px"></span>
+            <span style="width:30px;height:30px;border-radius:50%;background:linear-gradient(135deg,#f0e2d9,#e8d4c8);border:2px solid #fff;margin-left:-10px"></span>
+          </div>
+          <div><div style="font-size:13px;font-weight:500">Rated 4.9 ★</div><div style="font-size:11px;color:#9b8e84;font-weight:300">on 1,200+ reviews</div></div>
+        </div>
+        <div style="position:absolute;top:30px;right:-14px;background:#2e2823;color:#f6ede0;border-radius:16px;padding:14px 18px;text-align:center;box-shadow:0 18px 40px -22px rgba(46,40,35,.7)">
+          <div class="script" style="color:#d9b97e;font-size:24px;line-height:.8">Bridal</div>
+          <div style="font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:#cdbfae;margin-top:4px;font-weight:300">Specialists</div>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <!-- TRUST MARQUEE -->
+  <div class="wrap" style="padding-top:44px;padding-bottom:44px">
+    <hr class="rule">
+    <div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:26px;padding:30px 0">
+      <div style="display:flex;align-items:center;gap:13px"><span style="width:34px;height:34px;border:1.4px solid #b5904f;border-radius:50%;display:flex;align-items:center;justify-content:center;color:#b5904f">✓</span><span style="font-size:14px;font-weight:300;color:#4a4038">Certified professionals</span></div>
+      <div style="display:flex;align-items:center;gap:13px"><span style="width:34px;height:34px;border:1.4px solid #b5904f;border-radius:50%;display:flex;align-items:center;justify-content:center;color:#b5904f">✦</span><span style="font-size:14px;font-weight:300;color:#4a4038">Premium products</span></div>
+      <div style="display:flex;align-items:center;gap:13px"><span style="width:34px;height:34px;border:1.4px solid #b5904f;border-radius:50%;display:flex;align-items:center;justify-content:center;color:#b5904f">♥</span><span style="font-size:14px;font-weight:300;color:#4a4038">Hygienic &amp; safe</span></div>
+      <div style="display:flex;align-items:center;gap:13px"><span style="width:34px;height:34px;border:1.4px solid #b5904f;border-radius:50%;display:flex;align-items:center;justify-content:center;color:#b5904f">✿</span><span style="font-size:14px;font-weight:300;color:#4a4038">Bridal expertise</span></div>
+    </div>
+    <hr class="rule">
+  </div>
+
+  <!-- WHY CHOOSE US -->
+  <section class="wrap reveal" style="padding-top:42px;padding-bottom:42px">
+    <div style="text-align:center;max-width:560px;margin:0 auto 48px">
+      <p class="eyebrow" style="margin-bottom:14px">Why Sakshi</p>
+      <h2 class="hs" style="font-size:48px;line-height:1.08">Luxury that feels <span class="script" style="font-size:56px">personal</span></h2>
+      <p class="lead" style="font-size:16px;margin-top:16px">Six reasons our clients return, and bring the people they love.</p>
+    </div>
+    <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:24px">
+      <div class="card" style="padding:34px 30px"><div style="width:46px;height:46px;border:1.4px solid #b5904f;border-radius:50%;margin-bottom:22px"></div><h3 class="hs" style="font-size:24px">Experienced professionals</h3><p class="lead" style="font-size:14px;margin-top:10px">A team trained in the latest bridal and skin techniques, with over a decade behind the chair.</p></div>
+      <div class="card" style="padding:34px 30px"><div style="width:46px;height:46px;border:1.4px solid #b5904f;transform:rotate(45deg);margin-bottom:22px"></div><h3 class="hs" style="font-size:24px">Premium products</h3><p class="lead" style="font-size:14px;margin-top:10px">Only trusted, gentle, salon-grade brands — kind to your skin and built to last through the big day.</p></div>
+      <div class="card" style="padding:34px 30px"><div style="width:46px;height:46px;border:1.4px solid #b5904f;border-radius:50% 50% 50% 0;margin-bottom:22px"></div><h3 class="hs" style="font-size:24px">Hygiene &amp; safety</h3><p class="lead" style="font-size:14px;margin-top:10px">Sanitised tools, single-use disposables and a spotless studio — every single visit.</p></div>
+      <div class="card" style="padding:34px 30px"><div style="width:46px;height:46px;border:1.4px solid #b5904f;border-radius:14px;margin-bottom:22px"></div><h3 class="hs" style="font-size:24px">Personalised care</h3><p class="lead" style="font-size:14px;margin-top:10px">A consultation before every service, so the result is tailored to your features and your wishes.</p></div>
+      <div class="card" style="padding:34px 30px"><div style="width:46px;height:46px;border:1.4px solid #b5904f;border-radius:50% 0;margin-bottom:22px"></div><h3 class="hs" style="font-size:24px">Affordable luxury</h3><p class="lead" style="font-size:14px;margin-top:10px">A premium experience at honest, transparent prices — no surprises at the counter.</p></div>
+      <div class="card" style="padding:34px 30px"><div style="width:46px;height:46px;border:1.4px solid #b5904f;border-radius:50%;border-left-color:transparent;margin-bottom:22px"></div><h3 class="hs" style="font-size:24px">Customer satisfaction</h3><p class="lead" style="font-size:14px;margin-top:10px">A 4.9★ rating across 1,200+ reviews — built one delighted client at a time.</p></div>
+    </div>
+  </section>
+
+  <!-- FEATURED SERVICES -->
+  <section class="wrap reveal" style="padding-top:62px;padding-bottom:42px">
+    <div style="display:flex;align-items:flex-end;justify-content:space-between;margin-bottom:40px;gap:24px">
+      <div>
+        <p class="eyebrow" style="margin-bottom:14px">What we do</p>
+        <h2 class="hs" style="font-size:48px;line-height:1.05">Featured <span class="script" style="font-size:56px">services</span></h2>
+      </div>
+      <a class="btn btn-ghost" href="Services.dc.html">View all services →</a>
+    </div>
+    <p class="lead" style="font-size:13.5px;margin:-20px 0 26px;display:flex;align-items:center;gap:9px"><span class="disc">Up to 20% off</span> on every service this season · hover a card for full pricing</p>
+    <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:22px">
+
+      <a href="Services.dc.html" class="fcard">
+        <div class="fcard-in card" style="overflow:hidden">
+          <div class="ph" style="height:210px"><span class="ph-tag">Hair care</span><div class="disc" style="position:absolute;top:12px;left:12px;z-index:2">Up to 20% off</div></div>
+          <div style="padding:20px 20px 22px">
+            <div style="display:flex;align-items:baseline;justify-content:space-between;gap:8px"><h3 class="hs" style="font-size:24px">Hair Care</h3><div style="font-size:11px;color:#9b8e84;white-space:nowrap">from <b style="color:#b5904f;font-weight:600;font-size:15px">₹100</b></div></div>
+            <p class="lead" style="font-size:12.5px;margin-top:5px">Spa, colour, smoothing &amp; styling</p>
+            <div style="margin-top:13px;font-size:10px;letter-spacing:.13em;text-transform:uppercase;color:#b5904f;font-family:ui-monospace,monospace;display:flex;align-items:center;gap:6px">Hover for prices <span style="font-size:12px">↓</span></div>
+          </div>
+        </div>
+        <div class="fdetail">
+          <div class="fgroup"><div class="fgroup-h">Hair Treatment</div><div class="frow"><span>Spa</span><span>₹1,000–3,000</span></div><div class="frow"><span>Nanoplastia (Chemical)</span><span>₹8,000–30,000</span></div><div class="frow"><span>Vegan Treatment</span><span>₹10,000</span></div><div class="frow"><span>Straightening</span><span>₹6,000–15,000</span></div></div>
+          <div class="fgroup"><div class="fgroup-h">Styling</div><div class="frow"><span>1 Length</span><span>₹100</span></div><div class="frow"><span>UV</span><span>₹200</span></div><div class="frow"><span>Styling</span><span>₹300–1,000</span></div></div>
+          <div class="fgroup"><div class="fgroup-h">Colour &amp; Cut</div><div class="frow"><span>Root Touch-up</span><span>₹800–1,500</span></div><div class="frow"><span>Global Colour</span><span>₹2,500–6,000</span></div><div class="frow"><span>Highlights / Balayage</span><span>₹4,000–12,000</span></div><div class="frow"><span>Haircut</span><span>₹200–1,200</span></div></div>
+        </div>
+      </a>
+
+      <a href="Services.dc.html" class="fcard">
+        <div class="fcard-in card" style="overflow:hidden">
+          <div class="ph" style="height:210px;background:linear-gradient(150deg,#efe1d8,#ecdfce)"><span class="ph-tag">Skin &amp; face</span><div class="disc" style="position:absolute;top:12px;left:12px;z-index:2">Up to 20% off</div></div>
+          <div style="padding:20px 20px 22px">
+            <div style="display:flex;align-items:baseline;justify-content:space-between;gap:8px"><h3 class="hs" style="font-size:24px">Skin &amp; Face</h3><div style="font-size:11px;color:#9b8e84;white-space:nowrap">from <b style="color:#b5904f;font-weight:600;font-size:15px">₹300</b></div></div>
+            <p class="lead" style="font-size:12.5px;margin-top:5px">Facials, hydra facial &amp; cleanups</p>
+            <div style="margin-top:13px;font-size:10px;letter-spacing:.13em;text-transform:uppercase;color:#b5904f;font-family:ui-monospace,monospace;display:flex;align-items:center;gap:6px">Hover for prices <span style="font-size:12px">↓</span></div>
+          </div>
+        </div>
+        <div class="fdetail">
+          <div class="fgroup"><div class="fgroup-h">Facials</div><div class="frow"><span>Cleanup</span><span>₹600–1,200</span></div><div class="frow"><span>Fruit / Hydrating</span><span>₹1,000–2,500</span></div><div class="frow"><span>Anti-Aging</span><span>₹1,800–3,500</span></div></div>
+          <div class="fgroup"><div class="fgroup-h">Advanced</div><div class="frow"><span>Hydra Facial</span><span>₹2,000–4,000</span></div><div class="frow"><span>Korean Glass Facial</span><span>₹2,500–5,000</span></div></div>
+          <div class="fgroup"><div class="fgroup-h">Bleach &amp; D-Tan</div><div class="frow"><span>Face Bleach</span><span>₹300–700</span></div><div class="frow"><span>Face D-Tan</span><span>₹400–900</span></div></div>
+        </div>
+      </a>
+
+      <a href="Services.dc.html" class="fcard">
+        <div class="fcard-in card" style="overflow:hidden">
+          <div class="ph" style="height:210px;background:linear-gradient(150deg,#f0e2d9,#ece1d0)"><span class="ph-tag">Body care</span><div class="disc" style="position:absolute;top:12px;left:12px;z-index:2">Up to 20% off</div></div>
+          <div style="padding:20px 20px 22px">
+            <div style="display:flex;align-items:baseline;justify-content:space-between;gap:8px"><h3 class="hs" style="font-size:24px">Body Care</h3><div style="font-size:11px;color:#9b8e84;white-space:nowrap">from <b style="color:#b5904f;font-weight:600;font-size:15px">₹300</b></div></div>
+            <p class="lead" style="font-size:12.5px;margin-top:5px">Polishing, D-tan &amp; massage</p>
+            <div style="margin-top:13px;font-size:10px;letter-spacing:.13em;text-transform:uppercase;color:#b5904f;font-family:ui-monospace,monospace;display:flex;align-items:center;gap:6px">Hover for prices <span style="font-size:12px">↓</span></div>
+          </div>
+        </div>
+        <div class="fdetail">
+          <div class="fgroup"><div class="fgroup-h">Massage</div><div class="frow"><span>Body Massage</span><span>₹1,500–3,500</span></div><div class="frow"><span>Head Massage</span><span>₹300–800</span></div></div>
+          <div class="fgroup"><div class="fgroup-h">Polishing &amp; D-Tan</div><div class="frow"><span>Body Polishing</span><span>₹2,000–5,000</span></div><div class="frow"><span>Body D-Tan</span><span>₹1,200–2,500</span></div><div class="frow"><span>Body Bleach</span><span>₹1,000–2,000</span></div></div>
+          <div class="fgroup"><div class="fgroup-h">Scrub &amp; Cleanse</div><div class="frow"><span>Body Scrub</span><span>₹800–2,000</span></div><div class="frow"><span>Body Cleansing</span><span>₹700–1,500</span></div></div>
+        </div>
+      </a>
+
+      <a href="Services.dc.html" class="fcard">
+        <div class="fcard-in card" style="overflow:hidden">
+          <div class="ph" style="height:210px;background:linear-gradient(150deg,#f1e2da,#e9d8cd)"><span class="ph-tag">Bridal makeup</span><div class="disc" style="position:absolute;top:12px;left:12px;z-index:2">Up to 20% off</div></div>
+          <div style="padding:20px 20px 22px">
+            <div style="display:flex;align-items:baseline;justify-content:space-between;gap:8px"><h3 class="hs" style="font-size:24px">Bridal Makeup</h3><div style="font-size:11px;color:#9b8e84;white-space:nowrap">from <b style="color:#b5904f;font-weight:600;font-size:15px">₹500</b></div></div>
+            <p class="lead" style="font-size:12.5px;margin-top:5px">HD, airbrush &amp; saree draping</p>
+            <div style="margin-top:13px;font-size:10px;letter-spacing:.13em;text-transform:uppercase;color:#b5904f;font-family:ui-monospace,monospace;display:flex;align-items:center;gap:6px">Hover for prices <span style="font-size:12px">↓</span></div>
+          </div>
+        </div>
+        <div class="fdetail">
+          <div class="fgroup"><div class="fgroup-h">Makeup</div><div class="frow"><span>HD Bridal</span><span>₹8,000–15,000</span></div><div class="frow"><span>Airbrush Bridal</span><span>₹12,000–30,000</span></div><div class="frow"><span>Engagement / Reception</span><span>₹6,000–12,000</span></div><div class="frow"><span>Party / Guest</span><span>₹3,000–6,000</span></div></div>
+          <div class="fgroup"><div class="fgroup-h">Add-ons</div><div class="frow"><span>Saree Draping</span><span>₹500–1,500</span></div><div class="frow"><span>Hair Styling</span><span>₹800–2,000</span></div></div>
+        </div>
+      </a>
+
+    </div>
+  </section>
+
+  <!-- BRIDAL FEATURE BANNER -->
+  <section class="wrap reveal" style="padding-top:62px;padding-bottom:42px">
+    <div style="position:relative;border-radius:26px;overflow:hidden;background:#2e2823">
+      <div class="ph" style="position:absolute;inset:0;opacity:.42;background:linear-gradient(120deg,#5a4636,#2e2823)"></div>
+      <div style="position:relative;padding:74px 64px;max-width:560px">
+        <p class="eyebrow" style="color:#d9b97e;margin-bottom:18px">Our signature</p>
+        <h2 class="hs" style="color:#f6ede0;font-size:50px;line-height:1.05">The <span class="script" style="color:#d9b97e;font-size:58px">bridal</span> experience</h2>
+        <p style="color:#cdbfae;font-weight:300;font-size:16px;line-height:1.7;margin:20px 0 34px">From the first trial to the final touch on your wedding morning — a calm, unhurried ritual designed entirely around you. HD &amp; airbrush makeup, hair, draping and a dedicated artist for the day.</p>
+        <a class="btn btn-gold btn-lg" href="Booking.dc.html">Plan your bridal booking</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- GALLERY PREVIEW -->
+  <section class="reveal" style="padding-top:62px;padding-bottom:42px">
+    <div class="wrap" style="display:flex;align-items:flex-end;justify-content:space-between;margin-bottom:34px;gap:24px">
+      <div>
+        <p class="eyebrow" style="margin-bottom:14px">A glimpse</p>
+        <h2 class="hs" style="font-size:48px;line-height:1.05">Our recent <span class="script" style="font-size:56px">work</span></h2>
+      </div>
+      <a class="btn btn-ghost" href="Gallery.dc.html">View full gallery →</a>
+    </div>
+    <div class="scrollx wrap" style="gap:18px;padding-bottom:8px">
+      <div class="ph" style="flex:none;width:300px;height:380px;border-radius:18px"><span class="ph-tag">Bridal transformation</span></div>
+      <div class="ph" style="flex:none;width:300px;height:380px;border-radius:18px;background:linear-gradient(160deg,#efe0d6,#ecdccb)"><span class="ph-tag">Hair colour result</span></div>
+      <div class="ph" style="flex:none;width:300px;height:380px;border-radius:18px;background:linear-gradient(160deg,#f0e1d9,#ead9ce)"><span class="ph-tag">Party glam</span></div>
+      <div class="ph" style="flex:none;width:300px;height:380px;border-radius:18px;background:linear-gradient(160deg,#f1e2da,#e8d6cb)"><span class="ph-tag">Skin glow</span></div>
+    </div>
+  </section>
+
+  <!-- TESTIMONIAL -->
+  <section class="wrap reveal" style="padding-top:62px;padding-bottom:42px">
+    <div style="text-align:center;max-width:760px;margin:0 auto">
+      <div class="script" style="font-size:60px;line-height:.4">"</div>
+      <p class="hs" style="font-size:34px;line-height:1.35;font-weight:400;font-style:italic">Sakshi did my bridal look and I have never felt more myself. Calm, professional, and the makeup lasted through every tear and every dance.</p>
+      <div style="margin-top:26px;font-size:13px;letter-spacing:.08em;text-transform:uppercase;color:#9b8e84;font-weight:300">Aditi R. &nbsp;·&nbsp; Bride, 2025</div>
+    </div>
+  </section>
+
+  <!-- CONTACT CTA -->
+  <section class="wrap reveal" style="padding-top:62px;padding-bottom:74px">
+    <div class="card" style="display:grid;grid-template-columns:1.1fr 1fr;gap:0;overflow:hidden;border-radius:26px">
+      <div style="padding:58px 54px">
+        <p class="eyebrow" style="margin-bottom:16px">Book or visit</p>
+        <h2 class="hs" style="font-size:42px;line-height:1.08">Ready when <span class="script" style="font-size:50px">you are</span></h2>
+        <p class="lead" style="font-size:16px;margin:16px 0 32px;max-width:380px">Most of our clients book over a quick call or WhatsApp. Reach us directly — we reply within minutes during salon hours.</p>
+        <div style="display:flex;gap:14px;flex-wrap:wrap">
+          <a class="btn btn-dark btn-lg" href="tel:+919876543210">☎ Call now</a>
+          <a class="btn btn-gold btn-lg" href="https://wa.me/919876543210">WhatsApp us</a>
+          <a class="btn btn-ghost btn-lg" href="Booking.dc.html">Book online</a>
+        </div>
+      </div>
+      <div class="ph" style="min-height:300px;background:linear-gradient(150deg,#f1e2da,#e8d6cb)"><span class="ph-tag">Salon interior · reception</span></div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer class="foot" style="background:#2e2823;color:#cdbfae">
+    <div class="wrap" style="padding-top:64px;padding-bottom:40px;display:grid;grid-template-columns:1.4fr 1fr 1fr 1.2fr;gap:40px">
+      <div>
+        <div class="logo" style="color:#f6ede0">Sakshi<small style="color:#d9b97e">Beauty Parlour</small></div>
+        <p style="font-weight:300;font-size:14px;line-height:1.7;margin:20px 0 0;max-width:260px;color:#b6a895">Premium salon &amp; bridal studio. Skin, hair, body and bridal artistry — with quiet luxury at every step.</p>
+        <div style="margin-top:22px;display:flex;align-items:center;gap:11px"><a href="https://instagram.com" aria-label="Instagram" style="width:40px;height:40px;border-radius:50%;border:1px solid #5a5048;display:flex;align-items:center;justify-content:center;color:#cdbfae;transition:border-color .18s,color .18s" onmouseover="this.style.borderColor='#d9b97e';this.style.color='#d9b97e'" onmouseout="this.style.borderColor='#5a5048';this.style.color='#cdbfae'"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><rect x="3.5" y="3.5" width="17" height="17" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.2" cy="6.8" r="1.1" fill="currentColor" stroke="none"/></svg></a><a href="https://facebook.com" aria-label="Facebook" style="width:40px;height:40px;border-radius:50%;border:1px solid #5a5048;display:flex;align-items:center;justify-content:center;color:#cdbfae;transition:border-color .18s,color .18s" onmouseover="this.style.borderColor='#d9b97e';this.style.color='#d9b97e'" onmouseout="this.style.borderColor='#5a5048';this.style.color='#cdbfae'"><svg width="17" height="17" viewBox="0 0 24 24" fill="currentColor"><path d="M13.5 21v-7h2.3l.4-2.9h-2.7V9.2c0-.84.27-1.4 1.46-1.4H16.3V5.2c-.27-.04-1.2-.12-2.27-.12-2.25 0-3.8 1.37-3.8 3.9v2.18H7.9V14h2.33v7z"/></svg></a><a href="https://youtube.com" aria-label="YouTube" style="width:40px;height:40px;border-radius:50%;border:1px solid #5a5048;display:flex;align-items:center;justify-content:center;color:#cdbfae;transition:border-color .18s,color .18s" onmouseover="this.style.borderColor='#d9b97e';this.style.color='#d9b97e'" onmouseout="this.style.borderColor='#5a5048';this.style.color='#cdbfae'"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><rect x="2.5" y="6" width="19" height="12" rx="4"/><path d="M10.3 9.3l4.8 2.7-4.8 2.7z" fill="currentColor" stroke="none"/></svg></a><span style="font-size:12.5px;color:#8a7d6e;font-weight:300;margin-left:3px">@sakshibeautyparlour</span></div>
+      </div>
+      <div>
+        <div style="font-size:12px;letter-spacing:.18em;text-transform:uppercase;color:#8a7d6e;margin-bottom:18px">Explore</div>
+        <div style="display:flex;flex-direction:column;gap:11px;font-weight:300;font-size:14px">
+          <a href="Sakshi Beauty Parlour.dc.html" style="color:#cdbfae;text-decoration:none">Home</a>
+          <a href="Services.dc.html" style="color:#cdbfae;text-decoration:none">Services</a>
+          <a href="Gallery.dc.html" style="color:#cdbfae;text-decoration:none">Gallery</a>
+          <a href="About.dc.html" style="color:#cdbfae;text-decoration:none">About Us</a>
+          <a href="Contact.dc.html" style="color:#cdbfae;text-decoration:none">Contact</a>
+        </div>
+      </div>
+      <div>
+        <div style="font-size:12px;letter-spacing:.18em;text-transform:uppercase;color:#8a7d6e;margin-bottom:18px">Account</div>
+        <div style="display:flex;flex-direction:column;gap:11px;font-weight:300;font-size:14px">
+          <a href="Booking.dc.html" style="color:#cdbfae;text-decoration:none">Book appointment</a>
+          <a href="Login.dc.html" style="color:#cdbfae;text-decoration:none">Login</a>
+          <a href="Login.dc.html" style="color:#cdbfae;text-decoration:none">Register</a>
+          <a href="Dashboard.dc.html" style="color:#cdbfae;text-decoration:none">My dashboard</a>
+        </div>
+      </div>
+      <div>
+        <div style="font-size:12px;letter-spacing:.18em;text-transform:uppercase;color:#8a7d6e;margin-bottom:18px">Visit us</div>
+        <div style="font-weight:300;font-size:14px;line-height:1.7;color:#cdbfae">
+          Shop 14, Rose Arcade,<br>FC Road, Shivaji Nagar,<br>Pune 411005<br><br>
+          <a href="tel:+919876543210" style="color:#f6ede0;text-decoration:none">+91 98765 43210</a><br>
+          <span style="color:#8a7d6e">Mon–Sun · 11:00 AM – 9:00 PM</span>
+        </div>
+      </div>
+    </div>
+    <div style="border-top:1px solid #463e36"><div class="wrap" style="padding:22px 44px;display:flex;justify-content:space-between;flex-wrap:wrap;gap:10px;font-size:12px;color:#8a7d6e;font-weight:300"><span>© 2026 Sakshi Beauty Parlour. All rights reserved.</span><span>Crafted with care in Pune.</span></div></div>
+  </footer>
+
+  <!-- MOBILE-STYLE FLOATING CTA (also nice on desktop bottom-right) -->
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script>
+class Component extends DCLogic {}
+</script>
+</body>
+</html>

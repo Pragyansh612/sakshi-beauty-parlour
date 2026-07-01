@@ -1,0 +1,438 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet data-dc-atomics>
+<title>Book — Sakshi Beauty Parlour</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500&family=Dancing+Script:wght@500;600;700&family=Jost:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+  *{box-sizing:border-box}
+  html{scroll-behavior:smooth}
+  body{margin:0;background:#FAF6EF;color:#2e2823;font-family:'Jost',system-ui,sans-serif;-webkit-font-smoothing:antialiased}
+  ::selection{background:#e7d3ab}
+  .wrap{max-width:1240px;margin:0 auto;padding:0 44px}
+  .nav{position:sticky;top:0;z-index:100;background:rgba(250,246,239,.82);backdrop-filter:blur(12px);border-bottom:1px solid #e7dcc8}
+  .nav-in{max-width:1240px;margin:0 auto;padding:16px 44px;display:flex;align-items:center;justify-content:space-between;gap:24px}
+  .logo{font-family:'Cormorant Garamond',serif;font-weight:500;font-size:25px;line-height:.86;letter-spacing:.01em;text-decoration:none;color:#2e2823}
+  .logo small{display:block;font-family:'Jost',sans-serif;font-weight:400;font-size:8px;letter-spacing:.42em;text-transform:uppercase;color:#b5904f;margin-top:4px}
+  .navlinks{display:flex;gap:30px;list-style:none;margin:0;padding:0}
+  .navlinks a{text-decoration:none;font-size:13.5px;font-weight:400;letter-spacing:.02em;color:#4a4038;position:relative;padding:4px 0;transition:color .18s}
+  .navlinks a:hover{color:#b5904f}
+  .navcta{display:flex;align-items:center;gap:18px}
+  .navphone{font-size:13px;color:#6b5f54;text-decoration:none;white-space:nowrap}
+  .navphone b{color:#2e2823;font-weight:500}
+  .btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;text-decoration:none;border-radius:30px;font-family:'Jost',sans-serif;font-weight:500;font-size:13.5px;letter-spacing:.02em;padding:13px 26px;cursor:pointer;border:none;transition:transform .16s,box-shadow .22s,border-color .18s,color .18s,opacity .2s}
+  .btn-dark{background:#2e2823;color:#f6ede0}
+  .btn-dark:hover{box-shadow:0 12px 26px -10px rgba(46,40,35,.6);transform:translateY(-1px)}
+  .btn-ghost{background:transparent;color:#2e2823;border:1px solid #d8c6a6}
+  .btn-ghost:hover{border-color:#b5904f;color:#b5904f}
+  .btn-gold{background:#b5904f;color:#fff}
+  .btn-gold:hover{box-shadow:0 12px 26px -10px rgba(181,144,79,.7);transform:translateY(-1px)}
+  .btn-lg{padding:16px 32px;font-size:14.5px}
+  .btn-block{opacity:.4;pointer-events:none}
+  .eyebrow{font-family:ui-monospace,Menlo,monospace;font-size:11px;letter-spacing:.32em;text-transform:uppercase;color:#b5904f;margin:0}
+  .hs{font-family:'Cormorant Garamond',serif;font-weight:500;letter-spacing:-.01em;color:#2e2823;margin:0}
+  .script{font-family:'Dancing Script',cursive;color:#b5904f;font-weight:600}
+  .lead{font-weight:300;color:#6b5f54;line-height:1.65}
+  .card{background:#fff;border:1px solid #eee3d4;border-radius:18px}
+  .seg{display:inline-flex;background:#efe6d6;border:1px solid #e2d3b8;border-radius:30px;padding:5px}
+  .seg button{border:none;background:transparent;font-family:'Jost',sans-serif;font-size:13.5px;font-weight:500;color:#6b5f54;padding:11px 26px;border-radius:24px;cursor:pointer;transition:all .2s;display:flex;flex-direction:column;align-items:center;gap:2px;line-height:1.15}
+  .seg button small{font-weight:300;font-size:10px;color:#9b8e84}
+  .seg button.on{background:#2e2823;color:#f6ede0}
+  .seg button.on small{color:#cdbfae}
+  .step{display:flex;align-items:center;gap:11px}
+  .step .dot{width:34px;height:34px;border-radius:50%;border:1.5px solid #d8c6a6;display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:500;color:#9b8e84;background:#fff;flex:none;transition:all .25s}
+  .step.done .dot,.step.active .dot{border-color:#b5904f;background:#b5904f;color:#fff}
+  .step .lab{font-size:12.5px;font-weight:400;color:#9b8e84;white-space:nowrap}
+  .step.active .lab,.step.done .lab{color:#2e2823}
+  .step .bar{width:42px;height:1.5px;background:#e2d3b8}
+  .step.done .bar{background:#b5904f}
+  .opt{cursor:pointer;border:1px solid #eee3d4;border-radius:16px;background:#fff;transition:all .2s;text-align:left;display:flex;align-items:center;gap:16px;padding:18px 20px}
+  .opt:hover{border-color:#d8b876}
+  .opt.sel{border-color:#b5904f;box-shadow:0 0 0 1px #b5904f,0 14px 30px -22px rgba(181,144,79,.7)}
+  .opt.sel .tick{opacity:1}
+  .tick{opacity:0;width:24px;height:24px;border-radius:50%;background:#b5904f;color:#fff;display:flex;align-items:center;justify-content:center;font-size:12px;transition:opacity .2s;flex:none}
+  .day{cursor:pointer;border:1px solid #eee3d4;border-radius:14px;background:#fff;padding:14px 4px;text-align:center;transition:all .18s}
+  .day:hover{border-color:#d8b876}
+  .day.sel{background:#2e2823;border-color:#2e2823;color:#f6ede0}
+  .day.off{opacity:.3;pointer-events:none}
+  .slot{cursor:pointer;border:1px solid #eee3d4;border-radius:12px;background:#fff;padding:15px 8px;text-align:center;font-size:14px;transition:all .18s}
+  .slot:hover{border-color:#d8b876}
+  .slot.sel{background:#b5904f;border-color:#b5904f;color:#fff}
+  .slot.off{opacity:.32;pointer-events:none;text-decoration:line-through}
+  .fld{width:100%;border:1px solid #e2d3b8;border-radius:12px;padding:13px 15px;font-family:'Jost',sans-serif;font-size:14px;color:#2e2823;background:#fff;outline:none;transition:border-color .18s}
+  .fld:focus{border-color:#b5904f}
+  textarea.fld{resize:vertical;min-height:96px}
+  .flabel{font-size:12px;letter-spacing:.04em;color:#6b5f54;font-weight:400;margin-bottom:7px;display:block}
+  .foot a{transition:color .18s}.foot a:hover{color:#d9b97e}
+</style>
+</helmet>
+
+<div>
+  <nav class="nav">
+    <div class="nav-in">
+      <a class="logo" href="Sakshi Beauty Parlour.dc.html">Sakshi<small>Beauty Parlour</small></a>
+      <ul class="navlinks">
+        <li><a href="Sakshi Beauty Parlour.dc.html">Home</a></li>
+        <li><a href="Services.dc.html">Services</a></li>
+        <li><a href="Gallery.dc.html">Gallery</a></li>
+        <li><a href="About.dc.html">About</a></li>
+        <li><a href="Contact.dc.html">Contact</a></li>
+      </ul>
+      <div class="navcta">
+        <a class="navphone" href="tel:+919876543210">☎ <b>+91 98765 43210</b></a>
+        <a class="btn btn-ghost" href="Login.dc.html">Login</a>
+      </div>
+    </div>
+  </nav>
+
+  <header class="wrap" style="padding-top:50px;padding-bottom:8px;text-align:center">
+    <p class="eyebrow" style="margin-bottom:14px">Reserve your time</p>
+    <h1 class="hs" style="font-size:54px;line-height:1.04">Book with <span class="script" style="font-size:64px">Sakshi</span></h1>
+    <p class="lead" style="font-size:15.5px;max-width:520px;margin:14px auto 0">Prefer to talk? <a href="tel:+919876543210" style="color:#b5904f">Call us</a> or <a href="https://wa.me/919876543210" style="color:#b5904f">WhatsApp</a> — we're happy to book you in personally.</p>
+  </header>
+
+  <sc-if value="{{ notConfirmed }}" hint-placeholder-val="{{ true }}">
+  <div>
+    <!-- MODE TOGGLE -->
+    <div class="wrap" style="display:flex;justify-content:center;padding-top:28px">
+      <div class="seg">
+        <button class="{{ apptCls }}" onClick="{{ pickAppt }}">Quick Appointment<small>Short services</small></button>
+        <button class="{{ bookCls }}" onClick="{{ pickBook }}">Bridal &amp; Event Booking<small>Special occasions</small></button>
+      </div>
+    </div>
+
+    <!-- STEPPER -->
+    <div class="wrap" style="display:flex;justify-content:center;padding-top:32px">
+      <div style="display:flex;align-items:center;gap:11px">
+        <sc-for list="{{ steps }}" as="st" hint-placeholder-count="4">
+          <div class="step {{ st.cls }}">
+            <div class="dot">{{ st.num }}</div>
+            <div class="lab">{{ st.label }}</div>
+            <sc-if value="{{ st.showBar }}"><div class="bar"></div></sc-if>
+          </div>
+        </sc-for>
+      </div>
+    </div>
+
+    <!-- BODY: panel + summary -->
+    <section class="wrap" style="padding-top:38px;padding-bottom:74px;display:grid;grid-template-columns:1fr 350px;gap:36px;align-items:start">
+
+      <!-- LEFT PANEL -->
+      <div class="card" style="padding:38px 40px;min-height:430px">
+
+        <!-- STEP 1 — SERVICE -->
+        <sc-if value="{{ isStep1 }}">
+          <div>
+            <h2 class="hs" style="font-size:30px">{{ step1Title }}</h2>
+            <p class="lead" style="font-size:14px;margin:6px 0 26px">{{ step1Sub }}</p>
+            <div style="display:flex;flex-direction:column;gap:13px">
+              <sc-for list="{{ services }}" as="svc" hint-placeholder-count="5">
+                <div class="opt {{ svc.cls }}" onClick="{{ svc.onSelect }}">
+                  <div style="width:54px;height:54px;border-radius:12px;flex:none;background:linear-gradient(135deg,#f1e2da,#ece0cf)"></div>
+                  <div style="flex:1">
+                    <div class="hs" style="font-size:21px;line-height:1">{{ svc.name }}</div>
+                    <div class="lead" style="font-size:12.5px;margin-top:3px">{{ svc.desc }}</div>
+                  </div>
+                  <div style="text-align:right;margin-right:6px"><div style="font-size:11px;color:#9b8e84">{{ svc.metaLabel }}</div><div style="font-size:15px;font-weight:600;color:#b5904f">{{ svc.price }}</div></div>
+                  <div class="tick">✓</div>
+                </div>
+              </sc-for>
+            </div>
+          </div>
+        </sc-if>
+
+        <!-- STEP 2 — DATE -->
+        <sc-if value="{{ isStep2 }}">
+          <div>
+            <h2 class="hs" style="font-size:30px">Choose a date</h2>
+            <p class="lead" style="font-size:14px;margin:6px 0 26px">We're open Mon–Sun, 11:00 AM – 9:00 PM. Pick a day that suits you.</p>
+            <div style="display:grid;grid-template-columns:repeat(7,1fr);gap:10px">
+              <sc-for list="{{ days }}" as="d" hint-placeholder-count="14">
+                <div class="day {{ d.cls }}" onClick="{{ d.onSelect }}">
+                  <div style="font-size:10.5px;letter-spacing:.08em;text-transform:uppercase;opacity:.7">{{ d.dow }}</div>
+                  <div class="hs" style="font-size:22px;margin-top:3px">{{ d.dnum }}</div>
+                  <div style="font-size:10px;opacity:.7;margin-top:1px">{{ d.mon }}</div>
+                </div>
+              </sc-for>
+            </div>
+          </div>
+        </sc-if>
+
+        <!-- STEP 3 — TIME (appt) or REQUIREMENTS (book) -->
+        <sc-if value="{{ isStep3 }}">
+          <div>
+            <sc-if value="{{ isAppt }}">
+              <div>
+                <h2 class="hs" style="font-size:30px">Pick a time slot</h2>
+                <p class="lead" style="font-size:14px;margin:6px 0 26px">Available slots for {{ dateLabel }}. Greyed slots are fully booked.</p>
+                <div style="display:grid;grid-template-columns:repeat(5,1fr);gap:11px">
+                  <sc-for list="{{ slots }}" as="s" hint-placeholder-count="10">
+                    <div class="slot {{ s.cls }}" onClick="{{ s.onSelect }}">{{ s.label }}</div>
+                  </sc-for>
+                </div>
+              </div>
+            </sc-if>
+            <sc-if value="{{ isBook }}">
+              <div>
+                <h2 class="hs" style="font-size:30px">Tell us about your event</h2>
+                <p class="lead" style="font-size:14px;margin:6px 0 26px">A few details so we can prepare the right artist and timeline for you.</p>
+                <div style="display:grid;grid-template-columns:1fr 1fr;gap:18px">
+                  <div><label class="flabel">Event type</label><input class="fld" placeholder="Wedding, Reception, Engagement…" value="{{ reqType }}" onInput="{{ setType }}"></div>
+                  <div><label class="flabel">Number needing makeup</label><input class="fld" placeholder="e.g. Bride + 3 guests" value="{{ reqGuests }}" onInput="{{ setGuests }}"></div>
+                  <div style="grid-column:1/3"><label class="flabel">Venue / location</label><input class="fld" placeholder="Venue name &amp; area, or 'at salon'" value="{{ reqVenue }}" onInput="{{ setVenue }}"></div>
+                  <div style="grid-column:1/3"><label class="flabel">Preferred style &amp; notes</label><textarea class="fld" placeholder="Tell us about the look you have in mind, references, timings…" value="{{ reqNotes }}" onInput="{{ setNotes }}"></textarea></div>
+                </div>
+                <div style="display:flex;align-items:center;gap:12px;margin-top:18px">
+                  <div class="opt {{ trialCls }}" onClick="{{ toggleTrial }}" style="padding:13px 18px;flex:none;gap:11px">
+                    <div class="tick" style="opacity:1;background:{{ trialBg }}">{{ trialMark }}</div>
+                    <div style="font-size:13.5px;font-weight:500">I'd like a makeup trial beforehand</div>
+                  </div>
+                </div>
+              </div>
+            </sc-if>
+          </div>
+        </sc-if>
+
+        <!-- STEP 4 — REVIEW -->
+        <sc-if value="{{ isStep4 }}">
+          <div>
+            <h2 class="hs" style="font-size:30px">Review &amp; confirm</h2>
+            <p class="lead" style="font-size:14px;margin:6px 0 26px">Please check the details below before confirming.</p>
+            <div style="display:flex;flex-direction:column;gap:2px;border:1px solid #eee3d4;border-radius:16px;overflow:hidden">
+              <div style="display:flex;justify-content:space-between;padding:17px 22px;background:#fbf7ef"><span class="lead" style="font-size:13px">Type</span><span style="font-size:14px;font-weight:500">{{ modeLabel }}</span></div>
+              <div style="display:flex;justify-content:space-between;padding:17px 22px"><span class="lead" style="font-size:13px">Service</span><span style="font-size:14px;font-weight:500">{{ svcName }}</span></div>
+              <div style="display:flex;justify-content:space-between;padding:17px 22px;background:#fbf7ef"><span class="lead" style="font-size:13px">Date</span><span style="font-size:14px;font-weight:500">{{ dateLabel }}</span></div>
+              <div style="display:flex;justify-content:space-between;padding:17px 22px"><span class="lead" style="font-size:13px">{{ thirdLabel }}</span><span style="font-size:14px;font-weight:500;max-width:260px;text-align:right">{{ thirdValue }}</span></div>
+              <div style="display:flex;justify-content:space-between;padding:17px 22px;background:#fbf7ef"><span class="lead" style="font-size:13px">From</span><span style="font-size:15px;font-weight:600;color:#b5904f">{{ svcPrice }}</span></div>
+            </div>
+            <p class="lead" style="font-size:12.5px;margin-top:16px">Final pricing is confirmed after your consultation. No payment is taken online.</p>
+            <button class="btn btn-gold btn-lg" onClick="{{ confirm }}" style="width:100%;margin-top:22px">{{ confirmLabel }}</button>
+          </div>
+        </sc-if>
+
+        <!-- NAV -->
+        <sc-if value="{{ showNav }}">
+          <div style="display:flex;justify-content:space-between;align-items:center;margin-top:34px;padding-top:24px;border-top:1px solid #eee3d4">
+            <button class="btn btn-ghost" onClick="{{ back }}" style="{{ backStyle }}">← Back</button>
+            <button class="btn btn-dark {{ nextBlockCls }}" onClick="{{ next }}">{{ nextLabel }} →</button>
+          </div>
+        </sc-if>
+      </div>
+
+      <!-- RIGHT SUMMARY -->
+      <aside class="card" style="padding:30px 28px;position:sticky;top:96px">
+        <div class="eyebrow" style="margin-bottom:16px">Your selection</div>
+        <div class="ph" style="height:128px;border-radius:14px;margin-bottom:20px"><span style="position:absolute;left:16px;bottom:14px;font-family:'Dancing Script',cursive;font-weight:600;color:#b5904f;font-size:26px">{{ modeWord }}</span></div>
+        <div style="display:flex;flex-direction:column;gap:16px">
+          <div style="display:flex;justify-content:space-between;gap:12px"><span class="lead" style="font-size:13px">Service</span><span style="font-size:13.5px;font-weight:500;text-align:right">{{ svcNameOr }}</span></div>
+          <div style="height:1px;background:#eee3d4"></div>
+          <div style="display:flex;justify-content:space-between;gap:12px"><span class="lead" style="font-size:13px">Date</span><span style="font-size:13.5px;font-weight:500;text-align:right">{{ dateLabelOr }}</span></div>
+          <div style="height:1px;background:#eee3d4"></div>
+          <div style="display:flex;justify-content:space-between;gap:12px"><span class="lead" style="font-size:13px">{{ thirdLabel }}</span><span style="font-size:13.5px;font-weight:500;text-align:right">{{ thirdValueOr }}</span></div>
+        </div>
+        <div style="margin-top:24px;padding:16px 18px;background:#2e2823;border-radius:14px;display:flex;justify-content:space-between;align-items:center">
+          <span style="color:#cdbfae;font-size:12.5px;font-weight:300">Starting from</span>
+          <span class="hs" style="color:#f6ede0;font-size:24px">{{ svcPriceOr }}</span>
+        </div>
+        <a href="https://wa.me/919876543210" class="btn btn-ghost" style="width:100%;margin-top:16px;font-size:12.5px">Or book over WhatsApp</a>
+      </aside>
+    </section>
+  </div>
+  </sc-if>
+
+  <!-- SUCCESS -->
+  <sc-if value="{{ confirmed }}">
+    <section class="wrap" style="padding-top:30px;padding-bottom:90px;display:flex;justify-content:center">
+      <div class="card" style="max-width:560px;text-align:center;padding:54px 50px">
+        <div style="width:74px;height:74px;border-radius:50%;background:#b5904f;color:#fff;display:flex;align-items:center;justify-content:center;font-size:34px;margin:0 auto 26px">✓</div>
+        <p class="eyebrow" style="margin-bottom:12px">{{ modeLabel }} requested</p>
+        <h2 class="hs" style="font-size:38px;line-height:1.08">You're all but <span class="script" style="font-size:46px">booked</span></h2>
+        <p class="lead" style="font-size:15px;margin:14px 0 0">We've received your {{ modeWordLower }} for <b style="color:#2e2823;font-weight:500">{{ svcName }}</b> on <b style="color:#2e2823;font-weight:500">{{ dateLabel }}</b>. Our team will confirm by call or WhatsApp shortly.</p>
+        <div style="margin:28px 0;padding:20px 24px;border:1px solid #eee3d4;border-radius:16px;text-align:left;display:flex;flex-direction:column;gap:10px">
+          <div style="display:flex;justify-content:space-between"><span class="lead" style="font-size:13px">{{ thirdLabel }}</span><span style="font-size:13.5px;font-weight:500">{{ thirdValue }}</span></div>
+          <div style="display:flex;justify-content:space-between"><span class="lead" style="font-size:13px">From</span><span style="font-size:14px;font-weight:600;color:#b5904f">{{ svcPrice }}</span></div>
+        </div>
+        <div style="display:flex;gap:12px;justify-content:center;flex-wrap:wrap">
+          <a class="btn btn-dark btn-lg" href="Dashboard.dc.html">View in my dashboard</a>
+          <button class="btn btn-ghost btn-lg" onClick="{{ reset }}">Book another</button>
+        </div>
+      </div>
+    </section>
+  </sc-if>
+
+  <!-- FOOTER -->
+  <footer class="foot" style="background:#2e2823;color:#cdbfae">
+    <div class="wrap" style="padding-top:60px;padding-bottom:40px;display:grid;grid-template-columns:1.4fr 1fr 1fr 1.2fr;gap:40px">
+      <div>
+        <div class="logo" style="color:#f6ede0">Sakshi<small style="color:#d9b97e">Beauty Parlour</small></div>
+        <p style="font-weight:300;font-size:14px;line-height:1.7;margin:20px 0 0;max-width:260px;color:#b6a895">Premium salon &amp; bridal studio. Skin, hair, body and bridal artistry — with quiet luxury at every step.</p>
+        <div style="margin-top:22px;display:flex;align-items:center;gap:11px"><a href="https://instagram.com" aria-label="Instagram" style="width:40px;height:40px;border-radius:50%;border:1px solid #5a5048;display:flex;align-items:center;justify-content:center;color:#cdbfae;transition:border-color .18s,color .18s" onmouseover="this.style.borderColor='#d9b97e';this.style.color='#d9b97e'" onmouseout="this.style.borderColor='#5a5048';this.style.color='#cdbfae'"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><rect x="3.5" y="3.5" width="17" height="17" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.2" cy="6.8" r="1.1" fill="currentColor" stroke="none"/></svg></a><a href="https://facebook.com" aria-label="Facebook" style="width:40px;height:40px;border-radius:50%;border:1px solid #5a5048;display:flex;align-items:center;justify-content:center;color:#cdbfae;transition:border-color .18s,color .18s" onmouseover="this.style.borderColor='#d9b97e';this.style.color='#d9b97e'" onmouseout="this.style.borderColor='#5a5048';this.style.color='#cdbfae'"><svg width="17" height="17" viewBox="0 0 24 24" fill="currentColor"><path d="M13.5 21v-7h2.3l.4-2.9h-2.7V9.2c0-.84.27-1.4 1.46-1.4H16.3V5.2c-.27-.04-1.2-.12-2.27-.12-2.25 0-3.8 1.37-3.8 3.9v2.18H7.9V14h2.33v7z"/></svg></a><a href="https://youtube.com" aria-label="YouTube" style="width:40px;height:40px;border-radius:50%;border:1px solid #5a5048;display:flex;align-items:center;justify-content:center;color:#cdbfae;transition:border-color .18s,color .18s" onmouseover="this.style.borderColor='#d9b97e';this.style.color='#d9b97e'" onmouseout="this.style.borderColor='#5a5048';this.style.color='#cdbfae'"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><rect x="2.5" y="6" width="19" height="12" rx="4"/><path d="M10.3 9.3l4.8 2.7-4.8 2.7z" fill="currentColor" stroke="none"/></svg></a><span style="font-size:12.5px;color:#8a7d6e;font-weight:300;margin-left:3px">@sakshibeautyparlour</span></div>
+      </div>
+      <div>
+        <div style="font-size:12px;letter-spacing:.18em;text-transform:uppercase;color:#8a7d6e;margin-bottom:18px">Explore</div>
+        <div style="display:flex;flex-direction:column;gap:11px;font-weight:300;font-size:14px">
+          <a href="Sakshi Beauty Parlour.dc.html" style="color:#cdbfae;text-decoration:none">Home</a>
+          <a href="Services.dc.html" style="color:#cdbfae;text-decoration:none">Services</a>
+          <a href="Gallery.dc.html" style="color:#cdbfae;text-decoration:none">Gallery</a>
+          <a href="About.dc.html" style="color:#cdbfae;text-decoration:none">About Us</a>
+          <a href="Contact.dc.html" style="color:#cdbfae;text-decoration:none">Contact</a>
+        </div>
+      </div>
+      <div>
+        <div style="font-size:12px;letter-spacing:.18em;text-transform:uppercase;color:#8a7d6e;margin-bottom:18px">Account</div>
+        <div style="display:flex;flex-direction:column;gap:11px;font-weight:300;font-size:14px">
+          <a href="Booking.dc.html" style="color:#cdbfae;text-decoration:none">Book appointment</a>
+          <a href="Login.dc.html" style="color:#cdbfae;text-decoration:none">Login</a>
+          <a href="Login.dc.html" style="color:#cdbfae;text-decoration:none">Register</a>
+          <a href="Dashboard.dc.html" style="color:#cdbfae;text-decoration:none">My dashboard</a>
+        </div>
+      </div>
+      <div>
+        <div style="font-size:12px;letter-spacing:.18em;text-transform:uppercase;color:#8a7d6e;margin-bottom:18px">Visit us</div>
+        <div style="font-weight:300;font-size:14px;line-height:1.7;color:#cdbfae">
+          Shop 14, Rose Arcade,<br>FC Road, Shivaji Nagar,<br>Pune 411005<br><br>
+          <a href="tel:+919876543210" style="color:#f6ede0;text-decoration:none">+91 98765 43210</a><br>
+          <span style="color:#8a7d6e">Mon–Sun · 11:00 AM – 9:00 PM</span>
+        </div>
+      </div>
+    </div>
+    <div style="border-top:1px solid #463e36"><div class="wrap" style="padding:22px 44px;display:flex;justify-content:space-between;flex-wrap:wrap;gap:10px;font-size:12px;color:#8a7d6e;font-weight:300"><span>© 2026 Sakshi Beauty Parlour. All rights reserved.</span><span>Crafted with care in Pune.</span></div></div>
+  </footer>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script>
+class Component extends DCLogic {
+  state = {
+    mode: 'appt', step: 1, confirmed: false,
+    service: null, dateIdx: null, slot: null,
+    reqType: '', reqGuests: '', reqVenue: '', reqNotes: '', trial: false
+  };
+
+  apptServices = [
+    { name: 'Hair Wash & Blow Dry', desc: 'Cleanse, condition & style', price: '₹499', metaLabel: '45 min' },
+    { name: 'Facial', desc: 'Hydrating or brightening', price: '₹699', metaLabel: '60 min' },
+    { name: 'Threading', desc: 'Eyebrows, upper lip & more', price: '₹40', metaLabel: '15 min' },
+    { name: 'Hair Cut', desc: 'Consultation & precision cut', price: '₹399', metaLabel: '45 min' },
+    { name: 'Waxing', desc: 'Arms, legs, face or full body', price: '₹150', metaLabel: '30–60 min' },
+  ];
+  bookServices = [
+    { name: 'Bridal Makeup', desc: 'HD / airbrush, hair & draping', price: '₹8,000', metaLabel: 'Full day' },
+    { name: 'Pre-Bridal Package', desc: 'Multi-session skin & hair prep', price: '₹12,000', metaLabel: 'Multi-session' },
+    { name: 'Event / Party Makeup', desc: 'Guests, sangeet & receptions', price: '₹3,500', metaLabel: '2–3 hrs' },
+  ];
+  slotDefs = [
+    { label: '11:00 AM', off: false }, { label: '11:30 AM', off: false }, { label: '12:00 PM', off: false }, { label: '12:30 PM', off: false }, { label: '1:00 PM', off: false },
+    { label: '1:30 PM', off: true }, { label: '2:00 PM', off: false }, { label: '2:30 PM', off: false }, { label: '3:00 PM', off: true }, { label: '3:30 PM', off: false },
+    { label: '4:00 PM', off: false }, { label: '4:30 PM', off: false }, { label: '5:00 PM', off: false }, { label: '5:30 PM', off: true }, { label: '6:00 PM', off: false },
+    { label: '6:30 PM', off: false }, { label: '7:00 PM', off: false }, { label: '7:30 PM', off: true }, { label: '8:00 PM', off: false }, { label: '8:30 PM', off: false },
+  ];
+
+  buildDays() {
+    const out = [], base = new Date(2026, 5, 30);
+    const dow = ['Sun','Mon','Tue','Wed','Thu','Fri','Sat'];
+    const mon = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
+    for (let i = 0; i < 14; i++) {
+      const d = new Date(base); d.setDate(base.getDate() + i);
+      out.push({ dow: dow[d.getDay()], dnum: d.getDate(), mon: mon[d.getMonth()],
+        full: dow[d.getDay()] + ', ' + d.getDate() + ' ' + mon[d.getMonth()], off: (i === 3 || i === 9) });
+    }
+    return out;
+  }
+
+  set(patch) { this.setState(patch); }
+
+  renderVals() {
+    const s = this.state;
+    const isAppt = s.mode === 'appt';
+    const services = (isAppt ? this.apptServices : this.bookServices).map((sv, i) => ({
+      ...sv, cls: s.service === i ? 'sel' : '',
+      onSelect: () => this.set({ service: i })
+    }));
+    const days = this.buildDays().map((d, i) => ({
+      ...d, cls: (d.off ? 'off ' : '') + (s.dateIdx === i ? 'sel' : ''),
+      onSelect: () => this.set({ dateIdx: i })
+    }));
+    const slots = this.slotDefs.map((sl, i) => ({
+      ...sl, label: sl.label,
+      cls: (sl.off ? 'off ' : '') + (s.slot === i ? 'sel' : ''),
+      onSelect: () => this.set({ slot: i })
+    }));
+
+    const stepNames = isAppt ? ['Service','Date','Time','Confirm'] : ['Service','Date','Details','Confirm'];
+    const steps = stepNames.map((label, i) => {
+      const num = i + 1;
+      return { num, label, showBar: num < 4,
+        cls: s.step === num ? 'active' : (s.step > num ? 'done' : '') };
+    });
+
+    const svc = s.service != null ? (isAppt ? this.apptServices : this.bookServices)[s.service] : null;
+    const dateObj = s.dateIdx != null ? this.buildDays()[s.dateIdx] : null;
+    const dateLabel = dateObj ? dateObj.full + ', 2026' : '—';
+    const timeLabel = s.slot != null ? this.slotDefs[s.slot].label : '—';
+
+    const reqSummaryParts = [];
+    if (s.reqType) reqSummaryParts.push(s.reqType);
+    if (s.reqGuests) reqSummaryParts.push(s.reqGuests);
+    if (s.trial) reqSummaryParts.push('trial');
+    const reqSummary = reqSummaryParts.length ? reqSummaryParts.join(' · ') : 'To be discussed';
+
+    const thirdLabel = isAppt ? 'Time' : 'Requirements';
+    const thirdValue = isAppt ? timeLabel : reqSummary;
+
+    // nav gating
+    let nextDisabled = false;
+    if (s.step === 1) nextDisabled = s.service == null;
+    else if (s.step === 2) nextDisabled = s.dateIdx == null;
+    else if (s.step === 3 && isAppt) nextDisabled = s.slot == null;
+
+    return {
+      notConfirmed: !s.confirmed, confirmed: s.confirmed,
+      apptCls: isAppt ? 'on' : '', bookCls: isAppt ? '' : 'on',
+      pickAppt: () => this.set({ mode: 'appt', step: 1, service: null, dateIdx: null, slot: null }),
+      pickBook: () => this.set({ mode: 'book', step: 1, service: null, dateIdx: null, slot: null }),
+      steps,
+      isStep1: s.step === 1, isStep2: s.step === 2, isStep3: s.step === 3, isStep4: s.step === 4,
+      isAppt, isBook: !isAppt,
+      step1Title: isAppt ? 'Select a service' : 'Select your package',
+      step1Sub: isAppt ? 'Quick treatments you can book for a single visit.' : 'Special-occasion services with a personal consultation.',
+      services, days, slots,
+      // requirements
+      reqType: s.reqType, reqGuests: s.reqGuests, reqVenue: s.reqVenue, reqNotes: s.reqNotes,
+      setType: e => this.set({ reqType: e.target.value }),
+      setGuests: e => this.set({ reqGuests: e.target.value }),
+      setVenue: e => this.set({ reqVenue: e.target.value }),
+      setNotes: e => this.set({ reqNotes: e.target.value }),
+      trialCls: s.trial ? 'sel' : '', trialBg: s.trial ? '#b5904f' : '#e2d3b8', trialMark: s.trial ? '✓' : '',
+      toggleTrial: () => this.set({ trial: !s.trial }),
+      // summary
+      modeLabel: isAppt ? 'Appointment' : 'Booking',
+      modeWord: isAppt ? 'Appointment' : 'Booking',
+      modeWordLower: isAppt ? 'appointment' : 'booking',
+      svcName: svc ? svc.name : '—', svcNameOr: svc ? svc.name : 'Not selected',
+      dateLabel, dateLabelOr: dateObj ? dateObj.full : 'Not selected',
+      thirdLabel, thirdValue, thirdValueOr: thirdValue,
+      svcPrice: svc ? svc.price : '—', svcPriceOr: svc ? svc.price : '—',
+      // nav
+      showNav: s.step <= 3,
+      back: () => { if (s.step > 1) this.set({ step: s.step - 1 }); },
+      backStyle: s.step === 1 ? 'visibility:hidden' : '',
+      next: () => { if (!nextDisabled && s.step < 4) this.set({ step: s.step + 1 }); },
+      nextLabel: s.step === 3 ? 'Review' : 'Continue',
+      nextBlockCls: nextDisabled ? 'btn-block' : '',
+      confirmLabel: isAppt ? 'Confirm Appointment' : 'Confirm Booking',
+      confirm: () => this.set({ confirmed: true }),
+      reset: () => this.setState({ mode: 'appt', step: 1, confirmed: false, service: null, dateIdx: null, slot: null, reqType: '', reqGuests: '', reqVenue: '', reqNotes: '', trial: false }),
+    };
+  }
+}
+</script>
+</body>
+</html>

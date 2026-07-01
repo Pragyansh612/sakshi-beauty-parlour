@@ -1,0 +1,452 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet data-dc-atomics>
+<title>Admin — Sakshi Beauty Parlour</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600&family=Jost:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+  *{box-sizing:border-box}
+  body{margin:0;background:#f4f1ec;color:#2e2823;font-family:'Jost',system-ui,sans-serif;-webkit-font-smoothing:antialiased}
+  ::selection{background:#e7d3ab}
+  a{color:inherit}
+  .app{display:grid;grid-template-columns:236px 1fr;min-height:100vh}
+  /* sidebar */
+  .side{background:#2e2823;color:#cdbfae;padding:24px 18px;display:flex;flex-direction:column;position:sticky;top:0;height:100vh}
+  .blogo{font-family:'Cormorant Garamond',serif;font-weight:500;font-size:21px;color:#f6ede0;line-height:.9;padding:0 10px 4px}
+  .blogo small{display:block;font-family:'Jost',sans-serif;font-weight:400;font-size:7px;letter-spacing:.36em;text-transform:uppercase;color:#d9b97e;margin-top:4px}
+  .navitem{display:flex;align-items:center;gap:11px;padding:11px 13px;border-radius:10px;font-size:13.5px;font-weight:400;color:#b6a895;cursor:pointer;transition:all .16s;margin-top:3px}
+  .navitem:hover{background:#3a332c;color:#f6ede0}
+  .navitem.on{background:#b5904f;color:#fff}
+  .navitem .ic{width:18px;text-align:center;font-size:14px}
+  .side-tag{font-size:10px;letter-spacing:.18em;text-transform:uppercase;color:#6f6356;padding:18px 13px 8px}
+  /* main */
+  .main{padding:26px 34px 60px}
+  .topbar{display:flex;align-items:center;justify-content:space-between;margin-bottom:26px}
+  .htitle{font-family:'Cormorant Garamond',serif;font-weight:500;font-size:32px;line-height:1}
+  .hsub{font-size:13px;color:#8a7d6e;font-weight:300;margin-top:4px}
+  .btn{display:inline-flex;align-items:center;justify-content:center;gap:7px;text-decoration:none;border-radius:9px;font-family:'Jost',sans-serif;font-weight:500;font-size:13px;padding:10px 18px;cursor:pointer;border:none;transition:all .16s}
+  .btn-dark{background:#2e2823;color:#f6ede0}.btn-dark:hover{background:#3a332c}
+  .btn-gold{background:#b5904f;color:#fff}.btn-gold:hover{background:#a07e3f}
+  .btn-line{background:#fff;color:#2e2823;border:1px solid #e2dccf}.btn-line:hover{border-color:#b5904f;color:#b5904f}
+  .btn-xs{padding:6px 12px;font-size:12px;border-radius:8px}
+  .card{background:#fff;border:1px solid #e8e2d7;border-radius:14px}
+  .stat{padding:20px 22px}
+  .stat .k{font-size:11.5px;letter-spacing:.06em;text-transform:uppercase;color:#8a7d6e;font-weight:400}
+  .stat .v{font-family:'Cormorant Garamond',serif;font-weight:600;font-size:38px;line-height:1;margin-top:8px}
+  .stat .d{font-size:11.5px;color:#3f7a4e;margin-top:6px;font-weight:400}
+  .sect-h{font-family:'Cormorant Garamond',serif;font-weight:500;font-size:21px}
+  table{width:100%;border-collapse:collapse}
+  th{text-align:left;font-size:11px;letter-spacing:.06em;text-transform:uppercase;color:#8a7d6e;font-weight:500;padding:12px 16px;border-bottom:1px solid #ece6db}
+  td{padding:14px 16px;border-bottom:1px solid #f1ece2;font-size:13.5px;vertical-align:middle}
+  tr:last-child td{border-bottom:none}
+  .badge{display:inline-flex;align-items:center;gap:5px;font-size:11px;font-weight:500;padding:4px 10px;border-radius:16px}
+  .b-green{background:#e7f0e4;color:#3f7a4e}
+  .b-amber{background:#f6efdb;color:#9a7b2e}
+  .b-blue{background:#e6edf4;color:#3d6691}
+  .b-red{background:#f4e6e6;color:#a8595a}
+  .b-grey{background:#ece8e0;color:#7a6f60}
+  .ph{position:relative;overflow:hidden;background:linear-gradient(150deg,#f0e7da,#e7ddcb)}
+  .ph::before{content:"";position:absolute;inset:0;background-image:repeating-linear-gradient(135deg,rgba(181,144,79,.1) 0 10px,transparent 10px 20px)}
+  .ico-btn{width:30px;height:30px;border-radius:8px;border:1px solid #e2dccf;background:#fff;display:inline-flex;align-items:center;justify-content:center;cursor:pointer;font-size:13px;color:#6b5f54;transition:all .16s}
+  .ico-btn:hover{border-color:#b5904f;color:#b5904f}
+  .toolbar{display:flex;align-items:center;gap:10px}
+  .search{border:1px solid #e2dccf;border-radius:9px;padding:9px 14px;font-family:'Jost',sans-serif;font-size:13px;background:#fff;outline:none;width:230px}
+  .search:focus{border-color:#b5904f}
+  .seg{display:inline-flex;background:#ece8e0;border-radius:9px;padding:3px}
+  .seg button{border:none;background:transparent;font-family:'Jost',sans-serif;font-size:12.5px;font-weight:500;color:#7a6f60;padding:7px 15px;border-radius:7px;cursor:pointer}
+  .seg button.on{background:#fff;color:#2e2823;box-shadow:0 1px 3px rgba(0,0,0,.08)}
+  .slotcell{border:1px solid #e8e2d7;border-radius:9px;padding:10px 6px;text-align:center;font-size:12.5px;font-weight:500}
+  .slotcell.open{background:#fff}
+  .slotcell.full{background:#f4e6e6;color:#a8595a;border-color:#eed6d6}
+  .slotcell.block{background:#ece8e0;color:#9a9082;text-decoration:line-through}
+  .fld{width:100%;border:1px solid #e2dccf;border-radius:9px;padding:10px 13px;font-family:'Jost',sans-serif;font-size:13.5px;color:#2e2823;background:#fff;outline:none;transition:border-color .16s}
+  .fld:focus{border-color:#b5904f}
+  .ov{position:fixed;inset:0;background:rgba(46,40,35,.42);z-index:200;backdrop-filter:blur(2px)}
+  .drawer{position:fixed;top:0;right:0;height:100vh;width:452px;max-width:92vw;background:#faf8f3;z-index:201;box-shadow:-34px 0 70px -34px rgba(0,0,0,.45);display:flex;flex-direction:column}
+  .drow{display:flex;justify-content:space-between;gap:16px;padding:13px 0;border-bottom:1px solid #f1ece2;font-size:13.5px}
+  .drow:last-child{border-bottom:none}
+  .modal{position:fixed;z-index:201;top:50%;left:50%;transform:translate(-50%,-50%);width:430px;max-width:92vw;background:#fff;border-radius:16px;box-shadow:0 40px 80px -30px rgba(0,0,0,.5);padding:30px 30px 26px;text-align:center}
+</style>
+</helmet>
+
+<div class="app">
+  <!-- SIDEBAR -->
+  <aside class="side">
+    <a class="blogo" href="Sakshi Beauty Parlour.dc.html">Sakshi<small>Admin Panel</small></a>
+    <div style="margin-top:18px">
+      <div class="navitem {{ c.dashboard }}" onClick="{{ go.dashboard }}"><span class="ic">▣</span> Dashboard</div>
+      <div class="navitem {{ c.appointments }}" onClick="{{ go.appointments }}"><span class="ic">◷</span> Appointments</div>
+      <div class="navitem {{ c.bookings }}" onClick="{{ go.bookings }}"><span class="ic">✦</span> Bookings</div>
+    </div>
+    <div class="side-tag">Manage</div>
+    <div>
+      <div class="navitem {{ c.services }}" onClick="{{ go.services }}"><span class="ic">✂</span> Services</div>
+      <div class="navitem {{ c.gallery }}" onClick="{{ go.gallery }}"><span class="ic">▦</span> Gallery</div>
+      <div class="navitem {{ c.slots }}" onClick="{{ go.slots }}"><span class="ic">⊞</span> Slots</div>
+    </div>
+    <div style="margin-top:auto;padding:14px 13px;border-top:1px solid #463e36;display:flex;align-items:center;gap:11px">
+      <div style="width:34px;height:34px;border-radius:50%;background:linear-gradient(135deg,#d9b97e,#b5904f);display:flex;align-items:center;justify-content:center;color:#2e2823;font-family:'Cormorant Garamond',serif;font-weight:600">S</div>
+      <div style="line-height:1.2"><div style="font-size:12.5px;color:#f6ede0;font-weight:500">Sakshi</div><a href="Sakshi Beauty Parlour.dc.html" style="font-size:11px;color:#8a7d6e;text-decoration:none">View site →</a></div>
+    </div>
+  </aside>
+
+  <!-- MAIN -->
+  <main class="main">
+
+    <!-- ============ DASHBOARD ============ -->
+    <sc-if value="{{ isDashboard }}">
+      <div>
+        <div class="topbar">
+          <div><div class="htitle">Dashboard</div><div class="hsub">Monday, 30 June 2026 · Good morning, Sakshi</div></div>
+          <div class="toolbar"><a class="btn btn-line" href="Sakshi Beauty Parlour.dc.html">View site</a><button class="btn btn-gold">+ Add booking</button></div>
+        </div>
+
+        <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:16px;margin-bottom:22px">
+          <div class="card stat"><div class="k">Today's appointments</div><div class="v">8</div><div class="d">3 still upcoming</div></div>
+          <div class="card stat"><div class="k">Upcoming bookings</div><div class="v">5</div><div class="d">2 bridal this month</div></div>
+          <div class="card stat"><div class="k">Revenue (June)</div><div class="v">₹2.4L</div><div class="d">▲ 18% vs May</div></div>
+          <div class="card stat"><div class="k">Pending approvals</div><div class="v" style="color:#9a7b2e">3</div><div class="d" style="color:#9a7b2e">Needs review</div></div>
+        </div>
+
+        <div style="display:grid;grid-template-columns:1.5fr 1fr;gap:18px">
+          <!-- today schedule -->
+          <div class="card" style="padding:0;overflow:hidden">
+            <div style="display:flex;align-items:center;justify-content:space-between;padding:18px 20px;border-bottom:1px solid #ece6db"><div class="sect-h">Today's schedule</div><button class="btn btn-line btn-xs" onClick="{{ go.appointments }}">View all</button></div>
+            <table>
+              <tr><th>Time</th><th>Client</th><th>Service</th><th>Artist</th><th>Status</th></tr>
+              <tr><td>10:00</td><td>Meera J.</td><td>Hydra Facial</td><td>Priya</td><td><span class="badge b-green">Checked in</span></td></tr>
+              <tr><td>11:30</td><td>Aditi R.</td><td>Bridal trial</td><td>Sakshi</td><td><span class="badge b-green">Confirmed</span></td></tr>
+              <tr><td>1:00</td><td>Sara K.</td><td>Hair colour</td><td>Sneha</td><td><span class="badge b-blue">In chair</span></td></tr>
+              <tr><td>3:30</td><td>Nidhi P.</td><td>Threading + cleanup</td><td>Priya</td><td><span class="badge b-amber">Upcoming</span></td></tr>
+              <tr><td>5:00</td><td>Reena M.</td><td>Pedicure</td><td>Anjali</td><td><span class="badge b-amber">Upcoming</span></td></tr>
+            </table>
+          </div>
+          <!-- recent activity -->
+          <div class="card" style="padding:18px 20px">
+            <div class="sect-h" style="margin-bottom:6px">Recent activity</div>
+            <div style="display:flex;flex-direction:column">
+              <div style="display:flex;gap:12px;padding:13px 0;border-bottom:1px solid #f1ece2"><div style="width:8px;height:8px;border-radius:50%;background:#3f7a4e;margin-top:5px;flex:none"></div><div><div style="font-size:13px">New bridal booking — <b>Aditi R.</b></div><div style="font-size:11.5px;color:#8a7d6e">23 Nov · 12 min ago</div></div></div>
+              <div style="display:flex;gap:12px;padding:13px 0;border-bottom:1px solid #f1ece2"><div style="width:8px;height:8px;border-radius:50%;background:#9a7b2e;margin-top:5px;flex:none"></div><div><div style="font-size:13px">Reschedule request — <b>Sara K.</b></div><div style="font-size:11.5px;color:#8a7d6e">Hair colour · 40 min ago</div></div></div>
+              <div style="display:flex;gap:12px;padding:13px 0;border-bottom:1px solid #f1ece2"><div style="width:8px;height:8px;border-radius:50%;background:#3d6691;margin-top:5px;flex:none"></div><div><div style="font-size:13px">Payment received — <b>₹3,500</b></div><div style="font-size:11.5px;color:#8a7d6e">Party makeup · 1 hr ago</div></div></div>
+              <div style="display:flex;gap:12px;padding:13px 0"><div style="width:8px;height:8px;border-radius:50%;background:#a8595a;margin-top:5px;flex:none"></div><div><div style="font-size:13px">Cancellation — <b>Reena M.</b></div><div style="font-size:11.5px;color:#8a7d6e">Facial · 2 hr ago</div></div></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </sc-if>
+
+    <!-- ============ APPOINTMENTS ============ -->
+    <sc-if value="{{ isAppointments }}">
+      <div>
+        <div class="topbar">
+          <div><div class="htitle">Appointments</div><div class="hsub">Short-service bookings · view, modify, approve</div></div>
+          <div class="toolbar"><input class="search" placeholder="Search client or ref…"><div class="seg"><button class="on">All</button><button>Today</button><button>Upcoming</button></div></div>
+        </div>
+        <div class="card" style="overflow:hidden">
+          <table>
+            <tr><th>Ref</th><th>Client</th><th>Service</th><th>Date &amp; time</th><th>Artist</th><th>Status</th><th style="text-align:right">Actions</th></tr>
+            <sc-for list="{{ appointments }}" as="a" hint-placeholder-count="6">
+              <tr>
+                <td style="color:#8a7d6e">{{ a.ref }}</td>
+                <td style="font-weight:500">{{ a.client }}</td>
+                <td>{{ a.service }}</td>
+                <td>{{ a.when }}</td>
+                <td>{{ a.artist }}</td>
+                <td><span class="badge {{ a.badge }}">{{ a.status }}</span></td>
+                <td style="text-align:right"><div style="display:inline-flex;gap:6px"><span class="ico-btn" title="View" onClick="{{ a.onView }}">👁</span><span class="ico-btn" title="Edit" onClick="{{ a.onEdit }}">✎</span><span class="ico-btn" title="Cancel" onClick="{{ a.onDelete }}">✕</span></div></td>
+              </tr>
+            </sc-for>
+          </table>
+        </div>
+      </div>
+    </sc-if>
+
+    <!-- ============ BOOKINGS ============ -->
+    <sc-if value="{{ isBookings }}">
+      <div>
+        <div class="topbar">
+          <div><div class="htitle">Bridal &amp; Event Bookings</div><div class="hsub">Special-occasion bookings · approve &amp; manage</div></div>
+          <div class="toolbar"><input class="search" placeholder="Search booking…"><button class="btn btn-gold">+ New booking</button></div>
+        </div>
+        <div style="display:flex;flex-direction:column;gap:14px">
+          <sc-for list="{{ bookings }}" as="b" hint-placeholder-count="3">
+            <div class="card" style="padding:20px 22px;display:flex;gap:20px;align-items:center">
+              <div class="ph" style="width:84px;height:84px;border-radius:11px;flex:none"></div>
+              <div style="flex:1">
+                <div style="display:flex;align-items:center;gap:10px"><span class="badge {{ b.badge }}">{{ b.status }}</span><span style="font-size:11.5px;color:#8a7d6e">{{ b.ref }}</span></div>
+                <div style="font-family:'Cormorant Garamond',serif;font-weight:600;font-size:21px;margin-top:5px">{{ b.title }}</div>
+                <div style="font-size:12.5px;color:#8a7d6e;margin-top:3px">{{ b.client }} · {{ b.detail }}</div>
+              </div>
+              <div style="text-align:right;margin-right:8px"><div style="font-size:11.5px;color:#8a7d6e;text-transform:uppercase;letter-spacing:.05em">Event date</div><div style="font-weight:500;font-size:14px;margin-top:3px">{{ b.date }}</div></div>
+              <div style="text-align:right;margin-right:14px"><div style="font-size:11.5px;color:#8a7d6e;text-transform:uppercase;letter-spacing:.05em">Value</div><div style="font-family:'Cormorant Garamond',serif;font-weight:600;font-size:18px;color:#b5904f">{{ b.value }}</div></div>
+              <div style="display:flex;flex-direction:column;gap:7px;width:132px">
+                <button class="btn btn-gold btn-xs" onClick="{{ b.onEdit }}">{{ b.cta }}</button>
+                <button class="btn btn-line btn-xs" onClick="{{ b.onView }}">View details</button>
+                <button class="btn btn-line btn-xs" onClick="{{ b.onDelete }}" style="color:#a8595a;border-color:#eed6d6">Delete</button>
+              </div>
+            </div>
+          </sc-for>
+        </div>
+      </div>
+    </sc-if>
+
+    <!-- ============ SERVICES ============ -->
+    <sc-if value="{{ isServices }}">
+      <div>
+        <div class="topbar">
+          <div><div class="htitle">Services</div><div class="hsub">Add, edit, remove &amp; update pricing</div></div>
+          <div class="toolbar"><input class="search" placeholder="Search service…"><button class="btn btn-gold">+ Add service</button></div>
+        </div>
+        <div class="card" style="overflow:hidden">
+          <table>
+            <tr><th>Service</th><th>Category</th><th>Duration</th><th>Price</th><th>Status</th><th style="text-align:right">Actions</th></tr>
+            <sc-for list="{{ services }}" as="s" hint-placeholder-count="7">
+              <tr>
+                <td style="font-weight:500">{{ s.name }}</td>
+                <td><span class="badge b-grey">{{ s.cat }}</span></td>
+                <td style="color:#6b5f54">{{ s.dur }}</td>
+                <td style="font-weight:600;color:#b5904f">{{ s.price }}</td>
+                <td><span class="badge {{ s.badge }}">{{ s.status }}</span></td>
+                <td style="text-align:right"><div style="display:inline-flex;gap:6px"><span class="ico-btn" title="View" onClick="{{ s.onView }}">👁</span><span class="ico-btn" title="Edit" onClick="{{ s.onEdit }}">✎</span><span class="ico-btn" title="Delete" onClick="{{ s.onDelete }}">🗑</span></div></td>
+              </tr>
+            </sc-for>
+          </table>
+        </div>
+      </div>
+    </sc-if>
+
+    <!-- ============ GALLERY ============ -->
+    <sc-if value="{{ isGallery }}">
+      <div>
+        <div class="topbar">
+          <div><div class="htitle">Gallery</div><div class="hsub">Upload &amp; organise — Our Work and Achievements</div></div>
+          <div class="toolbar"><div class="seg"><button class="on">Our Work</button><button>Achievements</button></div><button class="btn btn-gold">⬆ Upload</button></div>
+        </div>
+        <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:16px">
+          <div class="card" style="border-style:dashed;border-color:#d8cdb8;display:flex;flex-direction:column;align-items:center;justify-content:center;min-height:200px;color:#9b8e84;cursor:pointer">
+            <div style="font-size:28px;color:#b5904f">＋</div><div style="font-size:13px;margin-top:8px">Upload image</div><div style="font-size:11px;color:#a89c8d;margin-top:2px">Drag &amp; drop or browse</div>
+          </div>
+          <sc-for list="{{ gallery }}" as="g" hint-placeholder-count="7">
+            <div class="card" style="overflow:hidden">
+              <div class="ph" style="height:140px"><span style="position:absolute;left:50%;bottom:8px;transform:translateX(-50%);white-space:nowrap;font-family:ui-monospace,monospace;font-size:8px;letter-spacing:.1em;text-transform:uppercase;color:#7a6a52;background:rgba(255,255,255,.74);padding:3px 8px;border-radius:12px">{{ g.tag }}</span></div>
+              <div style="padding:11px 13px;display:flex;align-items:center;justify-content:space-between">
+                <div><div style="font-size:13px;font-weight:500">{{ g.title }}</div><div style="font-size:11px;color:#8a7d6e">{{ g.cat }}</div></div>
+                <div style="display:flex;gap:5px"><span class="ico-btn" title="View" onClick="{{ g.onView }}">👁</span><span class="ico-btn" title="Edit" onClick="{{ g.onEdit }}">✎</span><span class="ico-btn" title="Delete" onClick="{{ g.onDelete }}">🗑</span></div>
+              </div>
+            </div>
+          </sc-for>
+        </div>
+      </div>
+    </sc-if>
+
+    <!-- ============ SLOTS ============ -->
+    <sc-if value="{{ isSlots }}">
+      <div>
+        <div class="topbar">
+          <div><div class="htitle">Slot management</div><div class="hsub">Create slots, edit availability, block time off</div></div>
+          <div class="toolbar"><div class="seg"><button>‹ Prev</button><button class="on">Week of 30 Jun</button><button>Next ›</button></div><button class="btn btn-gold">+ Add slot</button></div>
+        </div>
+        <div class="card" style="padding:20px 22px">
+          <div style="display:flex;gap:18px;margin-bottom:16px;font-size:12px;color:#6b5f54"><span style="display:flex;align-items:center;gap:6px"><span style="width:11px;height:11px;border:1px solid #e2dccf;border-radius:3px;background:#fff"></span> Open</span><span style="display:flex;align-items:center;gap:6px"><span style="width:11px;height:11px;border-radius:3px;background:#f4e6e6"></span> Fully booked</span><span style="display:flex;align-items:center;gap:6px"><span style="width:11px;height:11px;border-radius:3px;background:#ece8e0"></span> Blocked</span></div>
+          <div style="display:grid;grid-template-columns:86px repeat(7,1fr);gap:8px;align-items:center">
+            <div></div>
+            <div style="text-align:center;font-size:11.5px;color:#8a7d6e;font-weight:500">Mon 30</div>
+            <div style="text-align:center;font-size:11.5px;color:#8a7d6e;font-weight:500">Tue 1</div>
+            <div style="text-align:center;font-size:11.5px;color:#8a7d6e;font-weight:500">Wed 2</div>
+            <div style="text-align:center;font-size:11.5px;color:#8a7d6e;font-weight:500">Thu 3</div>
+            <div style="text-align:center;font-size:11.5px;color:#8a7d6e;font-weight:500">Fri 4</div>
+            <div style="text-align:center;font-size:11.5px;color:#8a7d6e;font-weight:500">Sat 5</div>
+            <div style="text-align:center;font-size:11.5px;color:#8a7d6e;font-weight:500">Sun 6</div>
+            <sc-for list="{{ slotRows }}" as="row" hint-placeholder-count="5">
+              <div style="font-size:12px;color:#6b5f54;text-align:right;padding-right:4px">{{ row.time }}</div>
+              <sc-for list="{{ row.cells }}" as="cell" hint-placeholder-count="7">
+                <div class="slotcell {{ cell.cls }}">{{ cell.txt }}</div>
+              </sc-for>
+            </sc-for>
+          </div>
+        </div>
+      </div>
+    </sc-if>
+
+  </main>
+
+  <!-- VIEW / EDIT DRAWER -->
+  <sc-if value="{{ drawerOpen }}">
+    <div>
+      <div class="ov" onClick="{{ closeDrawer }}"></div>
+      <div class="drawer">
+        <div style="padding:22px 26px;border-bottom:1px solid #ece6db;display:flex;align-items:flex-start;justify-content:space-between;gap:14px">
+          <div><div style="font-size:10.5px;letter-spacing:.16em;text-transform:uppercase;color:#8a7d6e">{{ drawerKind }} · {{ drawerModeLabel }}</div><div class="htitle" style="font-size:25px;margin-top:5px">{{ drawerTitle }}</div></div>
+          <span class="ico-btn" onClick="{{ closeDrawer }}">✕</span>
+        </div>
+        <div style="padding:12px 26px 24px;overflow:auto;flex:1">
+          <sc-if value="{{ isViewMode }}">
+            <div>
+              <sc-for list="{{ drawerFields }}" as="f" hint-placeholder-count="5">
+                <div class="drow"><span style="color:#8a7d6e">{{ f.label }}</span><span style="font-weight:500;text-align:right">{{ f.value }}</span></div>
+              </sc-for>
+            </div>
+          </sc-if>
+          <sc-if value="{{ isEditMode }}">
+            <div style="display:flex;flex-direction:column;gap:15px;padding-top:12px">
+              <sc-for list="{{ drawerFields }}" as="f" hint-placeholder-count="5">
+                <div><label style="font-size:11.5px;letter-spacing:.04em;color:#6b5f54;display:block;margin-bottom:6px">{{ f.label }}</label><input class="fld" value="{{ f.value }}" onInput="{{ f.onInput }}"></div>
+              </sc-for>
+            </div>
+          </sc-if>
+        </div>
+        <div style="padding:16px 26px;border-top:1px solid #ece6db;display:flex;gap:10px;justify-content:flex-end">
+          <sc-if value="{{ isViewMode }}">
+            <button class="btn btn-line" onClick="{{ closeDrawer }}">Close</button>
+          </sc-if>
+          <sc-if value="{{ isEditMode }}">
+            <button class="btn btn-line" onClick="{{ closeDrawer }}">Cancel</button>
+            <button class="btn btn-gold" onClick="{{ saveEdit }}">Save changes</button>
+          </sc-if>
+        </div>
+      </div>
+    </div>
+  </sc-if>
+
+  <!-- DELETE CONFIRMATION -->
+  <sc-if value="{{ confirmOpen }}">
+    <div>
+      <div class="ov" onClick="{{ cancelDelete }}"></div>
+      <div class="modal">
+        <div style="width:56px;height:56px;border-radius:50%;background:#f4e6e6;color:#a8595a;display:flex;align-items:center;justify-content:center;font-size:22px;margin:0 auto 16px">🗑</div>
+        <div class="htitle" style="font-size:24px">Delete this {{ confirmKind }}?</div>
+        <p style="font-size:13.5px;color:#6b5f54;font-weight:300;margin:10px 0 0;line-height:1.55">You're about to permanently delete <b style="color:#2e2823;font-weight:500">{{ confirmName }}</b>. This action can't be undone.</p>
+        <div style="display:flex;gap:10px;justify-content:center;margin-top:24px">
+          <button class="btn btn-line" onClick="{{ cancelDelete }}" style="min-width:120px">Cancel</button>
+          <button class="btn" onClick="{{ doDelete }}" style="min-width:120px;background:#a8595a;color:#fff">Delete</button>
+        </div>
+      </div>
+    </div>
+  </sc-if>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script>
+class Component extends DCLogic {
+  state = { view: 'dashboard', drawer: null, draft: null, confirm: null };
+
+  appointments = [
+    { ref: 'AP-2041', client: 'Meera J.', service: 'Hydra Facial', when: '30 Jun · 10:00', artist: 'Priya', status: 'Checked in', badge: 'b-green' },
+    { ref: 'AP-2052', client: 'Sara K.', service: 'Hair colour', when: '30 Jun · 1:00', artist: 'Sneha', status: 'In chair', badge: 'b-blue' },
+    { ref: 'AP-2068', client: 'Nidhi P.', service: 'Threading + cleanup', when: '30 Jun · 3:30', artist: 'Priya', status: 'Upcoming', badge: 'b-amber' },
+    { ref: 'AP-2071', client: 'Reena M.', service: 'Pedicure', when: '30 Jun · 5:00', artist: 'Anjali', status: 'Upcoming', badge: 'b-amber' },
+    { ref: 'AP-2080', client: 'Kavya S.', service: 'Hair Wash & Blow Dry', when: '1 Jul · 11:00', artist: 'Sneha', status: 'Confirmed', badge: 'b-green' },
+    { ref: 'AP-2084', client: 'Pooja D.', service: 'Waxing — Full arms', when: '1 Jul · 2:00', artist: 'Anjali', status: 'Pending', badge: 'b-amber' },
+  ];
+  bookings = [
+    { ref: 'BK-1180', title: 'Bridal Makeup — Wedding', client: 'Aditi R.', detail: 'HD + Hair + Saree draping', date: '23 Nov 2026', value: '₹18,000', status: 'Confirmed', badge: 'b-green', cta: 'Manage' },
+    { ref: 'BK-1192', title: 'Pre-Bridal Package', client: 'Sneha T.', detail: '5 sessions · 2 completed', date: 'Ends 18 Nov', value: '₹12,000', status: 'In progress', badge: 'b-blue', cta: 'Update' },
+    { ref: 'BK-1205', title: 'Event / Party Makeup', client: 'Riya M.', detail: 'Sangeet · 3 guests', date: '12 Aug 2026', value: '₹9,500', status: 'Pending approval', badge: 'b-amber', cta: 'Approve' },
+  ];
+  services = [
+    { name: 'Hair Spa', cat: 'Hair Care', dur: '60 min', price: '₹899', status: 'Active', badge: 'b-green' },
+    { name: 'Hair Colouring', cat: 'Hair Care', dur: '90–120 min', price: '₹1,499', status: 'Active', badge: 'b-green' },
+    { name: 'Hydra Facial', cat: 'Skin & Face', dur: '60 min', price: '₹1,299', status: 'Active', badge: 'b-green' },
+    { name: 'Anti-Aging Facial', cat: 'Skin & Face', dur: '75 min', price: '₹1,799', status: 'Active', badge: 'b-green' },
+    { name: 'Body Polishing', cat: 'Body Care', dur: '60 min', price: '₹1,999', status: 'Active', badge: 'b-green' },
+    { name: 'Bridal Makeup (HD)', cat: 'Bridal', dur: 'Full day', price: '₹8,000', status: 'Active', badge: 'b-green' },
+    { name: 'Airbrush Makeup', cat: 'Bridal', dur: 'Full day', price: '₹12,000', status: 'Draft', badge: 'b-grey' },
+  ];
+  gallery = [
+    { title: 'Royal bridal', cat: 'Bridal transformations', tag: 'Bridal' },
+    { title: 'Sangeet glam', cat: 'Party makeup', tag: 'Party' },
+    { title: 'Honey balayage', cat: 'Hair coloring', tag: 'Hair' },
+    { title: 'Glass-skin facial', cat: 'Skin treatment', tag: 'Skin' },
+    { title: 'Keratin smoothing', cat: 'Hair spa', tag: 'Hair' },
+    { title: 'HD cert. 2025', cat: 'Achievements', tag: 'Cert' },
+    { title: 'Bridal workshop', cat: 'Achievements', tag: 'Event' },
+  ];
+
+  fieldCfg = {
+    services: [['name','Service name'],['cat','Category'],['dur','Duration'],['price','Price'],['status','Status']],
+    appointments: [['client','Client'],['service','Service'],['when','Date & time'],['artist','Artist'],['status','Status'],['ref','Reference']],
+    gallery: [['title','Title'],['cat','Category'],['tag','Tag']],
+    bookings: [['title','Booking'],['client','Client'],['detail','Details'],['date','Event date'],['value','Value'],['status','Status'],['ref','Reference']],
+  };
+  kindLabel = { services:'Service', appointments:'Appointment', gallery:'Gallery item', bookings:'Booking' };
+  titleKey = { services:'name', appointments:'client', gallery:'title', bookings:'title' };
+
+  data() { return { services:this.services, appointments:this.appointments, gallery:this.gallery, bookings:this.bookings }; }
+  openDrawer(kind, idx, mode) { const item = this.data()[kind][idx]; this.setState({ drawer:{ kind, idx, mode }, draft: mode==='edit' ? { ...item } : null }); }
+  closeDrawer() { this.setState({ drawer:null, draft:null }); }
+  setDraft(key, val) { this.setState(s => ({ draft: { ...s.draft, [key]: val } })); }
+  saveEdit() { const d = this.state.drawer, dr = this.state.draft; if (d && dr) Object.assign(this.data()[d.kind][d.idx], dr); this.setState({ drawer:null, draft:null }); }
+  askDelete(kind, idx) { this.setState({ confirm:{ kind, idx } }); }
+  doDelete() { const c = this.state.confirm; if (c) this.data()[c.kind].splice(c.idx, 1); this.setState({ confirm:null }); }
+
+  buildSlots() {
+    const times = ['11:00 AM','11:30 AM','12:00 PM','12:30 PM','1:00 PM','1:30 PM','2:00 PM','2:30 PM','3:00 PM','3:30 PM','4:00 PM','4:30 PM','5:00 PM','5:30 PM','6:00 PM','6:30 PM','7:00 PM','7:30 PM','8:00 PM','8:30 PM'];
+    const txtFor = { open: 'Open', full: 'Full', block: '—' };
+    return times.map((time, r) => ({
+      time,
+      cells: Array.from({ length: 7 }, (_, d) => {
+        const n = (r * 5 + d * 3) % 11;
+        const st = n === 0 ? 'block' : (n < 3 ? 'full' : 'open');
+        return { cls: st, txt: txtFor[st] };
+      })
+    }));
+  }
+
+  renderVals() {
+    const s = this.state;
+    const v = s.view;
+    const nav = ['dashboard','appointments','bookings','services','gallery','slots'];
+    const c = {}; const go = {};
+    nav.forEach(n => { c[n] = v === n ? 'on' : ''; go[n] = () => this.setState({ view: n }); });
+
+    const withActions = (kind) => this.data()[kind].map((it, i) => ({
+      ...it,
+      onView: () => this.openDrawer(kind, i, 'view'),
+      onEdit: () => this.openDrawer(kind, i, 'edit'),
+      onDelete: () => this.askDelete(kind, i),
+    }));
+
+    const dr = s.drawer;
+    let drawerFields = [], drawerTitle = '', drawerKind = '', isEdit = false;
+    if (dr) {
+      const item = this.data()[dr.kind][dr.idx];
+      const src = dr.mode === 'edit' ? s.draft : item;
+      isEdit = dr.mode === 'edit';
+      drawerKind = this.kindLabel[dr.kind];
+      drawerTitle = (item ? item[this.titleKey[dr.kind]] : '') || '';
+      drawerFields = this.fieldCfg[dr.kind].map(([k, label]) => ({
+        label, value: src ? (src[k] || '') : '',
+        onInput: e => this.setDraft(k, e.target.value),
+      }));
+    }
+    const cf = s.confirm;
+    let confirmName = '', confirmKind = '';
+    if (cf) { const it = this.data()[cf.kind][cf.idx]; confirmName = it ? (it[this.titleKey[cf.kind]] || '') : ''; confirmKind = this.kindLabel[cf.kind].toLowerCase(); }
+
+    return {
+      c, go,
+      isDashboard: v === 'dashboard', isAppointments: v === 'appointments', isBookings: v === 'bookings',
+      isServices: v === 'services', isGallery: v === 'gallery', isSlots: v === 'slots',
+      appointments: withActions('appointments'), bookings: withActions('bookings'),
+      services: withActions('services'), gallery: withActions('gallery'),
+      slotRows: this.buildSlots(),
+      // drawer
+      drawerOpen: !!dr, isEditMode: isEdit, isViewMode: !!dr && !isEdit,
+      drawerFields, drawerTitle, drawerKind, drawerModeLabel: isEdit ? 'Edit' : 'View',
+      closeDrawer: () => this.closeDrawer(), saveEdit: () => this.saveEdit(),
+      // confirm
+      confirmOpen: !!cf, confirmName, confirmKind,
+      doDelete: () => this.doDelete(), cancelDelete: () => this.setState({ confirm:null }),
+    };
+  }
+}
+</script>
+</body>
+</html>

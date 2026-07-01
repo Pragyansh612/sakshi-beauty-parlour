@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet data-dc-atomics>
+<title>Contact — Sakshi Beauty Parlour</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500&family=Dancing+Script:wght@500;600;700&family=Jost:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+  *{box-sizing:border-box}
+  html{scroll-behavior:smooth}
+  body{margin:0;background:#FAF6EF;color:#2e2823;font-family:'Jost',system-ui,sans-serif;-webkit-font-smoothing:antialiased}
+  ::selection{background:#e7d3ab}
+  .wrap{max-width:1240px;margin:0 auto;padding:0 44px}
+  .nav{position:sticky;top:0;z-index:100;background:rgba(250,246,239,.82);backdrop-filter:blur(12px);border-bottom:1px solid #e7dcc8}
+  .nav-in{max-width:1240px;margin:0 auto;padding:16px 44px;display:flex;align-items:center;justify-content:space-between;gap:24px}
+  .logo{font-family:'Cormorant Garamond',serif;font-weight:500;font-size:25px;line-height:.86;letter-spacing:.01em;text-decoration:none;color:#2e2823}
+  .logo small{display:block;font-family:'Jost',sans-serif;font-weight:400;font-size:8px;letter-spacing:.42em;text-transform:uppercase;color:#b5904f;margin-top:4px}
+  .navlinks{display:flex;gap:30px;list-style:none;margin:0;padding:0}
+  .navlinks a{text-decoration:none;font-size:13.5px;font-weight:400;letter-spacing:.02em;color:#4a4038;position:relative;padding:4px 0;transition:color .18s}
+  .navlinks a:hover{color:#b5904f}
+  .navlinks a.active{color:#b5904f}
+  .navlinks a.active::after{content:"";position:absolute;left:0;right:0;bottom:-2px;height:1px;background:#b5904f}
+  .navcta{display:flex;align-items:center;gap:18px}
+  .navphone{font-size:13px;color:#6b5f54;text-decoration:none;white-space:nowrap}
+  .navphone b{color:#2e2823;font-weight:500}
+  .btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;text-decoration:none;border-radius:30px;font-family:'Jost',sans-serif;font-weight:500;font-size:13.5px;letter-spacing:.02em;padding:13px 26px;cursor:pointer;border:none;transition:transform .16s,box-shadow .22s,border-color .18s,color .18s}
+  .btn-dark{background:#2e2823;color:#f6ede0}
+  .btn-dark:hover{box-shadow:0 12px 26px -10px rgba(46,40,35,.6);transform:translateY(-1px)}
+  .btn-ghost{background:transparent;color:#2e2823;border:1px solid #d8c6a6}
+  .btn-ghost:hover{border-color:#b5904f;color:#b5904f}
+  .btn-gold{background:#b5904f;color:#fff}
+  .btn-gold:hover{box-shadow:0 12px 26px -10px rgba(181,144,79,.7);transform:translateY(-1px)}
+  .btn-lg{padding:16px 32px;font-size:14.5px}
+  .eyebrow{font-family:ui-monospace,Menlo,monospace;font-size:11px;letter-spacing:.32em;text-transform:uppercase;color:#b5904f;margin:0}
+  .hs{font-family:'Cormorant Garamond',serif;font-weight:500;letter-spacing:-.01em;color:#2e2823;margin:0}
+  .script{font-family:'Dancing Script',cursive;color:#b5904f;font-weight:600}
+  .lead{font-weight:300;color:#6b5f54;line-height:1.65}
+  .ph{position:relative;overflow:hidden;background:linear-gradient(150deg,#f3e3dc,#efe1d0)}
+  .ph::before{content:"";position:absolute;inset:0;background-image:repeating-linear-gradient(135deg,rgba(181,144,79,.08) 0 12px,transparent 12px 24px)}
+  .card{background:#fff;border:1px solid #eee3d4;border-radius:18px}
+  .fld{width:100%;border:1px solid #e2d3b8;border-radius:12px;padding:13px 15px;font-family:'Jost',sans-serif;font-size:14px;color:#2e2823;background:#fff;outline:none;transition:border-color .18s}
+  .fld:focus{border-color:#b5904f}
+  textarea.fld{resize:vertical;min-height:110px}
+  .flabel{font-size:12px;letter-spacing:.04em;color:#6b5f54;font-weight:400;margin-bottom:7px;display:block}
+  .crow{display:flex;gap:16px;align-items:flex-start;padding:20px 0;border-bottom:1px solid #eee3d4}
+  .cicon{width:46px;height:46px;border-radius:12px;flex:none;background:#f6ecdb;display:flex;align-items:center;justify-content:center;color:#b5904f;font-size:18px}
+  .foot a{transition:color .18s}.foot a:hover{color:#d9b97e}
+</style>
+</helmet>
+
+<div>
+  <nav class="nav">
+    <div class="nav-in">
+      <a class="logo" href="Sakshi Beauty Parlour.dc.html">Sakshi<small>Beauty Parlour</small></a>
+      <ul class="navlinks">
+        <li><a href="Sakshi Beauty Parlour.dc.html">Home</a></li>
+        <li><a href="Services.dc.html">Services</a></li>
+        <li><a href="Gallery.dc.html">Gallery</a></li>
+        <li><a href="About.dc.html">About</a></li>
+        <li><a class="active" href="Contact.dc.html">Contact</a></li>
+      </ul>
+      <div class="navcta">
+        <a class="navphone" href="tel:+919876543210">☎ <b>+91 98765 43210</b></a>
+        <a class="btn btn-dark" href="Booking.dc.html">Book Appointment</a>
+      </div>
+    </div>
+  </nav>
+
+  <header class="wrap" style="padding-top:60px;padding-bottom:36px;text-align:center">
+    <p class="eyebrow" style="margin-bottom:16px">We'd love to hear from you</p>
+    <h1 class="hs" style="font-size:62px;line-height:1.04">Get in <span class="script" style="font-size:74px">touch</span></h1>
+    <p class="lead" style="font-size:17px;max-width:540px;margin:18px auto 0">Call, WhatsApp or drop by the studio. For the quickest response, a call or WhatsApp message always reaches us first.</p>
+  </header>
+
+  <!-- QUICK CONTACT CARDS -->
+  <section class="wrap" style="padding-bottom:30px">
+    <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:20px">
+      <a href="tel:+919876543210" style="text-decoration:none"><div class="card" style="padding:30px 28px;text-align:center;transition:transform .2s,box-shadow .25s" onmouseover="this.style.transform='translateY(-4px)';this.style.boxShadow='0 24px 46px -28px rgba(60,45,30,.5)'" onmouseout="this.style.transform='';this.style.boxShadow=''"><div style="width:54px;height:54px;border-radius:50%;background:#2e2823;color:#f6ede0;display:flex;align-items:center;justify-content:center;font-size:20px;margin:0 auto 16px">☎</div><h3 class="hs" style="font-size:24px">Call us</h3><p class="lead" style="font-size:13px;margin-top:4px">Fastest way to book</p><div style="margin-top:10px;font-size:15px;font-weight:500;color:#b5904f">+91 98765 43210</div></div></a>
+      <a href="https://wa.me/919876543210" style="text-decoration:none"><div class="card" style="padding:30px 28px;text-align:center;transition:transform .2s,box-shadow .25s" onmouseover="this.style.transform='translateY(-4px)';this.style.boxShadow='0 24px 46px -28px rgba(60,45,30,.5)'" onmouseout="this.style.transform='';this.style.boxShadow=''"><div style="width:54px;height:54px;border-radius:50%;background:#b5904f;color:#fff;display:flex;align-items:center;justify-content:center;font-size:20px;margin:0 auto 16px">✆</div><h3 class="hs" style="font-size:24px">WhatsApp</h3><p class="lead" style="font-size:13px;margin-top:4px">Send us your queries</p><div style="margin-top:10px;font-size:15px;font-weight:500;color:#b5904f">+91 98765 43210</div></div></a>
+      <div class="card" style="padding:30px 28px;text-align:center"><div style="font-size:13px;font-weight:500;letter-spacing:.04em;color:#6b5f54;text-transform:uppercase">Follow us</div><div style="display:flex;justify-content:center;gap:14px;margin:16px 0 14px">
+        <a href="https://instagram.com" aria-label="Instagram" style="width:48px;height:48px;border-radius:50%;background:#f6ecdb;color:#b5904f;display:flex;align-items:center;justify-content:center;transition:background .18s,color .18s" onmouseover="this.style.background='#b5904f';this.style.color='#fff'" onmouseout="this.style.background='#f6ecdb';this.style.color='#b5904f'"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><rect x="3.5" y="3.5" width="17" height="17" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.2" cy="6.8" r="1.1" fill="currentColor" stroke="none"/></svg></a>
+        <a href="https://facebook.com" aria-label="Facebook" style="width:48px;height:48px;border-radius:50%;background:#f6ecdb;color:#b5904f;display:flex;align-items:center;justify-content:center;transition:background .18s,color .18s" onmouseover="this.style.background='#b5904f';this.style.color='#fff'" onmouseout="this.style.background='#f6ecdb';this.style.color='#b5904f'"><svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M13.5 21v-7h2.3l.4-2.9h-2.7V9.2c0-.84.27-1.4 1.46-1.4H16.3V5.2c-.27-.04-1.2-.12-2.27-.12-2.25 0-3.8 1.37-3.8 3.9v2.18H7.9V14h2.33v7z"/></svg></a>
+        <a href="https://youtube.com" aria-label="YouTube" style="width:48px;height:48px;border-radius:50%;background:#f6ecdb;color:#b5904f;display:flex;align-items:center;justify-content:center;transition:background .18s,color .18s" onmouseover="this.style.background='#b5904f';this.style.color='#fff'" onmouseout="this.style.background='#f6ecdb';this.style.color='#b5904f'"><svg width="21" height="21" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><rect x="2.5" y="6" width="19" height="12" rx="4"/><path d="M10.3 9.3l4.8 2.7-4.8 2.7z" fill="currentColor" stroke="none"/></svg></a>
+      </div><div style="font-size:15px;font-weight:500;color:#b5904f">@sakshibeautyparlour</div></div>
+    </div>
+  </section>
+
+  <!-- DETAILS + FORM -->
+  <section class="wrap" style="padding-top:30px;padding-bottom:30px">
+    <div style="display:grid;grid-template-columns:1fr 1.05fr;gap:40px;align-items:start">
+      <!-- details -->
+      <div>
+        <h2 class="hs" style="font-size:34px">Studio details</h2>
+        <div style="margin-top:14px">
+          <div class="crow"><div class="cicon">⚲</div><div><div style="font-size:14px;font-weight:500">Address</div><div class="lead" style="font-size:14px;margin-top:3px">Shop 14, Rose Arcade, FC Road,<br>Shivaji Nagar, Pune 411005</div></div></div>
+          <div class="crow"><div class="cicon">☎</div><div><div style="font-size:14px;font-weight:500">Phone &amp; WhatsApp</div><div class="lead" style="font-size:14px;margin-top:3px"><a href="tel:+919876543210" style="color:#b5904f;text-decoration:none">+91 98765 43210</a></div></div></div>
+          <div class="crow"><div class="cicon">✉</div><div><div style="font-size:14px;font-weight:500">Email</div><div class="lead" style="font-size:14px;margin-top:3px"><a href="/cdn-cgi/l/email-protection#9df5f8f1f1f2ddeefcf6eef5f4fff8fce8e9e4b3f4f3" style="color:#b5904f;text-decoration:none"><span class="__cf_email__" data-cfemail="4a222f2626250a392b21392223282f2b3f3e33642324">[email&#160;protected]</span></a></div></div></div>
+          <div class="crow" style="border-bottom:none"><div class="cicon">◷</div><div><div style="font-size:14px;font-weight:500">Working hours</div><div class="lead" style="font-size:14px;margin-top:3px">Monday – Sunday<br>11:00 AM – 9:00 PM</div></div></div>
+        </div>
+        <!-- map -->
+        <div class="ph" style="height:230px;border-radius:16px;margin-top:24px;background:linear-gradient(150deg,#e9e2d4,#ddd5c4)">
+          <div style="position:absolute;inset:0;background-image:linear-gradient(rgba(181,144,79,.12) 1px,transparent 1px),linear-gradient(90deg,rgba(181,144,79,.12) 1px,transparent 1px);background-size:38px 38px"></div>
+          <div style="position:absolute;left:50%;top:46%;transform:translate(-50%,-50%);width:18px;height:18px;border-radius:50% 50% 50% 0;background:#b5904f;transform:translate(-50%,-50%) rotate(-45deg);box-shadow:0 8px 18px -6px rgba(181,144,79,.8)"></div>
+          <span style="position:absolute;left:50%;bottom:16px;transform:translateX(-50%);white-space:nowrap;padding:6px 14px;font-family:ui-monospace,Menlo,monospace;font-size:9px;letter-spacing:.16em;text-transform:uppercase;color:#7a6a52;background:rgba(255,255,255,.82);border-radius:20px">Google Map embed · FC Road, Pune</span>
+        </div>
+      </div>
+
+      <!-- form -->
+      <div class="card" style="padding:40px 40px">
+        <h2 class="hs" style="font-size:30px">Send a message</h2>
+        <p class="lead" style="font-size:14px;margin:6px 0 24px">We'll get back to you within a few hours during salon hours.</p>
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:18px">
+          <div><label class="flabel">Your name</label><input class="fld" placeholder="Full name"></div>
+          <div><label class="flabel">Phone</label><input class="fld" placeholder="+91"></div>
+          <div style="grid-column:1/3"><label class="flabel">Service of interest</label><input class="fld" placeholder="Bridal makeup, facial, hair…"></div>
+          <div style="grid-column:1/3"><label class="flabel">Message</label><textarea class="fld" placeholder="Tell us how we can help…"></textarea></div>
+        </div>
+        <button class="btn btn-gold btn-lg" style="width:100%;margin-top:22px">Send message</button>
+        <div style="text-align:center;margin-top:14px"><a href="https://wa.me/919876543210" style="font-size:13px;color:#b5904f;text-decoration:none">…or message us instantly on WhatsApp →</a></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA -->
+  <section class="wrap" style="padding-top:34px;padding-bottom:74px">
+    <div style="background:#2e2823;border-radius:24px;padding:50px 54px;text-align:center">
+      <div class="script" style="font-size:40px;color:#d9b97e;line-height:.8">Visit us</div>
+      <h2 class="hs" style="color:#f6ede0;font-size:34px;margin-top:10px">Walk in, or reserve ahead</h2>
+      <p style="color:#cdbfae;font-weight:300;font-size:15px;margin:10px auto 26px;max-width:440px">We welcome walk-ins, but booking ahead means your preferred artist and time are reserved just for you.</p>
+      <div style="display:flex;gap:13px;justify-content:center;flex-wrap:wrap"><a class="btn btn-gold btn-lg" href="Booking.dc.html">Book appointment</a><a class="btn btn-ghost btn-lg" href="tel:+919876543210" style="color:#f6ede0;border-color:#5a5048">☎ Call now</a></div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer class="foot" style="background:#2e2823;color:#cdbfae">
+    <div class="wrap" style="padding-top:60px;padding-bottom:40px;display:grid;grid-template-columns:1.4fr 1fr 1fr 1.2fr;gap:40px">
+      <div>
+        <div class="logo" style="color:#f6ede0">Sakshi<small style="color:#d9b97e">Beauty Parlour</small></div>
+        <p style="font-weight:300;font-size:14px;line-height:1.7;margin:20px 0 0;max-width:260px;color:#b6a895">Premium salon &amp; bridal studio. Skin, hair, body and bridal artistry — with quiet luxury at every step.</p>
+        <div style="margin-top:22px;display:flex;align-items:center;gap:11px"><a href="https://instagram.com" aria-label="Instagram" style="width:40px;height:40px;border-radius:50%;border:1px solid #5a5048;display:flex;align-items:center;justify-content:center;color:#cdbfae;transition:border-color .18s,color .18s" onmouseover="this.style.borderColor='#d9b97e';this.style.color='#d9b97e'" onmouseout="this.style.borderColor='#5a5048';this.style.color='#cdbfae'"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><rect x="3.5" y="3.5" width="17" height="17" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.2" cy="6.8" r="1.1" fill="currentColor" stroke="none"/></svg></a><a href="https://facebook.com" aria-label="Facebook" style="width:40px;height:40px;border-radius:50%;border:1px solid #5a5048;display:flex;align-items:center;justify-content:center;color:#cdbfae;transition:border-color .18s,color .18s" onmouseover="this.style.borderColor='#d9b97e';this.style.color='#d9b97e'" onmouseout="this.style.borderColor='#5a5048';this.style.color='#cdbfae'"><svg width="17" height="17" viewBox="0 0 24 24" fill="currentColor"><path d="M13.5 21v-7h2.3l.4-2.9h-2.7V9.2c0-.84.27-1.4 1.46-1.4H16.3V5.2c-.27-.04-1.2-.12-2.27-.12-2.25 0-3.8 1.37-3.8 3.9v2.18H7.9V14h2.33v7z"/></svg></a><a href="https://youtube.com" aria-label="YouTube" style="width:40px;height:40px;border-radius:50%;border:1px solid #5a5048;display:flex;align-items:center;justify-content:center;color:#cdbfae;transition:border-color .18s,color .18s" onmouseover="this.style.borderColor='#d9b97e';this.style.color='#d9b97e'" onmouseout="this.style.borderColor='#5a5048';this.style.color='#cdbfae'"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><rect x="2.5" y="6" width="19" height="12" rx="4"/><path d="M10.3 9.3l4.8 2.7-4.8 2.7z" fill="currentColor" stroke="none"/></svg></a><span style="font-size:12.5px;color:#8a7d6e;font-weight:300;margin-left:3px">@sakshibeautyparlour</span></div>
+      </div>
+      <div>
+        <div style="font-size:12px;letter-spacing:.18em;text-transform:uppercase;color:#8a7d6e;margin-bottom:18px">Explore</div>
+        <div style="display:flex;flex-direction:column;gap:11px;font-weight:300;font-size:14px">
+          <a href="Sakshi Beauty Parlour.dc.html" style="color:#cdbfae;text-decoration:none">Home</a>
+          <a href="Services.dc.html" style="color:#cdbfae;text-decoration:none">Services</a>
+          <a href="Gallery.dc.html" style="color:#cdbfae;text-decoration:none">Gallery</a>
+          <a href="About.dc.html" style="color:#cdbfae;text-decoration:none">About Us</a>
+          <a href="Contact.dc.html" style="color:#cdbfae;text-decoration:none">Contact</a>
+        </div>
+      </div>
+      <div>
+        <div style="font-size:12px;letter-spacing:.18em;text-transform:uppercase;color:#8a7d6e;margin-bottom:18px">Account</div>
+        <div style="display:flex;flex-direction:column;gap:11px;font-weight:300;font-size:14px">
+          <a href="Booking.dc.html" style="color:#cdbfae;text-decoration:none">Book appointment</a>
+          <a href="Login.dc.html" style="color:#cdbfae;text-decoration:none">Login</a>
+          <a href="Login.dc.html" style="color:#cdbfae;text-decoration:none">Register</a>
+          <a href="Dashboard.dc.html" style="color:#cdbfae;text-decoration:none">My dashboard</a>
+        </div>
+      </div>
+      <div>
+        <div style="font-size:12px;letter-spacing:.18em;text-transform:uppercase;color:#8a7d6e;margin-bottom:18px">Visit us</div>
+        <div style="font-weight:300;font-size:14px;line-height:1.7;color:#cdbfae">
+          Shop 14, Rose Arcade,<br>FC Road, Shivaji Nagar,<br>Pune 411005<br><br>
+          <a href="tel:+919876543210" style="color:#f6ede0;text-decoration:none">+91 98765 43210</a><br>
+          <span style="color:#8a7d6e">Mon–Sun · 11:00 AM – 9:00 PM</span>
+        </div>
+      </div>
+    </div>
+    <div style="border-top:1px solid #463e36"><div class="wrap" style="padding:22px 44px;display:flex;justify-content:space-between;flex-wrap:wrap;gap:10px;font-size:12px;color:#8a7d6e;font-weight:300"><span>© 2026 Sakshi Beauty Parlour. All rights reserved.</span><span>Crafted with care in Pune.</span></div></div>
+  </footer>
+</div>
+</x-dc>
+<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script></body>
+</html>

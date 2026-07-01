@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet data-dc-atomics>
+<title>About — Sakshi Beauty Parlour</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500&family=Dancing+Script:wght@500;600;700&family=Jost:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+  *{box-sizing:border-box}
+  html{scroll-behavior:smooth}
+  body{margin:0;background:#FAF6EF;color:#2e2823;font-family:'Jost',system-ui,sans-serif;-webkit-font-smoothing:antialiased}
+  ::selection{background:#e7d3ab}
+  .wrap{max-width:1240px;margin:0 auto;padding:0 44px}
+  .nav{position:sticky;top:0;z-index:100;background:rgba(250,246,239,.82);backdrop-filter:blur(12px);border-bottom:1px solid #e7dcc8}
+  .nav-in{max-width:1240px;margin:0 auto;padding:16px 44px;display:flex;align-items:center;justify-content:space-between;gap:24px}
+  .logo{font-family:'Cormorant Garamond',serif;font-weight:500;font-size:25px;line-height:.86;letter-spacing:.01em;text-decoration:none;color:#2e2823}
+  .logo small{display:block;font-family:'Jost',sans-serif;font-weight:400;font-size:8px;letter-spacing:.42em;text-transform:uppercase;color:#b5904f;margin-top:4px}
+  .navlinks{display:flex;gap:30px;list-style:none;margin:0;padding:0}
+  .navlinks a{text-decoration:none;font-size:13.5px;font-weight:400;letter-spacing:.02em;color:#4a4038;position:relative;padding:4px 0;transition:color .18s}
+  .navlinks a:hover{color:#b5904f}
+  .navlinks a.active{color:#b5904f}
+  .navlinks a.active::after{content:"";position:absolute;left:0;right:0;bottom:-2px;height:1px;background:#b5904f}
+  .navcta{display:flex;align-items:center;gap:18px}
+  .navphone{font-size:13px;color:#6b5f54;text-decoration:none;white-space:nowrap}
+  .navphone b{color:#2e2823;font-weight:500}
+  .btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;text-decoration:none;border-radius:30px;font-family:'Jost',sans-serif;font-weight:500;font-size:13.5px;letter-spacing:.02em;padding:13px 26px;cursor:pointer;border:none;transition:transform .16s,box-shadow .22s,border-color .18s,color .18s}
+  .btn-dark{background:#2e2823;color:#f6ede0}
+  .btn-dark:hover{box-shadow:0 12px 26px -10px rgba(46,40,35,.6);transform:translateY(-1px)}
+  .btn-ghost{background:transparent;color:#2e2823;border:1px solid #d8c6a6}
+  .btn-ghost:hover{border-color:#b5904f;color:#b5904f}
+  .btn-gold{background:#b5904f;color:#fff}
+  .btn-gold:hover{box-shadow:0 12px 26px -10px rgba(181,144,79,.7);transform:translateY(-1px)}
+  .btn-lg{padding:16px 32px;font-size:14.5px}
+  .eyebrow{font-family:ui-monospace,Menlo,monospace;font-size:11px;letter-spacing:.32em;text-transform:uppercase;color:#b5904f;margin:0}
+  .hs{font-family:'Cormorant Garamond',serif;font-weight:500;letter-spacing:-.01em;color:#2e2823;margin:0}
+  .script{font-family:'Dancing Script',cursive;color:#b5904f;font-weight:600}
+  .lead{font-weight:300;color:#6b5f54;line-height:1.7}
+  .ph{position:relative;overflow:hidden;background:linear-gradient(150deg,#f3e3dc,#efe1d0)}
+  .ph::before{content:"";position:absolute;inset:0;background-image:repeating-linear-gradient(135deg,rgba(181,144,79,.08) 0 12px,transparent 12px 24px)}
+  .ph-tag{position:absolute;left:50%;bottom:16px;transform:translateX(-50%);white-space:nowrap;padding:5px 13px;font-family:ui-monospace,Menlo,monospace;font-size:9px;letter-spacing:.16em;text-transform:uppercase;color:#7a6a52;background:rgba(255,255,255,.72);border-radius:20px;z-index:2}
+  .card{background:#fff;border:1px solid #eee3d4;border-radius:18px}
+  .foot a{transition:color .18s}.foot a:hover{color:#d9b97e}
+</style>
+</helmet>
+
+<div>
+  <nav class="nav">
+    <div class="nav-in">
+      <a class="logo" href="Sakshi Beauty Parlour.dc.html">Sakshi<small>Beauty Parlour</small></a>
+      <ul class="navlinks">
+        <li><a href="Sakshi Beauty Parlour.dc.html">Home</a></li>
+        <li><a href="Services.dc.html">Services</a></li>
+        <li><a href="Gallery.dc.html">Gallery</a></li>
+        <li><a class="active" href="About.dc.html">About</a></li>
+        <li><a href="Contact.dc.html">Contact</a></li>
+      </ul>
+      <div class="navcta">
+        <a class="navphone" href="tel:+919876543210">☎ <b>+91 98765 43210</b></a>
+        <a class="btn btn-dark" href="Booking.dc.html">Book Appointment</a>
+      </div>
+    </div>
+  </nav>
+
+  <!-- HERO -->
+  <header class="wrap" style="padding-top:60px;padding-bottom:30px">
+    <div style="display:grid;grid-template-columns:1.1fr 1fr;gap:56px;align-items:center">
+      <div>
+        <p class="eyebrow" style="margin-bottom:20px">Our story</p>
+        <h1 class="hs" style="font-size:64px;line-height:1.03">A studio built on <span class="script" style="font-size:74px;display:inline-block;line-height:.8">trust</span></h1>
+        <p class="lead" style="font-size:17px;margin:24px 0 0;max-width:440px">Sakshi Beauty Parlour began with a simple belief: every woman deserves to feel beautifully herself — cared for by people she can trust, in a space that feels calm and luxurious.</p>
+        <p class="lead" style="font-size:15px;margin:16px 0 0;max-width:440px">Twelve years on, we're proud to be one of Pune's most-loved bridal and beauty studios — but our approach hasn't changed. Listen first. Personalise everything. Never rush.</p>
+      </div>
+      <div class="ph" style="height:480px;border-radius:24px 24px 200px 200px"><span class="ph-tag">Founder · portrait</span></div>
+    </div>
+  </header>
+
+  <!-- STATS BAND -->
+  <section class="wrap" style="padding-top:44px;padding-bottom:44px">
+    <div class="card" style="display:grid;grid-template-columns:repeat(4,1fr);overflow:hidden">
+      <div style="padding:34px 30px;text-align:center;border-right:1px solid #eee3d4"><div class="hs" style="font-weight:600;font-size:42px;color:#b5904f">12+</div><div class="lead" style="font-size:12px;letter-spacing:.1em;text-transform:uppercase;margin-top:4px">Years of artistry</div></div>
+      <div style="padding:34px 30px;text-align:center;border-right:1px solid #eee3d4"><div class="hs" style="font-weight:600;font-size:42px;color:#b5904f">600+</div><div class="lead" style="font-size:12px;letter-spacing:.1em;text-transform:uppercase;margin-top:4px">Brides styled</div></div>
+      <div style="padding:34px 30px;text-align:center;border-right:1px solid #eee3d4"><div class="hs" style="font-weight:600;font-size:42px;color:#b5904f">8k+</div><div class="lead" style="font-size:12px;letter-spacing:.1em;text-transform:uppercase;margin-top:4px">Happy clients</div></div>
+      <div style="padding:34px 30px;text-align:center"><div class="hs" style="font-weight:600;font-size:42px;color:#b5904f">4.9★</div><div class="lead" style="font-size:12px;letter-spacing:.1em;text-transform:uppercase;margin-top:4px">Avg. rating</div></div>
+    </div>
+  </section>
+
+  <!-- MISSION / VISION -->
+  <section class="wrap" style="padding-top:34px;padding-bottom:30px">
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:24px">
+      <div class="card" style="padding:44px 42px">
+        <div class="script" style="font-size:34px;color:#b5904f;line-height:.8">Our mission</div>
+        <h2 class="hs" style="font-size:30px;margin-top:12px">To make luxury beauty feel personal</h2>
+        <p class="lead" style="font-size:15px;margin-top:14px">We exist to give every client an experience that's as thoughtful as it is beautiful — premium products, expert hands, and undivided attention, at a price that feels fair.</p>
+      </div>
+      <div class="card" style="padding:44px 42px;background:#2e2823;border-color:#2e2823">
+        <div class="script" style="font-size:34px;color:#d9b97e;line-height:.8">Our vision</div>
+        <h2 class="hs" style="font-size:30px;margin-top:12px;color:#f6ede0">To be Pune's most-trusted bridal studio</h2>
+        <p style="font-size:15px;margin-top:14px;color:#cdbfae;font-weight:300;line-height:1.7">A name families pass down — the studio a bride's mother recommends to her daughter, because the care, the calm and the craft never waver.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- STANDARDS -->
+  <section class="wrap" style="padding-top:48px;padding-bottom:30px">
+    <div style="text-align:center;max-width:560px;margin:0 auto 44px">
+      <p class="eyebrow" style="margin-bottom:14px">How we work</p>
+      <h2 class="hs" style="font-size:44px;line-height:1.06">Professional <span class="script" style="font-size:52px">standards</span></h2>
+    </div>
+    <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:22px">
+      <div class="card" style="padding:32px 30px"><div class="hs" style="font-size:30px;color:#e2cfa6">01</div><h3 class="hs" style="font-size:23px;margin-top:10px">Hygiene first</h3><p class="lead" style="font-size:13.5px;margin-top:8px">Sanitised tools and single-use disposables for every client, every time.</p></div>
+      <div class="card" style="padding:32px 30px"><div class="hs" style="font-size:30px;color:#e2cfa6">02</div><h3 class="hs" style="font-size:23px;margin-top:10px">Certified artists</h3><p class="lead" style="font-size:13.5px;margin-top:8px">A trained, continually-upskilled team across bridal, skin and hair.</p></div>
+      <div class="card" style="padding:32px 30px"><div class="hs" style="font-size:30px;color:#e2cfa6">03</div><h3 class="hs" style="font-size:23px;margin-top:10px">Honest pricing</h3><p class="lead" style="font-size:13.5px;margin-top:8px">Transparent rates, shared upfront — no surprises at the counter.</p></div>
+    </div>
+  </section>
+
+  <!-- COMMITMENT -->
+  <section class="wrap" style="padding-top:48px;padding-bottom:30px">
+    <div class="card" style="display:grid;grid-template-columns:1fr 1.1fr;overflow:hidden;border-radius:24px">
+      <div class="ph" style="min-height:340px;background:linear-gradient(150deg,#f1e2da,#e7d4c7)"><span class="ph-tag">Salon team · candid</span></div>
+      <div style="padding:54px 50px;display:flex;flex-direction:column;justify-content:center">
+        <p class="eyebrow" style="margin-bottom:14px">Our promise to you</p>
+        <h2 class="hs" style="font-size:36px;line-height:1.08">Customer commitment</h2>
+        <p class="lead" style="font-size:15px;margin-top:14px;max-width:420px">From your first message to the final mirror moment, you'll be heard, cared for and never hurried. If something isn't perfect, we'll make it right — that's our word.</p>
+        <div style="display:flex;gap:13px;margin-top:26px;flex-wrap:wrap">
+          <a class="btn btn-dark btn-lg" href="Booking.dc.html">Book an appointment</a>
+          <a class="btn btn-ghost btn-lg" href="Contact.dc.html">Visit us</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- QUOTE -->
+  <section class="wrap" style="padding-top:54px;padding-bottom:74px;text-align:center">
+    <p class="hs" style="font-size:32px;line-height:1.4;font-weight:400;font-style:italic;max-width:740px;margin:0 auto">"We don't just want you to look beautiful — we want you to leave feeling cared for."</p>
+    <div style="margin-top:22px;font-size:13px;letter-spacing:.08em;text-transform:uppercase;color:#9b8e84;font-weight:300">Sakshi · Founder &amp; Lead Artist</div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer class="foot" style="background:#2e2823;color:#cdbfae">
+    <div class="wrap" style="padding-top:60px;padding-bottom:40px;display:grid;grid-template-columns:1.4fr 1fr 1fr 1.2fr;gap:40px">
+      <div>
+        <div class="logo" style="color:#f6ede0">Sakshi<small style="color:#d9b97e">Beauty Parlour</small></div>
+        <p style="font-weight:300;font-size:14px;line-height:1.7;margin:20px 0 0;max-width:260px;color:#b6a895">Premium salon &amp; bridal studio. Skin, hair, body and bridal artistry — with quiet luxury at every step.</p>
+        <div style="margin-top:22px;display:flex;align-items:center;gap:11px"><a href="https://instagram.com" aria-label="Instagram" style="width:40px;height:40px;border-radius:50%;border:1px solid #5a5048;display:flex;align-items:center;justify-content:center;color:#cdbfae;transition:border-color .18s,color .18s" onmouseover="this.style.borderColor='#d9b97e';this.style.color='#d9b97e'" onmouseout="this.style.borderColor='#5a5048';this.style.color='#cdbfae'"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><rect x="3.5" y="3.5" width="17" height="17" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.2" cy="6.8" r="1.1" fill="currentColor" stroke="none"/></svg></a><a href="https://facebook.com" aria-label="Facebook" style="width:40px;height:40px;border-radius:50%;border:1px solid #5a5048;display:flex;align-items:center;justify-content:center;color:#cdbfae;transition:border-color .18s,color .18s" onmouseover="this.style.borderColor='#d9b97e';this.style.color='#d9b97e'" onmouseout="this.style.borderColor='#5a5048';this.style.color='#cdbfae'"><svg width="17" height="17" viewBox="0 0 24 24" fill="currentColor"><path d="M13.5 21v-7h2.3l.4-2.9h-2.7V9.2c0-.84.27-1.4 1.46-1.4H16.3V5.2c-.27-.04-1.2-.12-2.27-.12-2.25 0-3.8 1.37-3.8 3.9v2.18H7.9V14h2.33v7z"/></svg></a><a href="https://youtube.com" aria-label="YouTube" style="width:40px;height:40px;border-radius:50%;border:1px solid #5a5048;display:flex;align-items:center;justify-content:center;color:#cdbfae;transition:border-color .18s,color .18s" onmouseover="this.style.borderColor='#d9b97e';this.style.color='#d9b97e'" onmouseout="this.style.borderColor='#5a5048';this.style.color='#cdbfae'"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><rect x="2.5" y="6" width="19" height="12" rx="4"/><path d="M10.3 9.3l4.8 2.7-4.8 2.7z" fill="currentColor" stroke="none"/></svg></a><span style="font-size:12.5px;color:#8a7d6e;font-weight:300;margin-left:3px">@sakshibeautyparlour</span></div>
+      </div>
+      <div>
+        <div style="font-size:12px;letter-spacing:.18em;text-transform:uppercase;color:#8a7d6e;margin-bottom:18px">Explore</div>
+        <div style="display:flex;flex-direction:column;gap:11px;font-weight:300;font-size:14px">
+          <a href="Sakshi Beauty Parlour.dc.html" style="color:#cdbfae;text-decoration:none">Home</a>
+          <a href="Services.dc.html" style="color:#cdbfae;text-decoration:none">Services</a>
+          <a href="Gallery.dc.html" style="color:#cdbfae;text-decoration:none">Gallery</a>
+          <a href="About.dc.html" style="color:#cdbfae;text-decoration:none">About Us</a>
+          <a href="Contact.dc.html" style="color:#cdbfae;text-decoration:none">Contact</a>
+        </div>
+      </div>
+      <div>
+        <div style="font-size:12px;letter-spacing:.18em;text-transform:uppercase;color:#8a7d6e;margin-bottom:18px">Account</div>
+        <div style="display:flex;flex-direction:column;gap:11px;font-weight:300;font-size:14px">
+          <a href="Booking.dc.html" style="color:#cdbfae;text-decoration:none">Book appointment</a>
+          <a href="Login.dc.html" style="color:#cdbfae;text-decoration:none">Login</a>
+          <a href="Login.dc.html" style="color:#cdbfae;text-decoration:none">Register</a>
+          <a href="Dashboard.dc.html" style="color:#cdbfae;text-decoration:none">My dashboard</a>
+        </div>
+      </div>
+      <div>
+        <div style="font-size:12px;letter-spacing:.18em;text-transform:uppercase;color:#8a7d6e;margin-bottom:18px">Visit us</div>
+        <div style="font-weight:300;font-size:14px;line-height:1.7;color:#cdbfae">
+          Shop 14, Rose Arcade,<br>FC Road, Shivaji Nagar,<br>Pune 411005<br><br>
+          <a href="tel:+919876543210" style="color:#f6ede0;text-decoration:none">+91 98765 43210</a><br>
+          <span style="color:#8a7d6e">Mon–Sun · 11:00 AM – 9:00 PM</span>
+        </div>
+      </div>
+    </div>
+    <div style="border-top:1px solid #463e36"><div class="wrap" style="padding:22px 44px;display:flex;justify-content:space-between;flex-wrap:wrap;gap:10px;font-size:12px;color:#8a7d6e;font-weight:300"><span>© 2026 Sakshi Beauty Parlour. All rights reserved.</span><span>Crafted with care in Pune.</span></div></div>
+  </footer>
+</div>
+</x-dc>
+</body>
+</html>

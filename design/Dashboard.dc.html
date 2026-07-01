@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet data-dc-atomics>
+<title>My Dashboard — Sakshi Beauty Parlour</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500&family=Dancing+Script:wght@500;600;700&family=Jost:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+  *{box-sizing:border-box}
+  html{scroll-behavior:smooth}
+  body{margin:0;background:#FAF6EF;color:#2e2823;font-family:'Jost',system-ui,sans-serif;-webkit-font-smoothing:antialiased}
+  ::selection{background:#e7d3ab}
+  .wrap{max-width:1240px;margin:0 auto;padding:0 44px}
+  .nav{position:sticky;top:0;z-index:100;background:rgba(250,246,239,.82);backdrop-filter:blur(12px);border-bottom:1px solid #e7dcc8}
+  .nav-in{max-width:1240px;margin:0 auto;padding:16px 44px;display:flex;align-items:center;justify-content:space-between;gap:24px}
+  .logo{font-family:'Cormorant Garamond',serif;font-weight:500;font-size:25px;line-height:.86;letter-spacing:.01em;text-decoration:none;color:#2e2823}
+  .logo small{display:block;font-family:'Jost',sans-serif;font-weight:400;font-size:8px;letter-spacing:.42em;text-transform:uppercase;color:#b5904f;margin-top:4px}
+  .navlinks{display:flex;gap:30px;list-style:none;margin:0;padding:0}
+  .navlinks a{text-decoration:none;font-size:13.5px;font-weight:400;letter-spacing:.02em;color:#4a4038;position:relative;padding:4px 0;transition:color .18s}
+  .navlinks a:hover{color:#b5904f}
+  .navcta{display:flex;align-items:center;gap:18px}
+  .btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;text-decoration:none;border-radius:30px;font-family:'Jost',sans-serif;font-weight:500;font-size:13.5px;letter-spacing:.02em;padding:13px 26px;cursor:pointer;border:none;transition:transform .16s,box-shadow .22s,border-color .18s,color .18s}
+  .btn-dark{background:#2e2823;color:#f6ede0}
+  .btn-dark:hover{box-shadow:0 12px 26px -10px rgba(46,40,35,.6);transform:translateY(-1px)}
+  .btn-ghost{background:transparent;color:#2e2823;border:1px solid #d8c6a6}
+  .btn-ghost:hover{border-color:#b5904f;color:#b5904f}
+  .btn-gold{background:#b5904f;color:#fff}
+  .btn-gold:hover{box-shadow:0 12px 26px -10px rgba(181,144,79,.7);transform:translateY(-1px)}
+  .btn-sm{padding:9px 18px;font-size:12.5px}
+  .eyebrow{font-family:ui-monospace,Menlo,monospace;font-size:11px;letter-spacing:.32em;text-transform:uppercase;color:#b5904f;margin:0}
+  .hs{font-family:'Cormorant Garamond',serif;font-weight:500;letter-spacing:-.01em;color:#2e2823;margin:0}
+  .script{font-family:'Dancing Script',cursive;color:#b5904f;font-weight:600}
+  .lead{font-weight:300;color:#6b5f54;line-height:1.65}
+  .card{background:#fff;border:1px solid #eee3d4;border-radius:18px}
+  .ph{position:relative;overflow:hidden;background:linear-gradient(150deg,#f3e3dc,#efe1d0)}
+  .ph::before{content:"";position:absolute;inset:0;background-image:repeating-linear-gradient(135deg,rgba(181,144,79,.08) 0 12px,transparent 12px 24px)}
+  .badge{display:inline-flex;align-items:center;gap:6px;font-size:11px;font-weight:500;letter-spacing:.04em;padding:5px 12px;border-radius:20px}
+  .tab{padding:11px 22px;font-size:13.5px;font-weight:500;color:#9b8e84;cursor:pointer;border-radius:24px;transition:all .2s;white-space:nowrap}
+  .tab.on{background:#2e2823;color:#f6ede0}
+  .foot a{transition:color .18s}.foot a:hover{color:#d9b97e}
+</style>
+</helmet>
+
+<div>
+  <nav class="nav">
+    <div class="nav-in">
+      <a class="logo" href="Sakshi Beauty Parlour.dc.html">Sakshi<small>Beauty Parlour</small></a>
+      <ul class="navlinks">
+        <li><a href="Sakshi Beauty Parlour.dc.html">Home</a></li>
+        <li><a href="Services.dc.html">Services</a></li>
+        <li><a href="Gallery.dc.html">Gallery</a></li>
+        <li><a href="About.dc.html">About</a></li>
+        <li><a href="Contact.dc.html">Contact</a></li>
+      </ul>
+      <div class="navcta">
+        <a class="btn btn-ghost btn-sm" href="Login.dc.html">Sign out</a>
+        <div style="width:42px;height:42px;border-radius:50%;background:linear-gradient(135deg,#e9d8cd,#dcc6b8);display:flex;align-items:center;justify-content:center;font-family:'Cormorant Garamond',serif;font-weight:600;color:#7a5c45">A</div>
+      </div>
+    </div>
+  </nav>
+
+  <!-- GREETING -->
+  <header class="wrap" style="padding-top:46px;padding-bottom:26px;display:flex;align-items:flex-end;justify-content:space-between;flex-wrap:wrap;gap:20px">
+    <div>
+      <p class="eyebrow" style="margin-bottom:12px">Your account</p>
+      <h1 class="hs" style="font-size:48px;line-height:1.03">Hello, <span class="script" style="font-size:58px">Aditi</span></h1>
+      <p class="lead" style="font-size:15px;margin-top:8px">Here's what's coming up. Manage everything from one place.</p>
+    </div>
+    <a class="btn btn-gold" href="Booking.dc.html">+ New booking</a>
+  </header>
+
+  <!-- STAT STRIP -->
+  <section class="wrap" style="padding-bottom:28px">
+    <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:18px">
+      <div class="card" style="padding:22px 24px"><div class="lead" style="font-size:12px;letter-spacing:.08em;text-transform:uppercase">Upcoming</div><div class="hs" style="font-size:34px;margin-top:6px">3</div></div>
+      <div class="card" style="padding:22px 24px"><div class="lead" style="font-size:12px;letter-spacing:.08em;text-transform:uppercase">This month</div><div class="hs" style="font-size:34px;margin-top:6px">2</div></div>
+      <div class="card" style="padding:22px 24px"><div class="lead" style="font-size:12px;letter-spacing:.08em;text-transform:uppercase">Completed</div><div class="hs" style="font-size:34px;margin-top:6px">14</div></div>
+      <div class="card" style="padding:22px 24px;background:#2e2823;border-color:#2e2823"><div style="font-size:12px;letter-spacing:.08em;text-transform:uppercase;color:#cdbfae;font-weight:300">Loyalty</div><div class="hs" style="font-size:34px;margin-top:6px;color:#d9b97e">Gold</div></div>
+    </div>
+  </section>
+
+  <!-- TABS -->
+  <section class="wrap" style="padding-bottom:14px">
+    <div style="display:flex;gap:8px;background:#efe6d6;border:1px solid #e2d3b8;border-radius:30px;padding:5px;width:fit-content">
+      <div class="tab {{ apptCls }}" onClick="{{ showAppt }}">Appointments</div>
+      <div class="tab {{ bookCls }}" onClick="{{ showBook }}">Bridal &amp; Event Bookings</div>
+    </div>
+  </section>
+
+  <!-- LIST -->
+  <section class="wrap" style="padding-top:18px;padding-bottom:40px">
+    <div style="display:flex;flex-direction:column;gap:16px">
+      <sc-for list="{{ items }}" as="it" hint-placeholder-count="3">
+        <div class="card" style="padding:24px 26px;display:flex;gap:24px;align-items:center">
+          <div class="ph" style="width:118px;height:118px;border-radius:14px;flex:none;background:{{ it.bg }}"><span style="position:absolute;left:50%;bottom:10px;transform:translateX(-50%);white-space:nowrap;font-family:ui-monospace,Menlo,monospace;font-size:8px;letter-spacing:.1em;text-transform:uppercase;color:#7a6a52;background:rgba(255,255,255,.7);padding:3px 8px;border-radius:12px">{{ it.tag }}</span></div>
+          <div style="flex:1">
+            <div style="display:flex;align-items:center;gap:12px;margin-bottom:6px">
+              <span class="badge" style="background:{{ it.stBg }};color:{{ it.stColor }}">{{ it.status }}</span>
+              <span class="lead" style="font-size:12px">Ref {{ it.ref }}</span>
+            </div>
+            <h3 class="hs" style="font-size:26px;line-height:1">{{ it.name }}</h3>
+            <div style="display:flex;gap:26px;margin-top:12px;flex-wrap:wrap">
+              <div><div class="lead" style="font-size:11px;letter-spacing:.06em;text-transform:uppercase">Date</div><div style="font-size:14px;font-weight:500;margin-top:2px">{{ it.date }}</div></div>
+              <div><div class="lead" style="font-size:11px;letter-spacing:.06em;text-transform:uppercase">{{ it.metaLabel }}</div><div style="font-size:14px;font-weight:500;margin-top:2px">{{ it.meta }}</div></div>
+              <div><div class="lead" style="font-size:11px;letter-spacing:.06em;text-transform:uppercase">Artist</div><div style="font-size:14px;font-weight:500;margin-top:2px">{{ it.artist }}</div></div>
+            </div>
+          </div>
+          <div style="display:flex;flex-direction:column;gap:9px;flex:none;width:160px">
+            <a class="btn btn-dark btn-sm" href="#" style="width:100%">View details</a>
+            <a class="btn btn-ghost btn-sm" href="Booking.dc.html" style="width:100%">Reschedule</a>
+            <a class="btn btn-ghost btn-sm" href="#" style="width:100%;border-color:#e9d3d3;color:#b06a6a">Cancel</a>
+          </div>
+        </div>
+      </sc-for>
+    </div>
+
+    <!-- empty hint when none -->
+    <sc-if value="{{ isEmpty }}">
+      <div class="card" style="padding:54px;text-align:center">
+        <div class="script" style="font-size:34px;color:#b5904f;line-height:.8">Nothing here yet</div>
+        <p class="lead" style="font-size:15px;margin:12px 0 22px">You don't have any {{ tabWord }} coming up.</p>
+        <a class="btn btn-gold" href="Booking.dc.html">Book now</a>
+      </div>
+    </sc-if>
+  </section>
+
+  <!-- HELP STRIP -->
+  <section class="wrap" style="padding-bottom:74px">
+    <div style="background:#2e2823;border-radius:24px;padding:42px 50px;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:24px">
+      <div><h2 class="hs" style="color:#f6ede0;font-size:30px">Need to change something?</h2><p style="color:#cdbfae;font-weight:300;font-size:14px;margin-top:6px">Call or WhatsApp us and we'll sort it out right away.</p></div>
+      <div style="display:flex;gap:12px"><a class="btn btn-gold" href="tel:+919876543210">☎ Call now</a><a class="btn btn-ghost" href="https://wa.me/919876543210" style="color:#f6ede0;border-color:#5a5048">WhatsApp</a></div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer class="foot" style="background:#2e2823;color:#cdbfae">
+    <div class="wrap" style="padding-top:60px;padding-bottom:40px;display:grid;grid-template-columns:1.4fr 1fr 1fr 1.2fr;gap:40px">
+      <div>
+        <div class="logo" style="color:#f6ede0">Sakshi<small style="color:#d9b97e">Beauty Parlour</small></div>
+        <p style="font-weight:300;font-size:14px;line-height:1.7;margin:20px 0 0;max-width:260px;color:#b6a895">Premium salon &amp; bridal studio. Skin, hair, body and bridal artistry — with quiet luxury at every step.</p>
+        <div style="margin-top:22px;display:flex;align-items:center;gap:11px"><a href="https://instagram.com" aria-label="Instagram" style="width:40px;height:40px;border-radius:50%;border:1px solid #5a5048;display:flex;align-items:center;justify-content:center;color:#cdbfae;transition:border-color .18s,color .18s" onmouseover="this.style.borderColor='#d9b97e';this.style.color='#d9b97e'" onmouseout="this.style.borderColor='#5a5048';this.style.color='#cdbfae'"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><rect x="3.5" y="3.5" width="17" height="17" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.2" cy="6.8" r="1.1" fill="currentColor" stroke="none"/></svg></a><a href="https://facebook.com" aria-label="Facebook" style="width:40px;height:40px;border-radius:50%;border:1px solid #5a5048;display:flex;align-items:center;justify-content:center;color:#cdbfae;transition:border-color .18s,color .18s" onmouseover="this.style.borderColor='#d9b97e';this.style.color='#d9b97e'" onmouseout="this.style.borderColor='#5a5048';this.style.color='#cdbfae'"><svg width="17" height="17" viewBox="0 0 24 24" fill="currentColor"><path d="M13.5 21v-7h2.3l.4-2.9h-2.7V9.2c0-.84.27-1.4 1.46-1.4H16.3V5.2c-.27-.04-1.2-.12-2.27-.12-2.25 0-3.8 1.37-3.8 3.9v2.18H7.9V14h2.33v7z"/></svg></a><a href="https://youtube.com" aria-label="YouTube" style="width:40px;height:40px;border-radius:50%;border:1px solid #5a5048;display:flex;align-items:center;justify-content:center;color:#cdbfae;transition:border-color .18s,color .18s" onmouseover="this.style.borderColor='#d9b97e';this.style.color='#d9b97e'" onmouseout="this.style.borderColor='#5a5048';this.style.color='#cdbfae'"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><rect x="2.5" y="6" width="19" height="12" rx="4"/><path d="M10.3 9.3l4.8 2.7-4.8 2.7z" fill="currentColor" stroke="none"/></svg></a><span style="font-size:12.5px;color:#8a7d6e;font-weight:300;margin-left:3px">@sakshibeautyparlour</span></div>
+      </div>
+      <div>
+        <div style="font-size:12px;letter-spacing:.18em;text-transform:uppercase;color:#8a7d6e;margin-bottom:18px">Explore</div>
+        <div style="display:flex;flex-direction:column;gap:11px;font-weight:300;font-size:14px">
+          <a href="Sakshi Beauty Parlour.dc.html" style="color:#cdbfae;text-decoration:none">Home</a>
+          <a href="Services.dc.html" style="color:#cdbfae;text-decoration:none">Services</a>
+          <a href="Gallery.dc.html" style="color:#cdbfae;text-decoration:none">Gallery</a>
+          <a href="About.dc.html" style="color:#cdbfae;text-decoration:none">About Us</a>
+          <a href="Contact.dc.html" style="color:#cdbfae;text-decoration:none">Contact</a>
+        </div>
+      </div>
+      <div>
+        <div style="font-size:12px;letter-spacing:.18em;text-transform:uppercase;color:#8a7d6e;margin-bottom:18px">Account</div>
+        <div style="display:flex;flex-direction:column;gap:11px;font-weight:300;font-size:14px">
+          <a href="Booking.dc.html" style="color:#cdbfae;text-decoration:none">Book appointment</a>
+          <a href="Dashboard.dc.html" style="color:#cdbfae;text-decoration:none">My dashboard</a>
+          <a href="Login.dc.html" style="color:#cdbfae;text-decoration:none">Sign out</a>
+          <a href="Admin.dc.html" style="color:#cdbfae;text-decoration:none">Admin panel</a>
+        </div>
+      </div>
+      <div>
+        <div style="font-size:12px;letter-spacing:.18em;text-transform:uppercase;color:#8a7d6e;margin-bottom:18px">Visit us</div>
+        <div style="font-weight:300;font-size:14px;line-height:1.7;color:#cdbfae">
+          Shop 14, Rose Arcade,<br>FC Road, Shivaji Nagar,<br>Pune 411005<br><br>
+          <a href="tel:+919876543210" style="color:#f6ede0;text-decoration:none">+91 98765 43210</a><br>
+          <span style="color:#8a7d6e">Mon–Sun · 11:00 AM – 9:00 PM</span>
+        </div>
+      </div>
+    </div>
+    <div style="border-top:1px solid #463e36"><div class="wrap" style="padding:22px 44px;display:flex;justify-content:space-between;flex-wrap:wrap;gap:10px;font-size:12px;color:#8a7d6e;font-weight:300"><span>© 2026 Sakshi Beauty Parlour. All rights reserved.</span><span>Crafted with care in Pune.</span></div></div>
+  </footer>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script>
+class Component extends DCLogic {
+  state = { tab: 'appt' };
+  appts = [
+    { name: 'Hydrating Facial', tag: 'Skin', ref: 'AP-2041', status: 'Confirmed', stBg: '#e7f0e4', stColor: '#3f7a4e', date: 'Tue, 7 Jul', metaLabel: 'Time', meta: '11:00 AM', artist: 'Priya', bg: 'linear-gradient(150deg,#efe1d8,#ecdfce)' },
+    { name: 'Hair Spa & Blow Dry', tag: 'Hair', ref: 'AP-2052', status: 'Confirmed', stBg: '#e7f0e4', stColor: '#3f7a4e', date: 'Sat, 11 Jul', metaLabel: 'Time', meta: '4:00 PM', artist: 'Sneha', bg: 'linear-gradient(150deg,#f0e2d9,#ece1d0)' },
+    { name: 'Threading — Eyebrows', tag: 'Threading', ref: 'AP-2068', status: 'Pending', stBg: '#f6efdb', stColor: '#9a7b2e', date: 'Wed, 15 Jul', metaLabel: 'Time', meta: '12:00 PM', artist: 'Any available', bg: 'linear-gradient(150deg,#f1e2da,#e9d8cd)' },
+  ];
+  books = [
+    { name: 'Bridal Makeup — Wedding', tag: 'Bridal', ref: 'BK-1180', status: 'Confirmed', stBg: '#e7f0e4', stColor: '#3f7a4e', date: 'Sun, 23 Nov', metaLabel: 'Package', meta: 'HD + Hair + Draping', artist: 'Sakshi (Lead)', bg: 'linear-gradient(150deg,#f1e2da,#e7d4c7)' },
+    { name: 'Pre-Bridal Package', tag: 'Pre-bridal', ref: 'BK-1192', status: 'In progress', stBg: '#e6edf4', stColor: '#3d6691', date: 'Starts 2 Nov', metaLabel: 'Sessions', meta: '2 of 5 done', artist: 'Priya', bg: 'linear-gradient(150deg,#efe0d6,#ecdccb)' },
+  ];
+  renderVals() {
+    const isAppt = this.state.tab === 'appt';
+    const items = isAppt ? this.appts : this.books;
+    return {
+      apptCls: isAppt ? 'on' : '', bookCls: isAppt ? '' : 'on',
+      showAppt: () => this.setState({ tab: 'appt' }),
+      showBook: () => this.setState({ tab: 'book' }),
+      items,
+      isEmpty: items.length === 0,
+      tabWord: isAppt ? 'appointments' : 'bookings',
+    };
+  }
+}
+</script>
+</body>
+</html>
