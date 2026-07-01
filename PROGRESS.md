@@ -9,8 +9,8 @@
 | 2 | Database (schema.sql + seed script) | ✅ Done | — |
 | 3 | Shared components | ✅ Done | 5d5f6d9 |
 | 4 | Public pages (Home, Services, Gallery, About, Contact) | ✅ Done | — |
-| 5 | Auth (`/login` — Login/Register/Forgot password) | 🔄 In progress | — |
-| 6 | Booking flows (`/book` wizard) | ⬜ Pending | — |
+| 5 | Auth (`/login` — Login/Register/Forgot password) | ✅ Done | — |
+| 6 | Booking flows (`/book` wizard) | 🔄 In progress | — |
 | 7 | Customer dashboard | ⬜ Pending | — |
 | 8 | Admin panel | ⬜ Pending | — |
 | 9 | Final validation | ⬜ Pending | — |
@@ -38,3 +38,10 @@ See `BLOCKERS.md` for the phone+password limitation. Proceeding with email+passw
 - `/about` — done: hero, stats band, mission/vision, standards, commitment section, founder quote. Fully static/server-rendered. Matches `design/About.dc.html`.
 - `/contact` — done: header, quick contact cards (call/WhatsApp/social), studio details + map placeholder + `ContactForm` (existing from Step 3), CTA strip. Matches `design/Contact.dc.html`.
 - Step 4 complete: all 5 marketing pages built. `/book` and `/login` moved to Steps 6 and 5 respectively (they need real backend wiring — Supabase Auth, slot/booking DB logic — not just static UI).
+
+### Step 5 — Auth
+- `/login` — tab-switching split-screen page (`app/login/page.tsx` + `components/auth/AuthPanel.tsx`). Login/Register/ForgotPassword as separate client form components (`components/auth/LoginForm.tsx`, `RegisterForm.tsx`, `ForgotPasswordForm.tsx`).
+- Per BLOCKER-001: login uses email+password (`signInWithPassword`); register collects full name + phone + email + password, calls `signUp` with `options.data = { full_name, phone }` which the `handle_new_user()` trigger (schema.sql) reads to populate `profiles`.
+- Register: if Supabase returns a session immediately (email confirmation disabled), redirect to `/dashboard`; otherwise show "check your email" and switch to login tab.
+- Forgot password uses `resetPasswordForEmail`.
+- Middleware (`lib/supabase/middleware.ts`) already protects `/dashboard` and `/admin` and redirects logged-in users away from `/login` — this existed from Step 1/2 scaffold, unchanged.
