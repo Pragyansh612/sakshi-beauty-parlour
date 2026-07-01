@@ -4,6 +4,10 @@ import { Footer } from '@/components/layout/Footer';
 import { FloatingBookCTA } from '@/components/layout/FloatingBookCTA';
 import { EyebrowLabel } from '@/components/shared/EyebrowLabel';
 import { GalleryMasonry } from '@/components/gallery/GalleryMasonry';
+import { createClient } from '@/lib/supabase/server';
+import { getGalleryPublicUrl } from '@/lib/supabase/storage';
+
+export const revalidate = 1800;
 
 const achievements = [
   { icon: '✓', title: 'Professional certifications', desc: 'Certified in advanced bridal & HD makeup by leading academies.' },
@@ -13,7 +17,22 @@ const achievements = [
   { icon: '❀', title: 'Event participation', desc: 'On-site teams for weddings, fashion shows & community events.' },
 ];
 
-export default function GalleryPage() {
+export default async function GalleryPage() {
+  const supabase = await createClient();
+  const { data } = await supabase
+    .from('gallery_images')
+    .select('id, title, category, tag, storage_path')
+    .eq('section', 'work')
+    .order('display_order');
+
+  const images = (data ?? []).map((img) => ({
+    id: img.id,
+    title: img.title,
+    category: img.category,
+    tag: img.tag,
+    imageUrl: getGalleryPublicUrl(img.storage_path),
+  }));
+
   return (
     <>
       <Navbar />
@@ -30,7 +49,7 @@ export default function GalleryPage() {
           </p>
         </header>
 
-        <GalleryMasonry />
+        <GalleryMasonry images={images} />
 
         {/* ACHIEVEMENTS */}
         <section className="max-w-[1240px] mx-auto px-6 md:px-11 pt-14 pb-8">

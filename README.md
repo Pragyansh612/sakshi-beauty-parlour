@@ -77,24 +77,32 @@ Copy `.env.local.example` to `.env.local` and fill in:
 
 ## Seed scripts
 
-Both scripts live in `scripts/` and are run with `tsx` (no install needed — `npx` fetches it on demand). Both require `NEXT_PUBLIC_SUPABASE_URL` and `SUPABASE_SERVICE_ROLE_KEY` in `.env.local`.
+All three scripts live in `scripts/` as `.mts` files (not `.ts` — they use top-level `await`, which needs to be unambiguously ESM regardless of whether `package.json` has `"type": "module"`) and are run with `tsx` (no install needed — `npx` fetches it on demand). They read `NEXT_PUBLIC_SUPABASE_URL` and `SUPABASE_SERVICE_ROLE_KEY` from `.env.local` if it exists, falling back to `.env` otherwise.
 
-**Seed gallery images** — uploads every image in `./work/` (portfolio) and `./acheivement/` (achievements) to the `gallery` Storage bucket and inserts a matching `gallery_images` row for each:
+**Convert HEIC photos** — iPhones export photos as `.HEIC`, which browsers can't render in an `<img>` tag. Converts every `.HEIC` file in `./work/` and `./acheivement/` to a sibling `.jpg` (originals untouched, safe to re-run — skips files already converted):
 
 ```bash
-npx tsx scripts/seed-images.ts
+npx tsx scripts/convert-heic.mts
 ```
 
-HEIC files are skipped with a warning (convert to JPEG first — the script prints the exact `convert` command for each one).
+**Seed gallery images** — uploads every image in `./work/` (portfolio) and `./acheivement/` (achievements) to the `gallery` Storage bucket and inserts a matching `gallery_images` row for each. Run `convert-heic.mts` first, or HEIC files will be skipped with a warning:
+
+```bash
+npx tsx scripts/seed-images.mts
+```
 
 **Seed time slots** — generates open `time_slots` rows for the next N days (default 60), 11:00 AM–8:30 PM in 30-minute increments. Without this, the booking wizard's date/time pickers and the admin Slots grid will show no availability, since slots are date-based and can't be part of the static schema seed:
 
 ```bash
-npx tsx scripts/seed-slots.ts        # next 60 days
-npx tsx scripts/seed-slots.ts 90     # next 90 days
+npx tsx scripts/seed-slots.mts        # next 60 days
+npx tsx scripts/seed-slots.mts 90     # next 90 days
 ```
 
-Safe to re-run — both scripts upsert and won't duplicate or clobber existing rows (gallery images key on `storage_path`; slots key on `(slot_date, slot_time)` and leave already-blocked slots untouched).
+Safe to re-run — both scripts upsert and won't duplicate or clobber existing rows (gallery images key on `storage_path`; slots key on `(slot_date, slot_time)` and leave already-blocked slots untouched). **The `storage_path` unique constraint the gallery upsert depends on must exist** — `supabase/schema.sql` declares it, but if your project's `gallery_images` table was created before this was added, run once:
+
+```sql
+ALTER TABLE gallery_images ADD CONSTRAINT gallery_images_storage_path_key UNIQUE (storage_path);
+```
 
 ## Creating the first admin user
 
@@ -110,3 +118,15 @@ There's no bootstrap flow for this — every account registers as a `customer` (
 3. Sign out and back in (or just navigate to `/admin`) — `proxy.ts` middleware checks `profiles.role` on every `/admin/*` request, so the new role takes effect immediately without needing a fresh session.
 
 Repeat for any other staff accounts that need admin access.
+
+## Placeholder stock photography
+
+`public/stock/` contains three free-license Unsplash photos (Unsplash License — free for commercial use, no attribution required) used as temporary imagery until real salon photography is available:
+
+| File | Used on | Source |
+|---|---|---|
+| `hero-bridal-portrait.jpg` | Home hero | [Rohit Dey — Unsplash](https://unsplash.com/photos/vtn_xOMgWjc) |
+| `salon-interior.jpg` | Home bridal banner | [Guilherme Petri — Unsplash](https://unsplash.com/photos/PtOfbGkU3uI) |
+| `spa-treatment-candid.jpg` | About page commitment section | [Unsplash](https://unsplash.com/photos/Pe9IXUuC6QU) |
+
+Replace these with real photos of the actual salon/team as soon as they're available — swap the file in place (same filename) or update the `src` in `app/page.tsx` / `app/about/page.tsx`.

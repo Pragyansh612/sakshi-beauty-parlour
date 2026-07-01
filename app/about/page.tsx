@@ -117,17 +117,13 @@ export default function AboutPage() {
         {/* COMMITMENT */}
         <section className="max-w-[1240px] mx-auto px-6 md:px-11 pt-9 pb-8">
           <div className="bg-white border border-[#eee3d4] rounded-[24px] overflow-hidden grid grid-cols-1 md:grid-cols-[1fr_1.1fr]">
-            <div
-              className="relative overflow-hidden min-h-[240px] md:min-h-[340px]"
-              style={{ background: 'linear-gradient(150deg,#f1e2da,#e7d4c7)' }}
-            >
-              <div
-                className="absolute inset-0"
-                style={{ backgroundImage: 'repeating-linear-gradient(135deg,rgba(181,144,79,.08) 0 12px,transparent 12px 24px)' }}
+            <div className="relative overflow-hidden min-h-[240px] md:min-h-[340px]">
+              {/* eslint-disable-next-line @next/next/no-img-element */}
+              <img
+                src="/stock/spa-treatment-candid.jpg"
+                alt="Beauty treatment in progress"
+                className="absolute inset-0 w-full h-full object-cover"
               />
-              <span className="absolute left-1/2 bottom-4 -translate-x-1/2 whitespace-nowrap py-[5px] px-[13px] font-mono text-[9px] tracking-[0.16em] uppercase text-[#7a6a52] bg-white/72 rounded-[20px]">
-                Salon team · candid
-              </span>
             </div>
             <div className="p-8 md:p-[54px_50px] flex flex-col justify-center">
               <EyebrowLabel className="mb-3.5">Our promise to you</EyebrowLabel>

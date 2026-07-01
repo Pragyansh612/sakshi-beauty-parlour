@@ -3,24 +3,27 @@
  * Generates open time_slots for the next N days, 11:00 AM – 8:30 PM
  * in 30-minute increments, matching salon hours (Mon–Sun).
  *
- * Usage: npx tsx scripts/seed-slots.ts [days]
- * Requires: NEXT_PUBLIC_SUPABASE_URL and SUPABASE_SERVICE_ROLE_KEY in .env.local
+ * Usage: npx tsx scripts/seed-slots.mts [days]
+ * Requires: NEXT_PUBLIC_SUPABASE_URL and SUPABASE_SERVICE_ROLE_KEY in .env.local or .env
  */
 
 import { createClient } from '@supabase/supabase-js';
 
-const envPath = new URL('../.env.local', import.meta.url).pathname;
-try {
-  const { readFileSync } = await import('fs');
-  const envContent = readFileSync(envPath, 'utf-8');
-  for (const line of envContent.split('\n')) {
-    const [key, ...rest] = line.split('=');
-    if (key && !key.startsWith('#') && rest.length) {
-      process.env[key.trim()] = rest.join('=').trim().replace(/^["']|["']$/g, '');
+for (const envFile of ['../.env.local', '../.env']) {
+  try {
+    const { readFileSync } = await import('fs');
+    const envPath = new URL(envFile, import.meta.url).pathname;
+    const envContent = readFileSync(envPath, 'utf-8');
+    for (const line of envContent.split('\n')) {
+      const [key, ...rest] = line.split('=');
+      if (key && !key.startsWith('#') && rest.length) {
+        process.env[key.trim()] = rest.join('=').trim().replace(/^["']|["']$/g, '');
+      }
     }
+    break;
+  } catch {
+    // this file not found — try the next one
   }
-} catch {
-  // .env.local not found — assume env vars already set
 }
 
 const SUPABASE_URL = process.env.NEXT_PUBLIC_SUPABASE_URL;

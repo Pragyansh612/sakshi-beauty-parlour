@@ -399,7 +399,7 @@ CREATE TABLE gallery_images (
   category      text        NOT NULL,
   tag           text        NOT NULL,
   section       text        NOT NULL CHECK (section IN ('work', 'achievement')),
-  storage_path  text        NOT NULL,
+  storage_path  text        NOT NULL UNIQUE,
   alt_text      text,
   display_order integer     NOT NULL DEFAULT 0,
   created_at    timestamptz NOT NULL DEFAULT now()

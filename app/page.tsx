@@ -5,6 +5,10 @@ import { FloatingBookCTA } from '@/components/layout/FloatingBookCTA';
 import { SectionReveal } from '@/components/shared/SectionReveal';
 import { EyebrowLabel } from '@/components/shared/EyebrowLabel';
 import { ServiceHoverCard } from '@/components/home/ServiceHoverCard';
+import { createClient } from '@/lib/supabase/server';
+import { getGalleryPublicUrl } from '@/lib/supabase/storage';
+
+export const revalidate = 3600;
 
 const trustItems = [
   { icon: '✓', label: 'Certified professionals' },
@@ -72,7 +76,23 @@ const featuredServices = [
   },
 ];
 
-export default function HomePage() {
+export default async function HomePage() {
+  const supabase = await createClient();
+  const { data } = await supabase
+    .from('gallery_images')
+    .select('id, title, category, tag, storage_path')
+    .eq('section', 'work')
+    .order('display_order')
+    .limit(6);
+
+  const galleryPreview = (data ?? []).map((img) => ({
+    id: img.id,
+    title: img.title,
+    category: img.category,
+    tag: img.tag,
+    imageUrl: getGalleryPublicUrl(img.storage_path),
+  }));
+
   return (
     <>
       <Navbar />
@@ -127,19 +147,15 @@ export default function HomePage() {
               </div>
             </div>
 
-            {/* Right: portrait placeholder */}
+            {/* Right: portrait */}
             <div className="relative hidden md:block">
-              <div
-                className="relative overflow-hidden h-[560px] rounded-[220px_220px_22px_22px]"
-                style={{ background: 'linear-gradient(150deg,#f3e3dc,#efe1d0)' }}
-              >
-                <div
-                  className="absolute inset-0"
-                  style={{ backgroundImage: 'repeating-linear-gradient(135deg,rgba(181,144,79,.08) 0 12px,transparent 12px 24px)' }}
+              <div className="relative overflow-hidden h-[560px] rounded-[220px_220px_22px_22px]">
+                {/* eslint-disable-next-line @next/next/no-img-element */}
+                <img
+                  src="/stock/hero-bridal-portrait.jpg"
+                  alt="Bridal makeup portrait"
+                  className="absolute inset-0 w-full h-full object-cover"
                 />
-                <span className="absolute left-1/2 bottom-4 -translate-x-1/2 whitespace-nowrap py-[5px] px-[13px] font-mono text-[9px] tracking-[0.16em] uppercase text-[#7a6a52] bg-white/72 rounded-[20px]">
-                  Bridal hero portrait · your photo
-                </span>
               </div>
               {/* Floating rating card */}
               <div className="absolute left-[-30px] bottom-[42px] bg-white border border-[#eee3d4] rounded-[18px] px-5 py-4 flex items-center gap-3 shadow-[0_22px_50px_-26px_rgba(60,45,30,.5)]">
@@ -287,26 +303,22 @@ export default function HomePage() {
               </Link>
             </div>
             <div className="flex overflow-x-auto gap-[18px] pb-2 max-w-[1240px] mx-auto px-6 md:px-11 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
-              {[
-                { label: 'Bridal transformation', gradient: 'linear-gradient(160deg,#f3e3dc,#efe1d0)' },
-                { label: 'Hair colour result', gradient: 'linear-gradient(160deg,#efe0d6,#ecdccb)' },
-                { label: 'Party glam', gradient: 'linear-gradient(160deg,#f0e1d9,#ead9ce)' },
-                { label: 'Skin glow', gradient: 'linear-gradient(160deg,#f1e2da,#e8d6cb)' },
-              ].map(({ label, gradient }) => (
-                <div
-                  key={label}
-                  className="flex-none w-[260px] md:w-[300px] h-[320px] md:h-[380px] rounded-[18px] relative overflow-hidden"
-                  style={{ background: gradient }}
-                >
+              {galleryPreview.length > 0 ? (
+                galleryPreview.map((img) => (
                   <div
-                    className="absolute inset-0 opacity-30"
-                    style={{ backgroundImage: 'repeating-linear-gradient(135deg,rgba(181,144,79,.08) 0 12px,transparent 12px 24px)' }}
-                  />
-                  <span className="absolute left-1/2 bottom-4 -translate-x-1/2 whitespace-nowrap py-[5px] px-[13px] font-mono text-[9px] tracking-[0.16em] uppercase text-[#7a6a52] bg-white/72 rounded-[20px]">
-                    {label}
-                  </span>
-                </div>
-              ))}
+                    key={img.id}
+                    className="flex-none w-[260px] md:w-[300px] h-[320px] md:h-[380px] rounded-[18px] relative overflow-hidden"
+                  >
+                    {/* eslint-disable-next-line @next/next/no-img-element */}
+                    <img src={img.imageUrl} alt={img.title} className="absolute inset-0 w-full h-full object-cover" loading="lazy" />
+                    <span className="absolute left-1/2 bottom-4 -translate-x-1/2 whitespace-nowrap py-[5px] px-[13px] font-mono text-[9px] tracking-[0.16em] uppercase text-[#7a6a52] bg-white/72 rounded-[20px]">
+                      {img.tag}
+                    </span>
+                  </div>
+                ))
+              ) : (
+                <p className="text-sm text-[#8a7d6e] px-6">Photos coming soon.</p>
+              )}
             </div>
           </SectionReveal>
         </section>
@@ -362,18 +374,14 @@ export default function HomePage() {
                   </Link>
                 </div>
               </div>
-              {/* Image placeholder */}
-              <div
-                className="min-h-[240px] relative hidden md:block"
-                style={{ background: 'linear-gradient(150deg,#f1e2da,#e8d6cb)' }}
-              >
-                <div
-                  className="absolute inset-0 opacity-30"
-                  style={{ backgroundImage: 'repeating-linear-gradient(135deg,rgba(181,144,79,.08) 0 12px,transparent 12px 24px)' }}
+              {/* Salon interior */}
+              <div className="min-h-[240px] relative hidden md:block">
+                {/* eslint-disable-next-line @next/next/no-img-element */}
+                <img
+                  src="/stock/salon-interior.jpg"
+                  alt="Salon interior"
+                  className="absolute inset-0 w-full h-full object-cover"
                 />
-                <span className="absolute left-1/2 bottom-4 -translate-x-1/2 whitespace-nowrap py-[5px] px-[13px] font-mono text-[9px] tracking-[0.16em] uppercase text-[#7a6a52] bg-white/72 rounded-[20px]">
-                  Salon interior · reception
-                </span>
               </div>
             </div>
           </SectionReveal>

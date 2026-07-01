@@ -1,10 +1,10 @@
 # Final Review — Sakshi Beauty Parlour
 
-Status at handoff: all 9 implementation steps complete, `npm run build` passes clean (zero TypeScript errors). No live Supabase project has been connected in this environment at any point during the build (see "What has not been verified" below) — this review is written from static analysis of the codebase, not from clicking through a running app against real data.
+Status at handoff: all 9 implementation steps complete, `npm run build` passes clean (zero TypeScript errors). A live Supabase project was connected after the initial 9 steps (see "Post-Step-9" in `PROGRESS.md`) — the schema was applied, two latent bugs it surfaced were fixed, and the Home/Gallery pages were verified rendering real photos against it. Everything else below that isn't gallery-related is still verified only by static code review, not by clicking through a running app (see "What has not been verified").
 
 ## 1. Features implemented
 
-**Public site** (`/`, `/services`, `/gallery`, `/about`, `/contact`) — fully built, responsive, matching the Phase 0 design files. Content on `/services`, `/gallery`, `/about`, `/contact` is static/hardcoded, not read from the database (see Limitations).
+**Public site** (`/`, `/services`, `/gallery`, `/about`, `/contact`) — fully built, responsive, matching the Phase 0 design files. `/` and `/gallery` now read real photos from Supabase (`gallery_images` + Storage) — see the Post-Step-9 update. `/services`, `/about`, `/contact` remain static/hardcoded (see Limitations). Hero and a couple of "facility" sections use temporary Unsplash stock photos (`public/stock/`, see `README.md`) pending real salon photography.
 
 **Auth** (`/login`) — Login, Register, Forgot Password as tab-switching panels. Email + password via Supabase Auth (see Deviation #1). Phone collected and stored on the profile but not used for authentication.
 
@@ -38,7 +38,8 @@ Every destructive action in the admin panel routes through the shared `DeleteCon
 
 ## 3. Known limitations
 
-- **Public marketing pages don't read from the database.** `/services`, `/gallery`, `/about`, `/contact` render static, hardcoded content (decided in Step 4, before Supabase was wired up for anything beyond auth). `/book` *does* read live `services` and `time_slots`, and the admin panel's Services/Gallery managers *do* write to the real tables — but changes made in `/admin/services` or `/admin/gallery` will not appear on `/services` or `/gallery` until those pages are switched to fetch from Supabase. This is the single biggest gap between "admin panel works" and "admin panel actually controls the live site."
+- **`/services` and `/about`'s content still don't read from the database** (`/gallery` and `/`'s gallery preview strip were switched over after Step 9 — see `PROGRESS.md`). `/book` *does* read live `services` and `time_slots`, and the admin panel's Services manager *does* write to the real `services` table — but changes made in `/admin/services` still won't appear on `/services` until that page is switched to fetch from Supabase. Same gap for `/about`'s hardcoded copy vs. anything an admin might want to edit later (there's no admin UI for About content anyway, so this is lower priority than Services).
+- **`gallery_images` rows with `section='achievement'` have no public display anywhere** — confirmed by checking `design/Gallery.dc.html`: the "Achievements & credentials" section was always meant to be icon/text credential cards, not a photo grid, so achievement photos are only visible via the admin Gallery manager, not on the public site. Not a bug, just worth knowing before uploading achievement photos expecting customers to see them.
 - **No admin view for `contact_messages`.** The Contact page writes submissions to the database (Step 4), but nothing in the admin panel reads them back — they're only visible via Supabase Studio directly. Not requested in any Step 8 spec, but likely wanted soon.
 - **`combo_offers` / `combo_offer_items` have no admin UI.** They exist in the schema and are shown (statically) on the public Services page, but aren't manageable anywhere.
 - **Dashboard detail pages** (`/dashboard/appointments/[id]`, `/dashboard/bookings/[id]`) were never built — explicitly P1 in `IMPLEMENTATION_PLAN.md`. "View details" on the dashboard is an inline expand/collapse on the existing card instead of a separate route.
@@ -50,23 +51,28 @@ Every destructive action in the admin panel routes through the shared `DeleteCon
 
 ## 4. What has not been verified
 
-No `.env.local` / live Supabase project has existed in this environment at any point across all 9 steps (per `PROGRESS.md`'s Step 4 note). Consequently, the following have **not** been exercised against a real backend and are verified only by code review:
-- Supabase Auth flows (register/login/forgot-password, session cookies, middleware redirects) actually round-tripping
-- RLS policies behaving as written under real `auth.uid()` values
-- The booking wizard actually reserving a slot / preventing double-booking under concurrent requests
-- Storage uploads to the `gallery` bucket, and the resulting public URLs resolving
-- Any hydration behavior in the browser (React DevTools / console warnings) — static review found no obvious causes (no `Date.now()`/`Math.random()`/unguarded `window` access inside a render path that would produce mismatched server/client output), but this is not a substitute for an actual browser render.
+A live Supabase project was connected after Step 9, but only for gallery/photo work. Verified for real against it: `schema.sql` applying cleanly (after the two fixes above), Storage bucket creation, `scripts/convert-heic.mts` + `scripts/seed-images.mts` uploading 29 real photos, and `/` + `/gallery` rendering those photos via real Storage public URLs (checked by curling the running dev server and grepping the HTML for the actual `supabase.co/storage/...` URLs, not just a successful build).
 
-Before going live, run through `README.md`'s setup once against a real Supabase project and manually verify: registration → login → book an appointment → see it on `/dashboard` → cancel it; then, as an admin, approve a booking, upload a gallery image, and block/unblock a slot.
+**Not yet verified against the real project:**
+- Supabase Auth flows (register/login/forgot-password, session cookies, middleware redirects) actually round-tripping
+- RLS policies behaving as written under real `auth.uid()` values for a non-admin, logged-in customer
+- The booking wizard actually reserving a slot / preventing double-booking under concurrent requests
+- The admin panel's write actions (cancel, approve, edit, delete, slot toggling) — only the read side (gallery photos) has been exercised against live data so far
+- The in-browser drag-and-drop gallery upload flow specifically (the seed script's server-side upload was verified; the admin panel's client-side `supabase.storage.upload()` call, which depends on the Storage RLS policies from `schema.sql`'s commented-out section, has not been — those policies haven't been applied to the live project yet, see `README.md`)
+- Any hydration behavior in the browser (React DevTools / console warnings) — static review found no obvious causes, but this is not a substitute for an actual browser render.
+
+Before going live: apply the Storage RLS policies (`README.md` step 5) so the admin panel's browser-side upload actually works, then manually verify: registration → login → book an appointment → see it on `/dashboard` → cancel it; then, as an admin, approve a booking, upload a gallery image through the admin UI (not the seed script), and block/unblock a slot.
 
 ## 5. Recommended future improvements
 
 In rough priority order:
-1. Wire `/services` and `/gallery` to read from Supabase so the admin panel actually controls the live site (closes the biggest gap above).
-2. Add an admin view for `contact_messages` (mark read/unread, at minimum).
-3. Build the reschedule flow's slot-transfer logic (auto-free the old slot on confirm) instead of relying on a separate manual cancel.
-4. Add email or WhatsApp notifications for booking submission/approval/cancellation.
-5. Admin-side "create booking for a customer" with a proper customer search/picker.
-6. Dashboard detail pages for a shareable/bookmarkable single appointment or booking view.
-7. Replace the naive revenue sum with a real ledger once (if) online payments are introduced.
-8. Fix the `eslint`/`next lint` toolchain incompatibility so linting can run in CI.
+1. Apply the Storage RLS policies to the live project (`README.md` step 5) so the admin panel's in-browser gallery upload works, not just the seed script.
+2. Wire `/services` to read from Supabase so `/admin/services` actually controls the live site.
+3. Add an admin view for `contact_messages` (mark read/unread, at minimum).
+4. Build the reschedule flow's slot-transfer logic (auto-free the old slot on confirm) instead of relying on a separate manual cancel.
+5. Add email or WhatsApp notifications for booking submission/approval/cancellation.
+6. Admin-side "create booking for a customer" with a proper customer search/picker.
+7. Dashboard detail pages for a shareable/bookmarkable single appointment or booking view.
+8. Replace the naive revenue sum with a real ledger once (if) online payments are introduced.
+9. Fix the `eslint`/`next lint` toolchain incompatibility so linting can run in CI.
+10. Replace the temporary Unsplash stock photos in `public/stock/` with real salon photography.

@@ -3,26 +3,29 @@
  * Uploads ./work/ and ./acheivement/ images to Supabase Storage
  * and inserts metadata rows into gallery_images.
  *
- * Usage: npx tsx scripts/seed-images.ts
- * Requires: NEXT_PUBLIC_SUPABASE_URL and SUPABASE_SERVICE_ROLE_KEY in .env.local
+ * Usage: npx tsx scripts/seed-images.mts
+ * Requires: NEXT_PUBLIC_SUPABASE_URL and SUPABASE_SERVICE_ROLE_KEY in .env.local or .env
  */
 
 import { createClient } from '@supabase/supabase-js';
 import { readdir, readFile } from 'fs/promises';
 import { join, extname } from 'path';
-// Load env vars from .env.local when running via tsx outside Next.js
-const envPath = new URL('../.env.local', import.meta.url).pathname;
-try {
-  const { readFileSync } = await import('fs');
-  const envContent = readFileSync(envPath, 'utf-8');
-  for (const line of envContent.split('\n')) {
-    const [key, ...rest] = line.split('=');
-    if (key && !key.startsWith('#') && rest.length) {
-      process.env[key.trim()] = rest.join('=').trim().replace(/^["']|["']$/g, '');
+// Load env vars from .env.local (or .env as a fallback) when running via tsx outside Next.js
+for (const envFile of ['../.env.local', '../.env']) {
+  try {
+    const { readFileSync } = await import('fs');
+    const envPath = new URL(envFile, import.meta.url).pathname;
+    const envContent = readFileSync(envPath, 'utf-8');
+    for (const line of envContent.split('\n')) {
+      const [key, ...rest] = line.split('=');
+      if (key && !key.startsWith('#') && rest.length) {
+        process.env[key.trim()] = rest.join('=').trim().replace(/^["']|["']$/g, '');
+      }
     }
+    break;
+  } catch {
+    // this file not found — try the next one
   }
-} catch {
-  // .env.local not found — assume env vars already set
 }
 
 const SUPABASE_URL = process.env.NEXT_PUBLIC_SUPABASE_URL;
