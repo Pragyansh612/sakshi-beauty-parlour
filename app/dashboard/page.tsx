@@ -182,13 +182,13 @@ export default async function DashboardPage() {
           </div>
           <div className="flex gap-3">
             <a
-              href="tel:+919876543210"
+              href="tel:+918962339467"
               className="inline-flex items-center justify-center gap-2 bg-[#b5904f] text-white rounded-[30px] px-[26px] py-[13px] font-body font-medium text-[13.5px] no-underline"
             >
               ☎ Call now
             </a>
             <a
-              href="https://wa.me/919876543210"
+              href="https://wa.me/919179176465"
               className="inline-flex items-center justify-center gap-2 border border-[#5a5048] text-[#f6ede0] rounded-[30px] px-[26px] py-[13px] font-body font-medium text-[13.5px] no-underline"
             >
               WhatsApp

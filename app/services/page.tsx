@@ -4,130 +4,21 @@ import { FloatingBookCTA } from '@/components/layout/FloatingBookCTA';
 import { EyebrowLabel } from '@/components/shared/EyebrowLabel';
 import { ServiceCategoryBlock } from '@/components/services/ServiceCategoryBlock';
 import { ComboCard } from '@/components/services/ComboCard';
+import { getServiceCategoriesWithServices, getComboOffers } from '@/lib/services-data';
 
-const filterPills = [
-  { href: '#hair', label: 'Hair Care' },
-  { href: '#skin', label: 'Skin & Face' },
-  { href: '#body', label: 'Body Care' },
-  { href: '#threading', label: 'Threading & Waxing' },
-  { href: '#grooming', label: 'Grooming' },
-  { href: '#bridal', label: 'Bridal Makeup', gold: true },
-  { href: '#combos', label: 'Combo Offers' },
-];
+export const revalidate = 60;
 
-const categories = [
-  {
-    id: 'hair',
-    title: 'Hair Care',
-    desc: 'Spa, colour, smoothing, cuts & styling — tailored to your hair type.',
-    fromPrice: '100',
-    iconRadius: '50%',
-    subcards: [
-      { heading: 'Hair Treatment', rows: [{ name: 'Spa', price: '₹1,000–3,000' }, { name: 'Nanoplastia (Chemical)', price: '₹8,000–30,000' }, { name: 'Vegan Treatment', price: '₹10,000' }, { name: 'Straightening', price: '₹6,000–15,000' }] },
-      { heading: 'Styling', rows: [{ name: '1 Length', price: '₹100' }, { name: 'UV', price: '₹200' }, { name: 'Styling', price: '₹300–1,000' }, { name: 'Blow Dry', price: '₹300–600' }] },
-      { heading: 'Colour & Cut', rows: [{ name: 'Root Touch-up', price: '₹800–1,500' }, { name: 'Global Colour', price: '₹2,500–6,000' }, { name: 'Highlights / Balayage', price: '₹4,000–12,000' }, { name: 'Haircut', price: '₹200–1,200' }] },
-    ],
-  },
-  {
-    id: 'skin',
-    title: 'Skin & Face',
-    desc: 'Glow-restoring facials and deep cleansing for radiant, healthy skin.',
-    fromPrice: '300',
-    iconRadius: '50% 50% 50% 0',
-    subcards: [
-      { heading: 'Facials', rows: [{ name: 'Cleanup', price: '₹600–1,200' }, { name: 'Fruit / Hydrating', price: '₹1,000–2,500' }, { name: 'Anti-Aging', price: '₹1,800–3,500' }] },
-      { heading: 'Advanced', rows: [{ name: 'Hydra Facial', price: '₹2,000–4,000' }, { name: 'Korean Glass Facial', price: '₹2,500–5,000' }] },
-      { heading: 'Bleach & D-Tan', rows: [{ name: 'Face Bleach', price: '₹300–700' }, { name: 'Face D-Tan', price: '₹400–900' }] },
-    ],
-  },
-  {
-    id: 'body',
-    title: 'Body Care',
-    desc: 'Relaxing, skin-renewing rituals from head to toe.',
-    fromPrice: '300',
-    iconRadius: '14px',
-    subcards: [
-      { heading: 'Massage', rows: [{ name: 'Body Massage', price: '₹1,500–3,500' }, { name: 'Head Massage', price: '₹300–800' }] },
-      { heading: 'Polishing & D-Tan', rows: [{ name: 'Body Polishing', price: '₹2,000–5,000' }, { name: 'Body D-Tan', price: '₹1,200–2,500' }, { name: 'Body Bleach', price: '₹1,000–2,000' }] },
-      { heading: 'Scrub & Cleanse', rows: [{ name: 'Body Scrub', price: '₹800–2,000' }, { name: 'Body Cleansing', price: '₹700–1,500' }] },
-    ],
-  },
-  {
-    id: 'threading',
-    title: 'Threading & Waxing',
-    desc: 'Precise shaping and gentle, low-pain waxing with premium formulas.',
-    fromPrice: '30',
-    iconRadius: '50% 0',
-    subcards: [
-      { heading: 'Threading', rows: [{ name: 'Eyebrows', price: '₹40' }, { name: 'Upper Lip', price: '₹30' }, { name: 'Chin', price: '₹40' }, { name: 'Full Face', price: '₹150–250' }] },
-      { heading: 'Waxing — Half', rows: [{ name: 'Half Arms', price: '₹150–300' }, { name: 'Half Legs', price: '₹200–350' }, { name: 'Underarms', price: '₹100–200' }] },
-      { heading: 'Waxing — Full & Premium', rows: [{ name: 'Full Arms / Legs', price: '₹300–600' }, { name: 'Full Body', price: '₹1,500–3,000' }, { name: 'Rica / Brazilian', price: '₹500–1,500' }] },
-    ],
-  },
-  {
-    id: 'grooming',
-    title: 'Grooming & Wellness',
-    desc: 'Pamper your hands and feet with our signature nail & spa care.',
-    fromPrice: '300',
-    iconRadius: '50% 50% 0 50%',
-    columns: 2 as const,
-    subcards: [
-      { heading: 'Hands & Feet', rows: [{ name: 'Manicure', price: '₹500–1,200' }, { name: 'Pedicure', price: '₹600–1,500' }] },
-      { heading: 'Nails', rows: [{ name: 'Nail Extensions', price: '₹1,500–3,000' }, { name: 'Nail Art', price: '₹300–1,200' }, { name: 'Gel Polish', price: '₹500–1,000' }] },
-    ],
-  },
-  {
-    id: 'bridal',
-    title: 'Bridal & Event Makeup',
-    desc: 'Your most photographed day deserves an unhurried, expert touch — HD & airbrush finishes that last.',
-    fromPrice: '500',
-    iconRadius: '50%',
-    dark: true,
-    columns: 2 as const,
-    subcards: [
-      { heading: 'Bridal Makeup', rows: [{ name: 'HD Bridal', price: '₹8,000–15,000' }, { name: 'Airbrush Bridal', price: '₹12,000–30,000' }, { name: 'Engagement / Reception', price: '₹6,000–12,000' }] },
-      { heading: 'Party & Add-ons', rows: [{ name: 'Party / Guest Makeup', price: '₹3,000–6,000' }, { name: 'Saree Draping', price: '₹500–1,500' }, { name: 'Hair Styling', price: '₹800–2,000' }] },
-    ],
-  },
-];
+export default async function ServicesPage() {
+  const [categories, combos] = await Promise.all([
+    getServiceCategoriesWithServices(),
+    getComboOffers(),
+  ]);
 
-const combos = [
-  {
-    badge: 'Save 25%',
-    tagLabel: 'Bridal favourite',
-    title: 'Bridal Bliss',
-    items: ['Full-body Massage', 'Body Polishing', 'Signature Facial', 'HD Bridal Makeup'],
-    price: '₹18,000',
-    originalPrice: '₹24,000',
-    featured: true,
-  },
-  {
-    badge: 'Save 27%',
-    tagLabel: 'Most popular',
-    title: 'Glow Package',
-    items: ['Hydra Facial', 'Full-body D-Tan', 'Manicure', 'Pedicure'],
-    price: '₹3,500',
-    originalPrice: '₹4,800',
-  },
-  {
-    badge: 'Save 25%',
-    tagLabel: 'Wedding prep',
-    title: 'Pre-Wedding Prep',
-    items: ['4 Skin Sessions', 'Hair Spa', 'Full-body Waxing'],
-    price: '₹9,000',
-    originalPrice: '₹12,000',
-  },
-  {
-    badge: 'Save 25%',
-    tagLabel: 'Unwind',
-    title: 'Relax & Renew',
-    items: ['Full-body Massage', 'Head Massage', 'Body Polishing'],
-    price: '₹4,500',
-    originalPrice: '₹6,000',
-  },
-];
+  const filterPills = [
+    ...categories.map((cat) => ({ href: `#${cat.slug}`, label: cat.title, gold: cat.slug === 'bridal' })),
+    { href: '#combos', label: 'Combo Offers', gold: false },
+  ];
 
-export default function ServicesPage() {
   return (
     <>
       <Navbar />
@@ -165,7 +56,7 @@ export default function ServicesPage() {
         {/* CATEGORIES */}
         <section className="max-w-[1240px] mx-auto px-6 md:px-11 pb-5">
           {categories.map((cat) => (
-            <ServiceCategoryBlock key={cat.id} {...cat} />
+            <ServiceCategoryBlock key={cat.id} {...cat} id={cat.slug} />
           ))}
         </section>
 
@@ -182,13 +73,15 @@ export default function ServicesPage() {
               </p>
             </div>
             <span className="inline-flex items-center gap-1 text-[11px] font-semibold tracking-[0.09em] uppercase text-[#8a6a1f] bg-[#f6ecca] border border-[#e6d3a0] px-3 py-1.5 rounded-[20px]">
-              Save up to 27%
+              Up to 20% off
             </span>
           </div>
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5">
-            {combos.map((combo) => (
-              <ComboCard key={combo.title} {...combo} />
-            ))}
+            {combos.length > 0 ? (
+              combos.map((combo) => <ComboCard key={combo.id} {...combo} />)
+            ) : (
+              <p className="text-sm text-[#8a7d6e]">Combo offers coming soon.</p>
+            )}
           </div>
         </section>
 
@@ -205,13 +98,13 @@ export default function ServicesPage() {
             </div>
             <div className="flex gap-3.5">
               <a
-                href="tel:+919876543210"
+                href="tel:+918962339467"
                 className="inline-flex items-center justify-center bg-[#b5904f] text-white rounded-[30px] px-8 py-4 font-body font-medium text-[14.5px] no-underline transition-all hover:shadow-[0_12px_26px_-10px_rgba(181,144,79,.7)]"
               >
                 ☎ Call now
               </a>
               <a
-                href="https://wa.me/919876543210"
+                href="https://wa.me/919179176465"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="inline-flex items-center justify-center bg-transparent text-[#f6ede0] border border-[#5a5048] rounded-[30px] px-8 py-4 font-body font-medium text-[14.5px] no-underline transition-all hover:border-[#d9b97e] hover:text-[#d9b97e]"

@@ -19,13 +19,28 @@ const achievements = [
 
 export default async function GalleryPage() {
   const supabase = await createClient();
-  const { data } = await supabase
-    .from('gallery_images')
-    .select('id, title, category, tag, storage_path')
-    .eq('section', 'work')
-    .order('display_order');
+  const [{ data }, { data: achievementData }] = await Promise.all([
+    supabase
+      .from('gallery_images')
+      .select('id, title, category, tag, storage_path')
+      .eq('section', 'work')
+      .order('display_order'),
+    supabase
+      .from('gallery_images')
+      .select('id, title, category, tag, storage_path')
+      .eq('section', 'achievement')
+      .order('display_order'),
+  ]);
 
   const images = (data ?? []).map((img) => ({
+    id: img.id,
+    title: img.title,
+    category: img.category,
+    tag: img.tag,
+    imageUrl: getGalleryPublicUrl(img.storage_path),
+  }));
+
+  const achievementImages = (achievementData ?? []).map((img) => ({
     id: img.id,
     title: img.title,
     category: img.category,
@@ -77,6 +92,22 @@ export default async function GalleryPage() {
               </p>
             </div>
           </div>
+
+          {achievementImages.length > 0 && (
+            <div className="mt-11">
+              <div className="[column-count:2] sm:[column-count:3] md:[column-count:4] [column-gap:14px]">
+                {achievementImages.map((img) => (
+                  <div
+                    key={img.id}
+                    className="relative break-inside-avoid mb-3.5 rounded-2xl overflow-hidden border border-[#eee3d4] group"
+                  >
+                    {/* eslint-disable-next-line @next/next/no-img-element */}
+                    <img src={img.imageUrl} alt={img.title} className="w-full h-auto block transition-transform duration-500 ease-[cubic-bezier(.22,1,.36,1)] group-hover:scale-105" loading="lazy" />
+                  </div>
+                ))}
+              </div>
+            </div>
+          )}
         </section>
 
         {/* CTA STRIP */}

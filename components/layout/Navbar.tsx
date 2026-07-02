@@ -62,10 +62,10 @@ export function Navbar() {
           {/* Desktop CTA */}
           <div className="hidden md:flex items-center gap-[18px] shrink-0">
             <a
-              href="tel:+919876543210"
+              href="tel:+918962339467"
               className="text-[13px] text-[#6b5f54] no-underline whitespace-nowrap"
             >
-              ☎ <strong className="text-[#2e2823] font-medium">+91 98765 43210</strong>
+              ☎ <strong className="text-[#2e2823] font-medium">+91 89623 39467</strong>
             </a>
             <Link
               href="/book"

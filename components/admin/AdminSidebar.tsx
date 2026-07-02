@@ -15,6 +15,7 @@ const NAV = [
 
 const MANAGE = [
   { href: '/admin/services', label: 'Services', icon: '✂' },
+  { href: '/admin/combos', label: 'Combo Offers', icon: '◆' },
   { href: '/admin/gallery', label: 'Gallery', icon: '▦' },
   { href: '/admin/slots', label: 'Slots', icon: '⊞' },
 ];
@@ -46,7 +47,7 @@ function SidebarContent({ adminName, onNavigate }: { adminName: string; onNaviga
     setSigningOut(true);
     const supabase = createClient();
     await supabase.auth.signOut();
-    router.push('/login');
+    router.push('/admin/login');
     router.refresh();
   }
 

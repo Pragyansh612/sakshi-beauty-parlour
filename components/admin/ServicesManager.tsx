@@ -14,8 +14,14 @@ export interface AdminService {
   name: string;
   categoryId: string;
   categoryName: string;
+  subCategory: string;
+  description: string;
   duration: string;
   priceFrom: string;
+  priceTo: string;
+  isAppointmentEligible: string;
+  isBookingEligible: string;
+  displayOrder: string;
   status: string;
 }
 
@@ -30,8 +36,14 @@ const BLANK: AdminService = {
   name: '',
   categoryId: '',
   categoryName: '',
+  subCategory: '',
+  description: '',
   duration: '',
   priceFrom: '',
+  priceTo: '',
+  isAppointmentEligible: 'false',
+  isBookingEligible: 'false',
+  displayOrder: '0',
   status: 'active',
 };
 
@@ -69,8 +81,14 @@ export function ServicesManager({
         type: 'select',
         options: categoryOptions,
       },
+      { key: 'subCategory', label: 'Sub-category', value: item.subCategory, editable: true },
+      { key: 'description', label: 'Description', value: item.description, editable: true, type: 'textarea' },
       { key: 'duration', label: 'Duration', value: item.duration, editable: true },
-      { key: 'priceFrom', label: 'Price (₹)', value: item.priceFrom, editable: true },
+      { key: 'priceFrom', label: 'Price from (₹)', value: item.priceFrom, editable: true },
+      { key: 'priceTo', label: 'Price to (₹) — leave blank for a single "starting from" price', value: item.priceTo, editable: true },
+      { key: 'isAppointmentEligible', label: 'Show in Quick Appointment booking', value: item.isAppointmentEligible, editable: true, type: 'checkbox' },
+      { key: 'isBookingEligible', label: 'Show in Bridal & Event booking', value: item.isBookingEligible, editable: true, type: 'checkbox' },
+      { key: 'displayOrder', label: 'Display order', value: item.displayOrder, editable: true },
       { key: 'status', label: 'Status', value: item.status, editable: true, type: 'select', options: STATUS_OPTIONS },
     ];
   }
@@ -79,14 +97,22 @@ export function ServicesManager({
     if (!drawer) return;
     setSaving(true);
 
+    const shared = {
+      name: draft.name,
+      category_id: draft.categoryId,
+      sub_category: draft.subCategory || undefined,
+      description: draft.description || undefined,
+      duration_label: draft.duration || undefined,
+      price_from: Number(draft.priceFrom || 0),
+      price_to: draft.priceTo ? Number(draft.priceTo) : undefined,
+      is_appointment_eligible: draft.isAppointmentEligible === 'true',
+      is_booking_eligible: draft.isBookingEligible === 'true',
+      display_order: Number(draft.displayOrder || 0),
+      status: draft.status as Parameters<typeof createService>[0]['status'],
+    };
+
     if (drawer.isNew) {
-      const result = await createService({
-        name: draft.name,
-        category_id: draft.categoryId,
-        duration_label: draft.duration || undefined,
-        price_from: Number(draft.priceFrom || 0),
-        status: draft.status as Parameters<typeof createService>[0]['status'],
-      });
+      const result = await createService(shared);
       setSaving(false);
       if (!result.success) {
         toast.error(result.error ?? 'Something went wrong.');
@@ -98,14 +124,7 @@ export function ServicesManager({
       return;
     }
 
-    const result = await updateService({
-      id: drawer.item.id,
-      name: draft.name,
-      category_id: draft.categoryId,
-      duration_label: draft.duration,
-      price_from: Number(draft.priceFrom || 0),
-      status: draft.status as Parameters<typeof updateService>[0]['status'],
-    });
+    const result = await updateService({ id: drawer.item.id, ...shared });
     setSaving(false);
 
     if (!result.success) {
@@ -121,8 +140,14 @@ export function ServicesManager({
               name: draft.name,
               categoryId: draft.categoryId,
               categoryName: categories.find((c) => c.id === draft.categoryId)?.name ?? s.categoryName,
+              subCategory: draft.subCategory,
+              description: draft.description,
               duration: draft.duration,
               priceFrom: draft.priceFrom,
+              priceTo: draft.priceTo,
+              isAppointmentEligible: draft.isAppointmentEligible,
+              isBookingEligible: draft.isBookingEligible,
+              displayOrder: draft.displayOrder,
               status: draft.status,
             }
           : s
@@ -204,6 +229,7 @@ export function ServicesManager({
                 <td className="px-4 py-3.5 border-b border-[#f1ece2] text-[13.5px] text-[#6b5f54]">{s.duration}</td>
                 <td className="px-4 py-3.5 border-b border-[#f1ece2] text-[13.5px] font-semibold text-[#b5904f]">
                   ₹{Number(s.priceFrom).toLocaleString('en-IN')}
+                  {s.priceTo ? ` – ₹${Number(s.priceTo).toLocaleString('en-IN')}` : '+'}
                 </td>
                 <td className="px-4 py-3.5 border-b border-[#f1ece2] text-[13.5px]">
                   <StatusBadge status={s.status} />

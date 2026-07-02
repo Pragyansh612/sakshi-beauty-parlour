@@ -19,7 +19,7 @@ export function Footer() {
           </p>
           <div className="mt-[22px] flex items-center gap-[11px]">
             <a
-              href="https://instagram.com/sakshibeautyparlour"
+              href="https://www.instagram.com/sakshi_beauty_parlour._?igsh=Ym1rbHFtNGRoZGI1"
               target="_blank"
               rel="noopener noreferrer"
               aria-label="Instagram"
@@ -43,7 +43,7 @@ export function Footer() {
               </svg>
             </a>
             <a
-              href="https://youtube.com/@sakshibeautyparlour"
+              href="https://youtube.com/@sakshibeautyparlourmakroni8143?si=As5i0emgYXyOVHR0"
               target="_blank"
               rel="noopener noreferrer"
               aria-label="YouTube"
@@ -54,7 +54,7 @@ export function Footer() {
                 <path d="M10.3 9.3l4.8 2.7-4.8 2.7z" fill="currentColor" stroke="none"/>
               </svg>
             </a>
-            <span className="text-[12.5px] text-[#8a7d6e] font-light ml-1">@sakshibeautyparlour</span>
+            <span className="text-[12.5px] text-[#8a7d6e] font-light ml-1">@sakshi_beauty_parlour._</span>
           </div>
         </div>
 
@@ -101,8 +101,8 @@ export function Footer() {
             FC Road, Shivaji Nagar,<br />
             Pune 411005<br />
             <br />
-            <a href="tel:+919876543210" className="text-[#f6ede0] no-underline hover:text-[#d9b97e] transition-colors">
-              +91 98765 43210
+            <a href="tel:+918962339467" className="text-[#f6ede0] no-underline hover:text-[#d9b97e] transition-colors">
+              +91 89623 39467
             </a>
             <br />
             <span className="text-[#8a7d6e]">Mon–Sun · 11:00 AM – 9:00 PM</span>

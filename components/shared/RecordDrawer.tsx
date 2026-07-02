@@ -12,7 +12,7 @@ export interface DrawerField {
   value: string;
   key: string;
   editable?: boolean;
-  type?: 'text' | 'date' | 'select';
+  type?: 'text' | 'date' | 'select' | 'textarea' | 'checkbox';
   options?: { value: string; label: string }[];
 }
 
@@ -91,38 +91,85 @@ export function RecordDrawer({
 
             {/* Body */}
             <div className="flex-1 overflow-y-auto px-6 py-6 space-y-5">
-              {fields.map((field) => (
-                <div key={field.key} className="space-y-1.5">
-                  <Label>{field.label}</Label>
-                  {mode === 'edit' && field.editable !== false && field.type === 'select' ? (
-                    <select
-                      value={draft[field.key] ?? ''}
-                      onChange={(e) =>
-                        setDraft((prev) => ({ ...prev, [field.key]: e.target.value }))
-                      }
-                      className="flex h-10 w-full rounded-md border border-[#e7dcc8] bg-[#FAF6EF] px-3 py-2 text-sm text-[#2e2823] focus:outline-none focus:ring-2 focus:ring-[#b5904f] focus:border-transparent"
-                    >
-                      {(field.options ?? []).map((opt) => (
-                        <option key={opt.value} value={opt.value}>
-                          {opt.label}
-                        </option>
-                      ))}
-                    </select>
-                  ) : mode === 'edit' && field.editable !== false ? (
-                    <Input
-                      type={field.type === 'date' ? 'date' : 'text'}
-                      value={draft[field.key] ?? ''}
-                      onChange={(e) =>
-                        setDraft((prev) => ({ ...prev, [field.key]: e.target.value }))
-                      }
-                    />
-                  ) : (
+              {fields.map((field) => {
+                const isEditable = mode === 'edit' && field.editable !== false;
+
+                if (isEditable && field.type === 'select') {
+                  return (
+                    <div key={field.key} className="space-y-1.5">
+                      <Label>{field.label}</Label>
+                      <select
+                        value={draft[field.key] ?? ''}
+                        onChange={(e) => setDraft((prev) => ({ ...prev, [field.key]: e.target.value }))}
+                        className="flex h-10 w-full rounded-md border border-[#e7dcc8] bg-[#FAF6EF] px-3 py-2 text-sm text-[#2e2823] focus:outline-none focus:ring-2 focus:ring-[#b5904f] focus:border-transparent"
+                      >
+                        {(field.options ?? []).map((opt) => (
+                          <option key={opt.value} value={opt.value}>
+                            {opt.label}
+                          </option>
+                        ))}
+                      </select>
+                    </div>
+                  );
+                }
+
+                if (field.type === 'checkbox') {
+                  const checked = (isEditable ? draft[field.key] : field.value) === 'true';
+                  return (
+                    <div key={field.key} className="flex items-center gap-2.5">
+                      <input
+                        type="checkbox"
+                        id={`field-${field.key}`}
+                        checked={checked}
+                        disabled={!isEditable}
+                        onChange={(e) =>
+                          setDraft((prev) => ({ ...prev, [field.key]: e.target.checked ? 'true' : 'false' }))
+                        }
+                        className="h-4 w-4 rounded border-[#e7dcc8] text-[#b5904f] focus:ring-[#b5904f]"
+                      />
+                      <Label htmlFor={`field-${field.key}`} className="!mb-0">
+                        {field.label}
+                      </Label>
+                    </div>
+                  );
+                }
+
+                if (isEditable && field.type === 'textarea') {
+                  return (
+                    <div key={field.key} className="space-y-1.5">
+                      <Label>{field.label}</Label>
+                      <textarea
+                        value={draft[field.key] ?? ''}
+                        onChange={(e) => setDraft((prev) => ({ ...prev, [field.key]: e.target.value }))}
+                        rows={4}
+                        className="flex w-full rounded-md border border-[#e7dcc8] bg-[#FAF6EF] px-3 py-2 text-sm text-[#2e2823] focus:outline-none focus:ring-2 focus:ring-[#b5904f] focus:border-transparent resize-none"
+                      />
+                    </div>
+                  );
+                }
+
+                if (isEditable) {
+                  return (
+                    <div key={field.key} className="space-y-1.5">
+                      <Label>{field.label}</Label>
+                      <Input
+                        type={field.type === 'date' ? 'date' : 'text'}
+                        value={draft[field.key] ?? ''}
+                        onChange={(e) => setDraft((prev) => ({ ...prev, [field.key]: e.target.value }))}
+                      />
+                    </div>
+                  );
+                }
+
+                return (
+                  <div key={field.key} className="space-y-1.5">
+                    <Label>{field.label}</Label>
                     <p className="text-sm text-[#2e2823] py-2 px-3 bg-[#FAF6EF] border border-[#e7dcc8] rounded-md min-h-[40px] flex items-center">
                       {field.value || <span className="text-[#8a7b6e] italic">—</span>}
                     </p>
-                  )}
-                </div>
-              ))}
+                  </div>
+                );
+              })}
             </div>
 
             {/* Footer actions */}

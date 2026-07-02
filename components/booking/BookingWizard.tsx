@@ -573,7 +573,7 @@ export function BookingWizard({
             <span className="font-heading text-[#f6ede0] text-2xl">{service?.price ?? '—'}</span>
           </div>
           <a
-            href="https://wa.me/919876543210"
+            href="https://wa.me/919179176465"
             target="_blank"
             rel="noopener noreferrer"
             className="inline-flex items-center justify-center w-full mt-4 bg-transparent text-[#2e2823] border border-[#d8c6a6] rounded-[30px] px-6 py-3 font-body font-medium text-[12.5px] no-underline transition-all hover:border-[#b5904f] hover:text-[#b5904f]"

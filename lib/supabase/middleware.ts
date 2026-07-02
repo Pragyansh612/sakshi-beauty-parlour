@@ -1,6 +1,7 @@
 import { createServerClient } from '@supabase/ssr';
 import { type NextRequest, NextResponse } from 'next/server';
 import type { Database } from '@/types/database';
+import { isAdminRole } from '@/lib/supabase/auth-helpers';
 
 export async function updateSession(request: NextRequest) {
   let supabaseResponse = NextResponse.next({ request });
@@ -42,19 +43,14 @@ export async function updateSession(request: NextRequest) {
     return NextResponse.redirect(new URL('/login', request.url));
   }
 
-  // Protect /admin routes — require admin role
-  if (pathname.startsWith('/admin')) {
+  // Protect /admin routes (excluding the admin login page itself) — require admin role
+  if (pathname.startsWith('/admin') && pathname !== '/admin/login') {
     if (!user) {
-      return NextResponse.redirect(new URL('/login', request.url));
+      const loginUrl = new URL('/admin/login', request.url);
+      loginUrl.searchParams.set('redirectTo', pathname);
+      return NextResponse.redirect(loginUrl);
     }
-    const { data: profileData } = await supabase
-      .from('profiles')
-      .select('role')
-      .eq('id', user.id)
-      .single();
-
-    const profile = profileData as { role: string } | null;
-    if (!profile || profile.role !== 'admin') {
+    if (!(await isAdminRole(supabase, user.id))) {
       return NextResponse.redirect(new URL('/', request.url));
     }
   }

@@ -7,7 +7,8 @@ import { ContactForm } from '@/components/forms/ContactForm';
 
 const detailRows = [
   { icon: '⚲', label: 'Address', value: 'Shop 14, Rose Arcade, FC Road,\nShivaji Nagar, Pune 411005' },
-  { icon: '☎', label: 'Phone & WhatsApp', value: '+91 98765 43210', href: 'tel:+919876543210' },
+  { icon: '☎', label: 'Call', value: '+91 89623 39467', href: 'tel:+918962339467' },
+  { icon: '✆', label: 'WhatsApp', value: '+91 91791 76465', href: 'https://wa.me/919179176465' },
   { icon: '✉', label: 'Email', value: 'hello@sakshibeautyparlour.in', href: 'mailto:hello@sakshibeautyparlour.in' },
   { icon: '◷', label: 'Working hours', value: 'Monday – Sunday\n11:00 AM – 9:00 PM' },
 ];
@@ -32,39 +33,47 @@ export default function ContactPage() {
         {/* QUICK CONTACT CARDS */}
         <section className="max-w-[1240px] mx-auto px-6 md:px-11 pb-8">
           <div className="grid grid-cols-1 sm:grid-cols-3 gap-5">
-            <a href="tel:+919876543210" className="no-underline">
+            <a href="tel:+918962339467" className="no-underline">
               <div className="bg-white border border-[#eee3d4] rounded-[18px] px-7 py-[30px] text-center transition-all duration-200 hover:-translate-y-1 hover:shadow-[0_24px_46px_-28px_rgba(60,45,30,.5)]">
                 <div className="w-[54px] h-[54px] rounded-full bg-[#2e2823] text-[#f6ede0] flex items-center justify-center text-xl mx-auto mb-4">
                   ☎
                 </div>
                 <h3 className="font-heading text-[24px] font-medium text-[#2e2823] m-0">Call us</h3>
                 <p className="text-[13px] font-light text-[#6b5f54] mt-1">Fastest way to book</p>
-                <div className="mt-2.5 text-[15px] font-medium text-[#b5904f]">+91 98765 43210</div>
+                <div className="mt-2.5 text-[15px] font-medium text-[#b5904f]">+91 89623 39467</div>
               </div>
             </a>
-            <a href="https://wa.me/919876543210" target="_blank" rel="noopener noreferrer" className="no-underline">
+            <a href="https://wa.me/919179176465" target="_blank" rel="noopener noreferrer" className="no-underline">
               <div className="bg-white border border-[#eee3d4] rounded-[18px] px-7 py-[30px] text-center transition-all duration-200 hover:-translate-y-1 hover:shadow-[0_24px_46px_-28px_rgba(60,45,30,.5)]">
                 <div className="w-[54px] h-[54px] rounded-full bg-[#b5904f] text-white flex items-center justify-center text-xl mx-auto mb-4">
                   ✆
                 </div>
                 <h3 className="font-heading text-[24px] font-medium text-[#2e2823] m-0">WhatsApp</h3>
                 <p className="text-[13px] font-light text-[#6b5f54] mt-1">Send us your queries</p>
-                <div className="mt-2.5 text-[15px] font-medium text-[#b5904f]">+91 98765 43210</div>
+                <div className="mt-2.5 text-[15px] font-medium text-[#b5904f]">+91 91791 76465</div>
               </div>
             </a>
             <div className="bg-white border border-[#eee3d4] rounded-[18px] px-7 py-[30px] text-center">
               <div className="text-[13px] font-medium tracking-[0.04em] uppercase text-[#6b5f54]">Follow us</div>
               <div className="flex justify-center gap-3.5 my-4">
-                {['Instagram', 'Facebook', 'YouTube'].map((label) => (
-                  <div
+                {[
+                  { label: 'Instagram', href: 'https://www.instagram.com/sakshi_beauty_parlour._?igsh=Ym1rbHFtNGRoZGI1' },
+                  { label: 'Facebook', href: 'https://facebook.com/sakshibeautyparlour' },
+                  { label: 'YouTube', href: 'https://youtube.com/@sakshibeautyparlourmakroni8143?si=As5i0emgYXyOVHR0' },
+                ].map(({ label, href }) => (
+                  <a
                     key={label}
+                    href={href}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    aria-label={label}
                     className="w-12 h-12 rounded-full bg-[#f6ecdb] text-[#b5904f] flex items-center justify-center text-sm transition-colors hover:bg-[#b5904f] hover:text-white"
                   >
                     {label[0]}
-                  </div>
+                  </a>
                 ))}
               </div>
-              <div className="text-[15px] font-medium text-[#b5904f]">@sakshibeautyparlour</div>
+              <div className="text-[15px] font-medium text-[#b5904f]">@sakshi_beauty_parlour._</div>
             </div>
           </div>
         </section>
@@ -128,7 +137,7 @@ export default function ContactPage() {
               <ContactForm />
               <div className="text-center mt-3.5">
                 <a
-                  href="https://wa.me/919876543210"
+                  href="https://wa.me/919179176465"
                   target="_blank"
                   rel="noopener noreferrer"
                   className="text-[13px] text-[#b5904f] no-underline"
@@ -158,7 +167,7 @@ export default function ContactPage() {
                 Book appointment
               </Link>
               <a
-                href="tel:+919876543210"
+                href="tel:+918962339467"
                 className="inline-flex items-center justify-center bg-transparent text-[#f6ede0] border border-[#5a5048] rounded-[30px] px-8 py-4 font-body font-medium text-[14.5px] no-underline transition-all hover:border-[#d9b97e] hover:text-[#d9b97e]"
               >
                 ☎ Call now

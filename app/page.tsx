@@ -4,9 +4,10 @@ import { Footer } from '@/components/layout/Footer';
 import { FloatingBookCTA } from '@/components/layout/FloatingBookCTA';
 import { SectionReveal } from '@/components/shared/SectionReveal';
 import { EyebrowLabel } from '@/components/shared/EyebrowLabel';
-import { ServiceHoverCard } from '@/components/home/ServiceHoverCard';
+import { ServiceCategoryCard } from '@/components/home/ServiceCategoryCard';
 import { createClient } from '@/lib/supabase/server';
 import { getGalleryPublicUrl } from '@/lib/supabase/storage';
+import { getServiceCategoriesWithServices } from '@/lib/services-data';
 
 export const revalidate = 3600;
 
@@ -26,58 +27,14 @@ const whyCards = [
   { title: 'Customer satisfaction', desc: 'A 4.9★ rating across 1,200+ reviews — built one delighted client at a time.' },
 ];
 
-const featuredServices = [
-  {
-    title: 'Hair Care',
-    tagline: 'Spa, colour, smoothing & styling',
-    fromPrice: '100',
-    tag: 'Hair care',
-    bgGradient: 'linear-gradient(150deg,#f3e3dc,#efe1d0)',
-    priceGroups: [
-      { heading: 'Hair Treatment', rows: [{ name: 'Spa', price: '₹1,000–3,000' }, { name: 'Nanoplastia', price: '₹8,000–30,000' }, { name: 'Vegan Treatment', price: '₹10,000' }] },
-      { heading: 'Styling', rows: [{ name: '1 Length Cut', price: '₹100' }, { name: 'Styling', price: '₹300–1,000' }] },
-      { heading: 'Colour & Cut', rows: [{ name: 'Root Touch-up', price: '₹800–1,500' }, { name: 'Global Colour', price: '₹2,500–6,000' }, { name: 'Haircut', price: '₹200–1,200' }] },
-    ],
-  },
-  {
-    title: 'Skin & Face',
-    tagline: 'Facials, hydra facial & cleanups',
-    fromPrice: '300',
-    tag: 'Skin & face',
-    bgGradient: 'linear-gradient(150deg,#efe1d8,#ecdfce)',
-    priceGroups: [
-      { heading: 'Facials', rows: [{ name: 'Cleanup', price: '₹600–1,200' }, { name: 'Fruit / Hydrating', price: '₹1,000–2,500' }, { name: 'Anti-Aging', price: '₹1,800–3,500' }] },
-      { heading: 'Advanced', rows: [{ name: 'Hydra Facial', price: '₹2,000–4,000' }, { name: 'Korean Glass Facial', price: '₹2,500–5,000' }] },
-      { heading: 'Bleach & D-Tan', rows: [{ name: 'Face Bleach', price: '₹300–700' }, { name: 'Face D-Tan', price: '₹400–900' }] },
-    ],
-  },
-  {
-    title: 'Body Care',
-    tagline: 'Polishing, D-tan & massage',
-    fromPrice: '300',
-    tag: 'Body care',
-    bgGradient: 'linear-gradient(150deg,#f0e2d9,#ece1d0)',
-    priceGroups: [
-      { heading: 'Massage', rows: [{ name: 'Body Massage', price: '₹1,500–3,500' }, { name: 'Head Massage', price: '₹300–800' }] },
-      { heading: 'Polishing & D-Tan', rows: [{ name: 'Body Polishing', price: '₹2,000–5,000' }, { name: 'Body D-Tan', price: '₹1,200–2,500' }] },
-      { heading: 'Scrub & Cleanse', rows: [{ name: 'Body Scrub', price: '₹800–2,000' }, { name: 'Body Cleansing', price: '₹700–1,500' }] },
-    ],
-  },
-  {
-    title: 'Bridal Makeup',
-    tagline: 'HD, airbrush & saree draping',
-    fromPrice: '500',
-    tag: 'Bridal makeup',
-    bgGradient: 'linear-gradient(150deg,#f1e2da,#e9d8cd)',
-    priceGroups: [
-      { heading: 'Makeup', rows: [{ name: 'HD Bridal', price: '₹8,000–15,000' }, { name: 'Airbrush Bridal', price: '₹12,000–30,000' }, { name: 'Engagement / Reception', price: '₹6,000–12,000' }, { name: 'Party / Guest', price: '₹3,000–6,000' }] },
-      { heading: 'Add-ons', rows: [{ name: 'Saree Draping', price: '₹500–1,500' }, { name: 'Hair Styling', price: '₹800–2,000' }] },
-    ],
-  },
-];
+const FEATURED_SLUGS = ['hair', 'skin', 'body', 'bridal'];
 
 export default async function HomePage() {
   const supabase = await createClient();
+  const allCategories = await getServiceCategoriesWithServices();
+  const featuredServices = FEATURED_SLUGS
+    .map((slug) => allCategories.find((c) => c.slug === slug))
+    .filter((c): c is NonNullable<typeof c> => !!c);
   const { data } = await supabase
     .from('gallery_images')
     .select('id, title, category, tag, storage_path')
@@ -148,8 +105,8 @@ export default async function HomePage() {
             </div>
 
             {/* Right: portrait */}
-            <div className="relative hidden md:block">
-              <div className="relative overflow-hidden h-[560px] rounded-[220px_220px_22px_22px]">
+            <div className="relative mt-10 md:mt-0">
+              <div className="relative overflow-hidden h-[360px] md:h-[560px] rounded-[120px_120px_22px_22px] md:rounded-[220px_220px_22px_22px]">
                 {/* eslint-disable-next-line @next/next/no-img-element */}
                 <img
                   src="/stock/hero-bridal-portrait.jpg"
@@ -158,7 +115,7 @@ export default async function HomePage() {
                 />
               </div>
               {/* Floating rating card */}
-              <div className="absolute left-[-30px] bottom-[42px] bg-white border border-[#eee3d4] rounded-[18px] px-5 py-4 flex items-center gap-3 shadow-[0_22px_50px_-26px_rgba(60,45,30,.5)]">
+              <div className="absolute left-1 md:left-[-30px] bottom-6 md:bottom-[42px] bg-white border border-[#eee3d4] rounded-[18px] px-4 py-3 md:px-5 md:py-4 flex items-center gap-3 shadow-[0_22px_50px_-26px_rgba(60,45,30,.5)]">
                 <div className="flex">
                   {[0, 1, 2].map((i) => (
                     <span
@@ -174,7 +131,7 @@ export default async function HomePage() {
                 </div>
               </div>
               {/* Floating bridal badge */}
-              <div className="absolute top-[30px] right-[-14px] bg-[#2e2823] text-[#f6ede0] rounded-[16px] px-[18px] py-3.5 text-center shadow-[0_18px_40px_-22px_rgba(46,40,35,.7)]">
+              <div className="absolute top-4 md:top-[30px] right-1 md:right-[-14px] bg-[#2e2823] text-[#f6ede0] rounded-[16px] px-[18px] py-3.5 text-center shadow-[0_18px_40px_-22px_rgba(46,40,35,.7)]">
                 <div className="font-script text-[#d9b97e] text-[24px] leading-[0.8]">Bridal</div>
                 <div className="text-[10px] tracking-[0.14em] uppercase text-[#cdbfae] mt-1 font-light">Specialists</div>
               </div>
@@ -249,7 +206,7 @@ export default async function HomePage() {
             </p>
             <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-[22px]">
               {featuredServices.map((service) => (
-                <ServiceHoverCard key={service.title} {...service} />
+                <ServiceCategoryCard key={service.id} {...service} />
               ))}
             </div>
           </SectionReveal>
@@ -353,13 +310,13 @@ export default async function HomePage() {
                 </p>
                 <div className="flex flex-wrap gap-3.5">
                   <a
-                    href="tel:+919876543210"
+                    href="tel:+918962339467"
                     className="inline-flex items-center justify-center bg-[#2e2823] text-[#f6ede0] rounded-[30px] px-8 py-4 font-body font-medium text-[14.5px] no-underline transition-all hover:-translate-y-px hover:shadow-[0_12px_26px_-10px_rgba(46,40,35,.6)]"
                   >
                     ☎ Call now
                   </a>
                   <a
-                    href="https://wa.me/919876543210"
+                    href="https://wa.me/919179176465"
                     target="_blank"
                     rel="noopener noreferrer"
                     className="inline-flex items-center justify-center bg-[#b5904f] text-white rounded-[30px] px-8 py-4 font-body font-medium text-[14.5px] no-underline transition-all hover:-translate-y-px hover:shadow-[0_12px_26px_-10px_rgba(181,144,79,.7)]"
@@ -375,7 +332,7 @@ export default async function HomePage() {
                 </div>
               </div>
               {/* Salon interior */}
-              <div className="min-h-[240px] relative hidden md:block">
+              <div className="h-[200px] md:h-auto md:min-h-[240px] relative">
                 {/* eslint-disable-next-line @next/next/no-img-element */}
                 <img
                   src="/stock/salon-interior.jpg"

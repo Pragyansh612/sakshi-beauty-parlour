@@ -89,10 +89,10 @@ export function MobileNav({ isOpen, onClose, pathname }: MobileNavProps) {
             {/* Bottom CTAs */}
             <div className="px-6 pb-8 space-y-3">
               <a
-                href="tel:+919876543210"
+                href="tel:+918962339467"
                 className="block text-center text-[13px] text-[#6b5f54] no-underline py-2.5 border border-[#e7dcc8] rounded-[30px]"
               >
-                ☎ <strong className="text-[#2e2823] font-medium">+91 98765 43210</strong>
+                ☎ <strong className="text-[#2e2823] font-medium">+91 89623 39467</strong>
               </a>
               <Link
                 href="/book"
