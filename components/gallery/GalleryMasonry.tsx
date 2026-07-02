@@ -12,15 +12,12 @@ export interface GalleryTile {
 }
 
 export function GalleryMasonry({ images }: { images: GalleryTile[] }) {
-  const [filter, setFilter] = useState('All');
+  const [filter, setFilter] = useState(() => images[0]?.category ?? '');
   const [lightbox, setLightbox] = useState<GalleryTile | null>(null);
 
-  const filterList = useMemo(() => {
-    const categories = Array.from(new Set(images.map((t) => t.category)));
-    return ['All', ...categories];
-  }, [images]);
+  const filterList = useMemo(() => Array.from(new Set(images.map((t) => t.category))), [images]);
 
-  const visible = images.filter((t) => filter === 'All' || t.category === filter);
+  const visible = images.filter((t) => t.category === filter);
 
   if (images.length === 0) {
     return (
@@ -47,7 +44,7 @@ export function GalleryMasonry({ images }: { images: GalleryTile[] }) {
                 : 'bg-transparent border-[#d8c6a6] text-[#6b5f54] hover:border-[#b5904f] hover:text-[#b5904f]'
             )}
           >
-            {label === 'All' ? 'All work' : label}
+            {label}
           </button>
         ))}
       </div>

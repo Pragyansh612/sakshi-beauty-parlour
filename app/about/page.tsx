@@ -3,6 +3,8 @@ import { Navbar } from '@/components/layout/Navbar';
 import { Footer } from '@/components/layout/Footer';
 import { FloatingBookCTA } from '@/components/layout/FloatingBookCTA';
 import { EyebrowLabel } from '@/components/shared/EyebrowLabel';
+import { createClient } from '@/lib/supabase/server';
+import { getGalleryPublicUrl } from '@/lib/supabase/storage';
 
 const stats = [
   { stat: '12+', label: 'Years of artistry' },
@@ -17,7 +19,22 @@ const standards = [
   { num: '03', title: 'Honest pricing', desc: 'Transparent rates, shared upfront — no surprises at the counter.' },
 ];
 
-export default function AboutPage() {
+export default async function AboutPage() {
+  const supabase = await createClient();
+  const { data } = await supabase
+    .from('gallery_images')
+    .select('id, title, storage_path')
+    .eq('section', 'work')
+    .order('display_order')
+    .limit(4);
+
+  const workPhotos = (data ?? []).map((img) => ({
+    id: img.id,
+    title: img.title,
+    imageUrl: getGalleryPublicUrl(img.storage_path),
+  }));
+  const [heroPhoto, ...stripPhotos] = workPhotos;
+
   return (
     <>
       <Navbar />
@@ -41,16 +58,20 @@ export default function AboutPage() {
                 Twelve years on, we&apos;re proud to be one of Pune&apos;s most-loved bridal and beauty studios — but our approach hasn&apos;t changed. Listen first. Personalise everything. Never rush.
               </p>
             </div>
-            <div
-              className="relative overflow-hidden h-[320px] md:h-[480px] rounded-[24px_24px_200px_200px]"
-              style={{ background: 'linear-gradient(150deg,#f3e3dc,#efe1d0)' }}
-            >
-              <div
-                className="absolute inset-0"
-                style={{ backgroundImage: 'repeating-linear-gradient(135deg,rgba(181,144,79,.08) 0 12px,transparent 12px 24px)' }}
-              />
+            <div className="relative overflow-hidden h-[320px] md:h-[480px] rounded-[24px_24px_200px_200px]">
+              {heroPhoto ? (
+                <>
+                  {/* eslint-disable-next-line @next/next/no-img-element */}
+                  <img src={heroPhoto.imageUrl} alt={heroPhoto.title} className="absolute inset-0 w-full h-full object-cover" />
+                </>
+              ) : (
+                <div
+                  className="absolute inset-0"
+                  style={{ background: 'linear-gradient(150deg,#f3e3dc,#efe1d0)', backgroundImage: 'repeating-linear-gradient(135deg,rgba(181,144,79,.08) 0 12px,transparent 12px 24px)' }}
+                />
+              )}
               <span className="absolute left-1/2 bottom-4 -translate-x-1/2 whitespace-nowrap py-[5px] px-[13px] font-mono text-[9px] tracking-[0.16em] uppercase text-[#7a6a52] bg-white/72 rounded-[20px]">
-                Founder · portrait
+                Our studio
               </span>
             </div>
           </div>
@@ -113,6 +134,31 @@ export default function AboutPage() {
             ))}
           </div>
         </section>
+
+        {/* WORK STRIP */}
+        {stripPhotos.length > 0 && (
+          <section className="max-w-[1240px] mx-auto px-6 md:px-11 pt-9 pb-8">
+            <div className="flex items-end justify-between mb-6 gap-4 flex-wrap">
+              <h2 className="font-heading font-medium text-[30px] md:text-[36px] leading-[1.06] text-[#2e2823] m-0">
+                A glimpse of our <span className="font-script text-[#b5904f] text-[36px] md:text-[42px]">work</span>
+              </h2>
+              <Link
+                href="/gallery"
+                className="inline-flex items-center justify-center bg-transparent text-[#2e2823] border border-[#d8c6a6] rounded-[30px] px-[22px] py-[11px] font-body font-medium text-[13px] no-underline transition-all hover:border-[#b5904f] hover:text-[#b5904f]"
+              >
+                View full gallery →
+              </Link>
+            </div>
+            <div className="grid grid-cols-2 md:grid-cols-3 gap-4">
+              {stripPhotos.map((photo) => (
+                <div key={photo.id} className="relative overflow-hidden h-[200px] md:h-[240px] rounded-[16px]">
+                  {/* eslint-disable-next-line @next/next/no-img-element */}
+                  <img src={photo.imageUrl} alt={photo.title} className="absolute inset-0 w-full h-full object-cover" loading="lazy" />
+                </div>
+              ))}
+            </div>
+          </section>
+        )}
 
         {/* COMMITMENT */}
         <section className="max-w-[1240px] mx-auto px-6 md:px-11 pt-9 pb-8">

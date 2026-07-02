@@ -3,7 +3,6 @@ import { Navbar } from '@/components/layout/Navbar';
 import { Footer } from '@/components/layout/Footer';
 import { FloatingBookCTA } from '@/components/layout/FloatingBookCTA';
 import { EyebrowLabel } from '@/components/shared/EyebrowLabel';
-import { ContactForm } from '@/components/forms/ContactForm';
 
 const detailRows = [
   { icon: '⚲', label: 'Address', value: 'Shop 14, Rose Arcade, FC Road,\nShivaji Nagar, Pune 411005' },
@@ -78,73 +77,51 @@ export default function ContactPage() {
           </div>
         </section>
 
-        {/* DETAILS + FORM */}
+        {/* DETAILS */}
         <section className="max-w-[1240px] mx-auto px-6 md:px-11 py-8">
-          <div className="grid grid-cols-1 md:grid-cols-[1fr_1.05fr] gap-10 items-start">
-            {/* Details */}
-            <div>
-              <h2 className="font-heading font-medium text-[30px] md:text-[34px] text-[#2e2823] m-0">Studio details</h2>
-              <div className="mt-3.5">
-                {detailRows.map(({ icon, label, value, href }, i) => (
-                  <div
-                    key={label}
-                    className={`flex gap-4 items-start py-5 ${i < detailRows.length - 1 ? 'border-b border-[#eee3d4]' : ''}`}
-                  >
-                    <div className="w-[46px] h-[46px] rounded-xl bg-[#f6ecdb] flex items-center justify-center text-[#b5904f] text-lg shrink-0">
-                      {icon}
-                    </div>
-                    <div>
-                      <div className="text-[14px] font-medium text-[#2e2823]">{label}</div>
-                      {href ? (
-                        <a href={href} className="text-[14px] font-light text-[#b5904f] no-underline mt-0.5 block">
-                          {value}
-                        </a>
-                      ) : (
-                        <div className="text-[14px] font-light text-[#6b5f54] mt-0.5 whitespace-pre-line leading-[1.5]">
-                          {value}
-                        </div>
-                      )}
-                    </div>
-                  </div>
-                ))}
-              </div>
-              {/* Map placeholder */}
-              <div
-                className="relative overflow-hidden h-[230px] rounded-2xl mt-6"
-                style={{ background: 'linear-gradient(150deg,#e9e2d4,#ddd5c4)' }}
-              >
+          <div className="max-w-[600px] mx-auto">
+            <h2 className="font-heading font-medium text-[30px] md:text-[34px] text-[#2e2823] m-0">Studio details</h2>
+            <div className="mt-3.5">
+              {detailRows.map(({ icon, label, value, href }, i) => (
                 <div
-                  className="absolute inset-0"
-                  style={{
-                    backgroundImage:
-                      'linear-gradient(rgba(181,144,79,.12) 1px,transparent 1px),linear-gradient(90deg,rgba(181,144,79,.12) 1px,transparent 1px)',
-                    backgroundSize: '38px 38px',
-                  }}
-                />
-                <div className="absolute left-1/2 top-[46%] w-[18px] h-[18px] rounded-[50%_50%_50%_0] bg-[#b5904f] -translate-x-1/2 -translate-y-1/2 rotate-[-45deg] shadow-[0_8px_18px_-6px_rgba(181,144,79,.8)]" />
-                <span className="absolute left-1/2 bottom-4 -translate-x-1/2 whitespace-nowrap py-1.5 px-3.5 font-mono text-[9px] tracking-[0.16em] uppercase text-[#7a6a52] bg-white/82 rounded-[20px]">
-                  Google Map embed · FC Road, Pune
-                </span>
-              </div>
-            </div>
-
-            {/* Form */}
-            <div className="bg-white border border-[#eee3d4] rounded-[18px] p-8 md:p-10">
-              <h2 className="font-heading font-medium text-[28px] md:text-[30px] text-[#2e2823] m-0">Send a message</h2>
-              <p className="text-[14px] font-light text-[#6b5f54] mt-1.5 mb-6">
-                We&apos;ll get back to you within a few hours during salon hours.
-              </p>
-              <ContactForm />
-              <div className="text-center mt-3.5">
-                <a
-                  href="https://wa.me/919179176465"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="text-[13px] text-[#b5904f] no-underline"
+                  key={label}
+                  className={`flex gap-4 items-start py-5 ${i < detailRows.length - 1 ? 'border-b border-[#eee3d4]' : ''}`}
                 >
-                  …or message us instantly on WhatsApp →
-                </a>
-              </div>
+                  <div className="w-[46px] h-[46px] rounded-xl bg-[#f6ecdb] flex items-center justify-center text-[#b5904f] text-lg shrink-0">
+                    {icon}
+                  </div>
+                  <div>
+                    <div className="text-[14px] font-medium text-[#2e2823]">{label}</div>
+                    {href ? (
+                      <a href={href} className="text-[14px] font-light text-[#b5904f] no-underline mt-0.5 block">
+                        {value}
+                      </a>
+                    ) : (
+                      <div className="text-[14px] font-light text-[#6b5f54] mt-0.5 whitespace-pre-line leading-[1.5]">
+                        {value}
+                      </div>
+                    )}
+                  </div>
+                </div>
+              ))}
+            </div>
+            {/* Map placeholder */}
+            <div
+              className="relative overflow-hidden h-[230px] rounded-2xl mt-6"
+              style={{ background: 'linear-gradient(150deg,#e9e2d4,#ddd5c4)' }}
+            >
+              <div
+                className="absolute inset-0"
+                style={{
+                  backgroundImage:
+                    'linear-gradient(rgba(181,144,79,.12) 1px,transparent 1px),linear-gradient(90deg,rgba(181,144,79,.12) 1px,transparent 1px)',
+                  backgroundSize: '38px 38px',
+                }}
+              />
+              <div className="absolute left-1/2 top-[46%] w-[18px] h-[18px] rounded-[50%_50%_50%_0] bg-[#b5904f] -translate-x-1/2 -translate-y-1/2 rotate-[-45deg] shadow-[0_8px_18px_-6px_rgba(181,144,79,.8)]" />
+              <span className="absolute left-1/2 bottom-4 -translate-x-1/2 whitespace-nowrap py-1.5 px-3.5 font-mono text-[9px] tracking-[0.16em] uppercase text-[#7a6a52] bg-white/82 rounded-[20px]">
+                Google Map embed · FC Road, Pune
+              </span>
             </div>
           </div>
         </section>

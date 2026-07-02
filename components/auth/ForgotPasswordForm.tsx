@@ -1,51 +1,10 @@
 'use client';
 
-import { useState } from 'react';
-import { useForm } from 'react-hook-form';
-import { zodResolver } from '@hookform/resolvers/zod';
-import { z } from 'zod';
-import { toast } from 'sonner';
-import { Button } from '@/components/ui/button';
-import { Input } from '@/components/ui/input';
-import { FormField } from '@/components/forms/FormField';
-import { createClient } from '@/lib/supabase/client';
-
-const schema = z.object({
-  email: z.string().email('Enter a valid email address'),
-});
-
-type FormData = z.infer<typeof schema>;
-
 interface ForgotPasswordFormProps {
   onBackToLogin: () => void;
 }
 
 export function ForgotPasswordForm({ onBackToLogin }: ForgotPasswordFormProps) {
-  const [isSubmitting, setIsSubmitting] = useState(false);
-
-  const {
-    register,
-    handleSubmit,
-    formState: { errors },
-  } = useForm<FormData>({ resolver: zodResolver(schema) });
-
-  const onSubmit = async (data: FormData) => {
-    setIsSubmitting(true);
-    const supabase = createClient();
-    const { error } = await supabase.auth.resetPasswordForEmail(data.email, {
-      redirectTo: `${process.env.NEXT_PUBLIC_SITE_URL}/login`,
-    });
-    setIsSubmitting(false);
-
-    if (error) {
-      toast.error(error.message);
-      return;
-    }
-
-    toast.success('Reset link sent! Check your email.');
-    onBackToLogin();
-  };
-
   return (
     <div>
       <p className="font-mono text-xs uppercase tracking-[0.32em] text-[#b5904f] mb-3">Reset password</p>
@@ -53,18 +12,25 @@ export function ForgotPasswordForm({ onBackToLogin }: ForgotPasswordFormProps) {
         Forgot your <span className="font-script text-[#b5904f] text-[42px]">password?</span>
       </h1>
       <p className="text-[14px] font-light text-[#6b5f54] leading-[1.65] mt-3.5">
-        Enter your registered email and we&apos;ll send a reset link.
+        Since we only use your phone number to sign in, there&apos;s no email to send a reset link to. Call or WhatsApp us and we&apos;ll verify your identity and reset your password directly.
       </p>
 
-      <form onSubmit={handleSubmit(onSubmit)} className="mt-6.5 flex flex-col gap-4.5" noValidate>
-        <FormField label="Email address" htmlFor="email" error={errors.email?.message} required>
-          <Input id="email" type="email" placeholder="you@email.com" {...register('email')} />
-        </FormField>
-
-        <Button type="submit" disabled={isSubmitting} className="w-full rounded-[30px]" size="lg">
-          {isSubmitting ? 'Sending…' : 'Send reset link'}
-        </Button>
-      </form>
+      <div className="flex flex-col gap-3 mt-6.5">
+        <a
+          href="tel:+918962339467"
+          className="inline-flex items-center justify-center w-full bg-[#2e2823] text-[#f6ede0] rounded-[30px] px-6 py-[15px] font-body font-medium text-sm no-underline transition-all hover:-translate-y-px"
+        >
+          ☎ Call +91 89623 39467
+        </a>
+        <a
+          href="https://wa.me/919179176465"
+          target="_blank"
+          rel="noopener noreferrer"
+          className="inline-flex items-center justify-center w-full bg-transparent text-[#2e2823] border border-[#d8c6a6] rounded-[30px] px-6 py-[15px] font-body font-medium text-sm no-underline transition-all hover:border-[#b5904f] hover:text-[#b5904f]"
+        >
+          WhatsApp us
+        </a>
+      </div>
 
       <p className="text-[13px] font-light text-[#6b5f54] text-center mt-5">
         <button type="button" onClick={onBackToLogin} className="text-[#b5904f] hover:underline">

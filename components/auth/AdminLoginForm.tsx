@@ -11,9 +11,13 @@ import { Input } from '@/components/ui/input';
 import { FormField } from '@/components/forms/FormField';
 import { createClient } from '@/lib/supabase/client';
 import { getUserRole } from '@/lib/supabase/auth-helpers';
+import { PHONE_REGEX, normalizePhone, phoneToSyntheticEmail } from '@/lib/phone-auth';
 
 const schema = z.object({
-  email: z.string().email('Enter a valid email address'),
+  phone: z
+    .string()
+    .transform((v) => normalizePhone(v))
+    .refine((v) => PHONE_REGEX.test(v), 'Enter a valid 10-digit mobile number'),
   password: z.string().min(1, 'Enter your password'),
 });
 
@@ -33,7 +37,7 @@ export function AdminLoginForm({ redirectTo }: { redirectTo: string }) {
     setIsSubmitting(true);
     const supabase = createClient();
     const { data: signInData, error } = await supabase.auth.signInWithPassword({
-      email: data.email,
+      email: phoneToSyntheticEmail(data.phone),
       password: data.password,
     });
 
@@ -73,8 +77,8 @@ export function AdminLoginForm({ redirectTo }: { redirectTo: string }) {
       </p>
 
       <form onSubmit={handleSubmit(onSubmit)} className="mt-7 flex flex-col gap-4.5" noValidate>
-        <FormField label="Email address" htmlFor="email" error={errors.email?.message} required>
-          <Input id="email" type="email" placeholder="admin@sakshibeautyparlour.in" {...register('email')} />
+        <FormField label="Phone number" htmlFor="phone" error={errors.phone?.message} required>
+          <Input id="phone" type="tel" placeholder="98765 43210" {...register('phone')} />
         </FormField>
 
         <FormField label="Password" htmlFor="password" error={errors.password?.message} required>

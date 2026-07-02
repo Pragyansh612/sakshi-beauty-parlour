@@ -83,9 +83,10 @@ export async function getServiceCategoriesWithServices(): Promise<ServiceCategor
       rows: rows.map((s) => ({ name: s.name, price: formatPriceRange(s.price_from, s.price_to) })),
     }));
 
-    const lowestPrice = catServices.length
-      ? Math.min(...catServices.map((s) => s.price_from))
-      : 0;
+    // "From" price is the category's first-listed (headline) service, not the
+    // absolute cheapest — a quick add-on shouldn't set the advertised starting
+    // price for the whole category. Services are already ordered by display_order.
+    const headlinePrice = catServices[0]?.price_from ?? 0;
 
     const style = CATEGORY_STYLE[cat.slug] ?? { iconRadius: '50%' };
 
@@ -94,7 +95,7 @@ export async function getServiceCategoriesWithServices(): Promise<ServiceCategor
       slug: cat.slug,
       title: cat.name,
       desc: cat.description ?? '',
-      fromPrice: (lowestPrice / 100).toLocaleString('en-IN'),
+      fromPrice: (headlinePrice / 100).toLocaleString('en-IN'),
       iconRadius: cat.icon_shape ?? style.iconRadius,
       dark: !!style.dark,
       columns: style.columns ?? 3,

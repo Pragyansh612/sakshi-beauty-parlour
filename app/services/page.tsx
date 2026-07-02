@@ -3,6 +3,7 @@ import { Footer } from '@/components/layout/Footer';
 import { FloatingBookCTA } from '@/components/layout/FloatingBookCTA';
 import { EyebrowLabel } from '@/components/shared/EyebrowLabel';
 import { ServiceCategoryBlock } from '@/components/services/ServiceCategoryBlock';
+import { ServiceFilterPills } from '@/components/services/ServiceFilterPills';
 import { ComboCard } from '@/components/services/ComboCard';
 import { getServiceCategoriesWithServices, getComboOffers } from '@/lib/services-data';
 
@@ -15,8 +16,8 @@ export default async function ServicesPage() {
   ]);
 
   const filterPills = [
-    ...categories.map((cat) => ({ href: `#${cat.slug}`, label: cat.title, gold: cat.slug === 'bridal' })),
-    { href: '#combos', label: 'Combo Offers', gold: false },
+    ...categories.map((cat) => ({ href: `#${cat.slug}`, label: cat.title })),
+    { href: '#combos', label: 'Combo Offers' },
   ];
 
   return (
@@ -37,21 +38,7 @@ export default async function ServicesPage() {
         </header>
 
         {/* FILTER PILLS */}
-        <div className="max-w-[1240px] mx-auto px-6 md:px-11 pt-5 pb-8 flex flex-wrap gap-2.5 justify-center">
-          {filterPills.map(({ href, label, gold }) => (
-            <a
-              key={href}
-              href={href}
-              className={`inline-flex items-center justify-center rounded-[30px] px-5 py-2.5 font-body font-medium text-[12.5px] no-underline transition-all ${
-                gold
-                  ? 'bg-[#b5904f] text-white hover:shadow-[0_12px_26px_-10px_rgba(181,144,79,.7)]'
-                  : 'bg-transparent text-[#2e2823] border border-[#d8c6a6] hover:border-[#b5904f] hover:text-[#b5904f]'
-              }`}
-            >
-              {label}
-            </a>
-          ))}
-        </div>
+        <ServiceFilterPills pills={filterPills} />
 
         {/* CATEGORIES */}
         <section className="max-w-[1240px] mx-auto px-6 md:px-11 pb-5">

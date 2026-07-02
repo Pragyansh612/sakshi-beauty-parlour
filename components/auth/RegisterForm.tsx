@@ -10,11 +10,14 @@ import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { FormField } from '@/components/forms/FormField';
 import { createClient } from '@/lib/supabase/client';
+import { PHONE_REGEX, normalizePhone, phoneToSyntheticEmail } from '@/lib/phone-auth';
 
 const schema = z.object({
   full_name: z.string().min(2, 'Enter your full name'),
-  phone: z.string().regex(/^\+?[6-9]\d{9}$/, 'Enter a valid Indian mobile number'),
-  email: z.string().email('Enter a valid email address'),
+  phone: z
+    .string()
+    .transform((v) => normalizePhone(v))
+    .refine((v) => PHONE_REGEX.test(v), 'Enter a valid 10-digit mobile number'),
   password: z.string().min(6, 'Password must be at least 6 characters'),
 });
 
@@ -38,7 +41,7 @@ export function RegisterForm({ onSwitchToLogin }: RegisterFormProps) {
     setIsSubmitting(true);
     const supabase = createClient();
     const { data: signUpData, error } = await supabase.auth.signUp({
-      email: data.email,
+      email: phoneToSyntheticEmail(data.phone),
       password: data.password,
       options: {
         data: {
@@ -59,7 +62,7 @@ export function RegisterForm({ onSwitchToLogin }: RegisterFormProps) {
       router.push('/dashboard');
       router.refresh();
     } else {
-      toast.success('Account created! Check your email to confirm before signing in.');
+      toast.success('Account created! You can sign in now.');
       onSwitchToLogin();
     }
   };
@@ -77,11 +80,7 @@ export function RegisterForm({ onSwitchToLogin }: RegisterFormProps) {
         </FormField>
 
         <FormField label="Phone number" htmlFor="phone" error={errors.phone?.message} required>
-          <Input id="phone" type="tel" placeholder="+91 98765 43210" {...register('phone')} />
-        </FormField>
-
-        <FormField label="Email" htmlFor="email" error={errors.email?.message} required>
-          <Input id="email" type="email" placeholder="you@email.com" {...register('email')} />
+          <Input id="phone" type="tel" placeholder="98765 43210" {...register('phone')} />
         </FormField>
 
         <FormField label="Password" htmlFor="password" error={errors.password?.message} required>
