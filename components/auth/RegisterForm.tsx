@@ -9,8 +9,7 @@ import { toast } from 'sonner';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { FormField } from '@/components/forms/FormField';
-import { createClient } from '@/lib/supabase/client';
-import { PHONE_REGEX, normalizePhone, phoneToSyntheticEmail } from '@/lib/phone-auth';
+import { PHONE_REGEX, normalizePhone } from '@/lib/phone-auth';
 
 const schema = z.object({
   full_name: z.string().min(2, 'Enter your full name'),
@@ -40,31 +39,26 @@ export function RegisterForm({ onSwitchToLogin, redirectTo }: RegisterFormProps)
 
   const onSubmit = async (data: FormData) => {
     setIsSubmitting(true);
-    const supabase = createClient();
-    const { data: signUpData, error } = await supabase.auth.signUp({
-      email: phoneToSyntheticEmail(data.phone),
-      password: data.password,
-      options: {
-        data: {
-          full_name: data.full_name,
-          phone: data.phone,
-        },
-      },
-    });
-    setIsSubmitting(false);
+    try {
+      const res = await fetch('/api/auth/register', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(data),
+      });
+      const result = (await res.json()) as { error?: string };
 
-    if (error) {
-      toast.error(error.message);
-      return;
-    }
+      if (!res.ok) {
+        toast.error(result.error ?? 'Registration failed');
+        return;
+      }
 
-    if (signUpData.session) {
       toast.success('Account created! Welcome to Sakshi Beauty Parlour.');
       router.push(redirectTo ?? '/dashboard');
       router.refresh();
-    } else {
-      toast.success('Account created! You can sign in now.');
-      onSwitchToLogin();
+    } catch {
+      toast.error('Registration failed. Please try again.');
+    } finally {
+      setIsSubmitting(false);
     }
   };
 

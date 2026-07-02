@@ -72,8 +72,13 @@ BEGIN
   VALUES (
     NEW.id,
     COALESCE(NEW.raw_user_meta_data->>'full_name', ''),
-    COALESCE(NEW.raw_user_meta_data->>'phone', COALESCE(NEW.phone, '')),
-    NEW.email
+    COALESCE(
+      NULLIF(NEW.raw_user_meta_data->>'phone', ''),
+      NULLIF(SUBSTRING(NEW.email FROM '^p([0-9]{10})@'), ''),
+      NULLIF(REGEXP_REPLACE(COALESCE(NEW.phone, ''), '^\+91', ''), ''),
+      ''
+    ),
+    NULL
   );
   RETURN NEW;
 END;

@@ -1,8 +1,6 @@
 /**
  * Creates (or promotes) the salon's admin account.
- * Phone + password auth uses a synthetic email derived from the phone number —
- * see lib/phone-auth.ts. This script inlines the same derivation so it can
- * run standalone via tsx without path-alias resolution.
+ * Phone + password in the UI; auth uses a synthetic email — see lib/phone-auth.ts.
  *
  * Usage: npx tsx scripts/seed-admin.mts
  * Requires: NEXT_PUBLIC_SUPABASE_URL and SUPABASE_SERVICE_ROLE_KEY in .env.local or .env
@@ -45,12 +43,37 @@ function normalizePhone(phone: string): string {
   return phone.replace(/[^\d]/g, '').replace(/^91(?=\d{10}$)/, '');
 }
 
-function phoneToSyntheticEmail(phone: string): string {
-  return `p${normalizePhone(phone)}@phone.sakshibeautyparlour.internal`;
+function getAuthEmailDomain(): string {
+  const fromEnv = process.env.NEXT_PUBLIC_AUTH_EMAIL_DOMAIN?.trim();
+  if (fromEnv) return fromEnv;
+
+  const siteUrl = process.env.NEXT_PUBLIC_SITE_URL;
+  if (siteUrl) {
+    try {
+      const host = new URL(siteUrl).hostname;
+      if (host !== 'localhost' && !host.startsWith('127.')) return host;
+    } catch {
+      // fall through
+    }
+  }
+
+  if (SUPABASE_URL) {
+    try {
+      return new URL(SUPABASE_URL).hostname;
+    } catch {
+      // fall through
+    }
+  }
+
+  return 'sakshibeautyparlour.in';
+}
+
+function phoneToAuthEmail(phone: string): string {
+  return `p${normalizePhone(phone)}@${getAuthEmailDomain()}`;
 }
 
 async function seedAdmin() {
-  const email = phoneToSyntheticEmail(ADMIN_PHONE);
+  const email = phoneToAuthEmail(ADMIN_PHONE);
 
   const { data: existingProfile } = await supabase
     .from('profiles')

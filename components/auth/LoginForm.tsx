@@ -11,7 +11,7 @@ import { Input } from '@/components/ui/input';
 import { FormField } from '@/components/forms/FormField';
 import { createClient } from '@/lib/supabase/client';
 import { getUserRole } from '@/lib/supabase/auth-helpers';
-import { PHONE_REGEX, normalizePhone, phoneToSyntheticEmail } from '@/lib/phone-auth';
+import { PHONE_REGEX, normalizePhone, phoneToAuthEmail } from '@/lib/phone-auth';
 
 const schema = z.object({
   phone: z
@@ -43,7 +43,7 @@ export function LoginForm({ onForgotPassword, onSwitchToRegister, redirectTo }: 
     setIsSubmitting(true);
     const supabase = createClient();
     const { data: signInData, error } = await supabase.auth.signInWithPassword({
-      email: phoneToSyntheticEmail(data.phone),
+      email: phoneToAuthEmail(data.phone),
       password: data.password,
     });
 
