@@ -1,7 +1,13 @@
 import Link from 'next/link';
 import { AuthPanel } from '@/components/auth/AuthPanel';
 
-export default function LoginPage() {
+export default async function LoginPage({
+  searchParams,
+}: {
+  searchParams: Promise<{ mode?: string; redirectTo?: string }>;
+}) {
+  const { mode, redirectTo } = await searchParams;
+
   return (
     <div className="min-h-screen grid grid-cols-1 md:grid-cols-[1.05fr_1fr]">
       {/* LEFT: brand panel */}
@@ -34,7 +40,10 @@ export default function LoginPage() {
 
       {/* RIGHT: forms */}
       <div className="flex items-center justify-center px-6 py-12 md:px-10">
-        <AuthPanel />
+        <AuthPanel
+          initialMode={mode === 'register' ? 'register' : 'login'}
+          redirectTo={redirectTo && redirectTo.startsWith('/') ? redirectTo : undefined}
+        />
       </div>
     </div>
   );

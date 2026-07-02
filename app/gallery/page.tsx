@@ -13,7 +13,7 @@ const achievements = [
   { icon: '✓', title: 'Professional certifications', desc: 'Certified in advanced bridal & HD makeup by leading academies.' },
   { icon: '★', title: 'Beauty workshops', desc: "Regular masterclasses to stay ahead of every season's techniques." },
   { icon: '✦', title: 'Makeup training certificates', desc: 'Airbrush & HD specialisation, with hands-on bridal certification.' },
-  { icon: '♛', title: 'Industry recognition', desc: "Featured among Pune's trusted bridal studios by local press." },
+  { icon: '♛', title: 'Industry recognition', desc: "Featured among Sagar's trusted bridal studios by local press." },
   { icon: '❀', title: 'Event participation', desc: 'On-site teams for weddings, fashion shows & community events.' },
 ];
 

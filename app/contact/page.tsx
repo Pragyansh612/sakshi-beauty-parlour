@@ -5,11 +5,12 @@ import { FloatingBookCTA } from '@/components/layout/FloatingBookCTA';
 import { EyebrowLabel } from '@/components/shared/EyebrowLabel';
 
 const detailRows = [
-  { icon: '⚲', label: 'Address', value: 'Shop 14, Rose Arcade, FC Road,\nShivaji Nagar, Pune 411005' },
+  { icon: '⚲', label: 'Address', value: 'Opposite adinath tiles , ajanta studio ,near paradise hotel makronia sagar'},
   { icon: '☎', label: 'Call', value: '+91 89623 39467', href: 'tel:+918962339467' },
-  { icon: '✆', label: 'WhatsApp', value: '+91 91791 76465', href: 'https://wa.me/919179176465' },
-  { icon: '✉', label: 'Email', value: 'hello@sakshibeautyparlour.in', href: 'mailto:hello@sakshibeautyparlour.in' },
-  { icon: '◷', label: 'Working hours', value: 'Monday – Sunday\n11:00 AM – 9:00 PM' },
+  { icon: '✆', label: 'WhatsApp', value: '+91 91791 76465', href: 'https://wa.me/919179176965' },
+  { icon: '★', label: 'JustDial', value: 'View our listing', href: 'https://www.justdial.com/Sagar/Sakshi-Beauty-Parlour-Opposite-Padmakar-Thaki-Makronia/9999P7582-7582-180303125537-R4X8_BZDET' },
+  // { icon: '✉', label: 'Email', value: 'hello@sakshibeautyparlour.in', href: 'mailto:hello@sakshibeautyparlour.in' },
+  { icon: '◷', label: 'Working hours', value: 'Monday – Saturday\n11:00 AM – 9:00 PM' },
 ];
 
 export default function ContactPage() {
@@ -42,7 +43,7 @@ export default function ContactPage() {
                 <div className="mt-2.5 text-[15px] font-medium text-[#b5904f]">+91 89623 39467</div>
               </div>
             </a>
-            <a href="https://wa.me/919179176465" target="_blank" rel="noopener noreferrer" className="no-underline">
+            <a href="https://wa.me/919179176965" target="_blank" rel="noopener noreferrer" className="no-underline">
               <div className="bg-white border border-[#eee3d4] rounded-[18px] px-7 py-[30px] text-center transition-all duration-200 hover:-translate-y-1 hover:shadow-[0_24px_46px_-28px_rgba(60,45,30,.5)]">
                 <div className="w-[54px] h-[54px] rounded-full bg-[#b5904f] text-white flex items-center justify-center text-xl mx-auto mb-4">
                   ✆
@@ -57,9 +58,10 @@ export default function ContactPage() {
               <div className="flex justify-center gap-3.5 my-4">
                 {[
                   { label: 'Instagram', href: 'https://www.instagram.com/sakshi_beauty_parlour._?igsh=Ym1rbHFtNGRoZGI1' },
-                  { label: 'Facebook', href: 'https://facebook.com/sakshibeautyparlour' },
+                  // { label: 'Facebook', href: 'https://facebook.com/sakshibeautyparlour' },
                   { label: 'YouTube', href: 'https://youtube.com/@sakshibeautyparlourmakroni8143?si=As5i0emgYXyOVHR0' },
-                ].map(({ label, href }) => (
+                  { label: 'JustDial', href: 'https://www.justdial.com/Sagar/Sakshi-Beauty-Parlour-Opposite-Padmakar-Thaki-Makronia/9999P7582-7582-180303125537-R4X8_BZDET', display: 'JD' },
+                ].map(({ label, href, display }) => (
                   <a
                     key={label}
                     href={href}
@@ -68,7 +70,7 @@ export default function ContactPage() {
                     aria-label={label}
                     className="w-12 h-12 rounded-full bg-[#f6ecdb] text-[#b5904f] flex items-center justify-center text-sm transition-colors hover:bg-[#b5904f] hover:text-white"
                   >
-                    {label[0]}
+                    {display ?? label[0]}
                   </a>
                 ))}
               </div>
@@ -106,7 +108,7 @@ export default function ContactPage() {
               ))}
             </div>
             {/* Map placeholder */}
-            <div
+            {/* <div
               className="relative overflow-hidden h-[230px] rounded-2xl mt-6"
               style={{ background: 'linear-gradient(150deg,#e9e2d4,#ddd5c4)' }}
             >
@@ -120,9 +122,9 @@ export default function ContactPage() {
               />
               <div className="absolute left-1/2 top-[46%] w-[18px] h-[18px] rounded-[50%_50%_50%_0] bg-[#b5904f] -translate-x-1/2 -translate-y-1/2 rotate-[-45deg] shadow-[0_8px_18px_-6px_rgba(181,144,79,.8)]" />
               <span className="absolute left-1/2 bottom-4 -translate-x-1/2 whitespace-nowrap py-1.5 px-3.5 font-mono text-[9px] tracking-[0.16em] uppercase text-[#7a6a52] bg-white/82 rounded-[20px]">
-                Google Map embed · FC Road, Pune
+                Google Map embed · Sagar
               </span>
-            </div>
+            </div> */}
           </div>
         </section>
 

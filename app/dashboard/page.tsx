@@ -2,7 +2,7 @@ import { createClient } from '@/lib/supabase/server';
 import { EyebrowLabel } from '@/components/shared/EyebrowLabel';
 import { DashboardTabs, type DashboardItem } from '@/components/dashboard/DashboardTabs';
 
-const DOW = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
+const DOW = ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
 const MON = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
 
 function formatDate(iso: string) {
@@ -186,9 +186,9 @@ export default async function DashboardPage() {
               className="inline-flex items-center justify-center gap-2 bg-[#b5904f] text-white rounded-[30px] px-[26px] py-[13px] font-body font-medium text-[13.5px] no-underline"
             >
               ☎ Call now
-            </a>
+            </a>  
             <a
-              href="https://wa.me/919179176465"
+              href="https://wa.me/919179176965"
               className="inline-flex items-center justify-center gap-2 border border-[#5a5048] text-[#f6ede0] rounded-[30px] px-[26px] py-[13px] font-body font-medium text-[13.5px] no-underline"
             >
               WhatsApp

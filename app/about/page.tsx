@@ -55,7 +55,7 @@ export default async function AboutPage() {
                 Sakshi Beauty Parlour began with a simple belief: every woman deserves to feel beautifully herself — cared for by people she can trust, in a space that feels calm and luxurious.
               </p>
               <p className="text-[14px] md:text-[15px] font-light text-[#6b5f54] leading-[1.7] mt-4 mb-0 max-w-[440px]">
-                Twelve years on, we&apos;re proud to be one of Pune&apos;s most-loved bridal and beauty studios — but our approach hasn&apos;t changed. Listen first. Personalise everything. Never rush.
+                Twelve years on, we&apos;re proud to be one of Sagar&apos;s most-loved bridal and beauty studios — but our approach hasn&apos;t changed. Listen first. Personalise everything. Never rush.
               </p>
             </div>
             <div className="relative overflow-hidden h-[320px] md:h-[480px] rounded-[24px_24px_200px_200px]">
@@ -107,7 +107,7 @@ export default async function AboutPage() {
             <div className="bg-[#2e2823] border border-[#2e2823] rounded-[18px] p-9 md:p-[44px_42px]">
               <div className="font-script text-[#d9b97e] text-[34px] leading-[0.8]">Our vision</div>
               <h2 className="font-heading font-medium text-[28px] md:text-[30px] text-[#f6ede0] mt-3">
-                To be Pune&apos;s most-trusted bridal studio
+                To be Sagar&apos;s most-trusted bridal studio
               </h2>
               <p className="text-[15px] font-light text-[#cdbfae] leading-[1.7] mt-3.5">
                 A name families pass down — the studio a bride&apos;s mother recommends to her daughter, because the care, the calm and the craft never waver.

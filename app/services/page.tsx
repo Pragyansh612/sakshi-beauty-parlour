@@ -91,9 +91,9 @@ export default async function ServicesPage() {
                 ☎ Call now
               </a>
               <a
-                href="https://wa.me/919179176465"
+                href="https://wa.me/919179176965"
                 target="_blank"
-                rel="noopener noreferrer"
+                rel="noopener noreferrer" 
                 className="inline-flex items-center justify-center bg-transparent text-[#f6ede0] border border-[#5a5048] rounded-[30px] px-8 py-4 font-body font-medium text-[14.5px] no-underline transition-all hover:border-[#d9b97e] hover:text-[#d9b97e]"
               >
                 WhatsApp

@@ -54,6 +54,15 @@ export function Footer() {
                 <path d="M10.3 9.3l4.8 2.7-4.8 2.7z" fill="currentColor" stroke="none"/>
               </svg>
             </a>
+            <a
+              href="https://www.justdial.com/Sagar/Sakshi-Beauty-Parlour-Opposite-Padmakar-Thaki-Makronia/9999P7582-7582-180303125537-R4X8_BZDET"
+              target="_blank"
+              rel="noopener noreferrer"
+              aria-label="JustDial"
+              className="w-10 h-10 rounded-full border border-[#5a5048] flex items-center justify-center text-[11px] font-semibold tracking-tight text-[#cdbfae] transition-colors hover:border-[#d9b97e] hover:text-[#d9b97e]"
+            >
+              JD
+            </a>
             <span className="text-[12.5px] text-[#8a7d6e] font-light ml-1">@sakshi_beauty_parlour._</span>
           </div>
         </div>
@@ -97,15 +106,13 @@ export function Footer() {
         <div>
           <div className="text-xs tracking-[0.18em] uppercase text-[#8a7d6e] mb-[18px]">Visit us</div>
           <div className="font-light text-sm leading-[1.7] text-[#cdbfae]">
-            Shop 14, Rose Arcade,<br />
-            FC Road, Shivaji Nagar,<br />
-            Pune 411005<br />
+            Opposite adinath tiles , ajanta studio ,near paradise hotel makronia sagar<br />
             <br />
             <a href="tel:+918962339467" className="text-[#f6ede0] no-underline hover:text-[#d9b97e] transition-colors">
               +91 89623 39467
             </a>
             <br />
-            <span className="text-[#8a7d6e]">Mon–Sun · 11:00 AM – 9:00 PM</span>
+            <span className="text-[#8a7d6e]">Mon–Sat · 11:00 AM – 9:00 PM</span>
           </div>
         </div>
       </div>
@@ -114,7 +121,7 @@ export function Footer() {
       <div className="border-t border-[#463e36]">
         <div className="max-w-[1240px] mx-auto px-6 md:px-11 py-[22px] flex flex-wrap justify-between gap-2.5 text-xs text-[#8a7d6e] font-light">
           <span>© {currentYear} Sakshi Beauty Parlour. All rights reserved.</span>
-          <span>Crafted with care in Pune.</span>
+          <span>Crafted with care in Sagar.</span>
         </div>
       </div>
     </footer>

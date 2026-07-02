@@ -26,9 +26,10 @@ type FormData = z.infer<typeof schema>;
 interface LoginFormProps {
   onForgotPassword: () => void;
   onSwitchToRegister: () => void;
+  redirectTo?: string;
 }
 
-export function LoginForm({ onForgotPassword, onSwitchToRegister }: LoginFormProps) {
+export function LoginForm({ onForgotPassword, onSwitchToRegister, redirectTo }: LoginFormProps) {
   const router = useRouter();
   const [isSubmitting, setIsSubmitting] = useState(false);
 
@@ -56,7 +57,7 @@ export function LoginForm({ onForgotPassword, onSwitchToRegister }: LoginFormPro
     setIsSubmitting(false);
 
     toast.success('Welcome back!');
-    router.push(role === 'admin' ? '/admin/dashboard' : '/dashboard');
+    router.push(redirectTo ?? (role === 'admin' ? '/admin/dashboard' : '/dashboard'));
     router.refresh();
   };
 
@@ -98,7 +99,7 @@ export function LoginForm({ onForgotPassword, onSwitchToRegister }: LoginFormPro
       </div>
 
       <a
-        href="https://wa.me/919179176465"
+        href="https://wa.me/919179176965"     
         target="_blank"
         rel="noopener noreferrer"
         className="inline-flex items-center justify-center w-full bg-transparent text-[#2e2823] border border-[#d8c6a6] rounded-[30px] px-6 py-[15px] font-body font-medium text-sm no-underline transition-all hover:border-[#b5904f] hover:text-[#b5904f]"

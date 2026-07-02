@@ -31,16 +31,19 @@ export async function updateSession(request: NextRequest) {
     data: { user },
   } = await supabase.auth.getUser();
 
-  const { pathname } = request.nextUrl;
+  const { pathname, search } = request.nextUrl;
 
-  // Redirect authenticated users away from /login to /dashboard
+  // Redirect authenticated users away from /login — honor a pending redirectTo if present
   if (user && pathname === '/login') {
-    return NextResponse.redirect(new URL('/dashboard', request.url));
+    const redirectTo = request.nextUrl.searchParams.get('redirectTo');
+    return NextResponse.redirect(new URL(redirectTo && redirectTo.startsWith('/') ? redirectTo : '/dashboard', request.url));
   }
 
-  // Protect /dashboard routes — require any authenticated user
-  if (!user && pathname.startsWith('/dashboard')) {
-    return NextResponse.redirect(new URL('/login', request.url));
+  // Protect /dashboard and /book — require any authenticated user
+  if (!user && (pathname.startsWith('/dashboard') || pathname.startsWith('/book'))) {
+    const loginUrl = new URL('/login', request.url);
+    loginUrl.searchParams.set('redirectTo', pathname + search);
+    return NextResponse.redirect(loginUrl);
   }
 
   // Protect /admin routes (excluding the admin login page itself) — require admin role

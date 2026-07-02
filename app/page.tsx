@@ -69,7 +69,7 @@ export default async function HomePage() {
                 <br />Beauty Parlour
               </h1>
               <p className="text-[16px] md:text-[18px] font-light text-[#6b5f54] leading-[1.65] mt-7 mb-0 max-w-[460px]">
-                A premium salon &amp; bridal studio in the heart of Pune — where skin, hair and your most important day are treated with quiet, expert luxury.
+                A premium salon &amp; bridal studio in the heart of Sagar — where skin, hair and your most important day are treated with quiet, expert luxury.
               </p>
               <div className="flex flex-wrap gap-3.5 mt-9">
                 <Link
@@ -89,9 +89,9 @@ export default async function HomePage() {
               {/* Stats */}
               <div className="flex flex-wrap gap-8 mt-12 items-center">
                 {[
-                  { stat: '12+', label: 'Years of artistry' },
-                  { stat: '600+', label: 'Brides styled' },
-                  { stat: '8k+', label: 'Happy clients' },
+                  { stat: '15+', label: 'Years of artistry' },
+                  { stat: '1000+', label: 'Brides styled' },
+                  { stat: '12k+', label: 'Happy clients' },
                 ].map(({ stat, label }, i) => (
                   <>
                     {i > 0 && <div key={`div-${i}`} className="w-px h-[38px] bg-[#e7dcc8] hidden sm:block" />}
@@ -316,7 +316,7 @@ export default async function HomePage() {
                     ☎ Call now
                   </a>
                   <a
-                    href="https://wa.me/919179176465"
+                    href="https://wa.me/919179176965"
                     target="_blank"
                     rel="noopener noreferrer"
                     className="inline-flex items-center justify-center bg-[#b5904f] text-white rounded-[30px] px-8 py-4 font-body font-medium text-[14.5px] no-underline transition-all hover:-translate-y-px hover:shadow-[0_12px_26px_-10px_rgba(181,144,79,.7)]"

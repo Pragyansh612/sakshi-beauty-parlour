@@ -19,7 +19,7 @@ function formatSlotTime(time: string) {
   return `${hour12}:${minStr} ${period}`;
 }
 
-const DOW = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
+const DOW = ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
 const MON = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
 
 export default async function BookPage({
@@ -149,9 +149,9 @@ export default async function BookPage({
           <p className="text-[14.5px] md:text-[15.5px] font-light text-[#6b5f54] leading-[1.65] mt-3.5 mb-0 max-w-[520px] mx-auto">
             Prefer to talk?{' '}
             <a href="tel:+918962339467" className="text-[#b5904f]">Call us</a> or{' '}
-            <a href="https://wa.me/919179176465" className="text-[#b5904f]">WhatsApp</a> — we&apos;re happy to book you in personally.
+            <a href="https://wa.me/919179176965" className="text-[#b5904f]">WhatsApp</a> — we&apos;re happy to book you in personally.
           </p>
-        </header>
+        </header> 
 
         <BookingWizard
           apptServices={apptServices}

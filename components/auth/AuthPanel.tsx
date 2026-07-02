@@ -8,8 +8,14 @@ import { ForgotPasswordForm } from './ForgotPasswordForm';
 
 type Mode = 'login' | 'register' | 'forgot';
 
-export function AuthPanel() {
-  const [mode, setMode] = useState<Mode>('login');
+export function AuthPanel({
+  initialMode = 'login',
+  redirectTo,
+}: {
+  initialMode?: 'login' | 'register';
+  redirectTo?: string;
+}) {
+  const [mode, setMode] = useState<Mode>(initialMode);
 
   return (
     <div className="w-full max-w-[400px]">
@@ -37,9 +43,13 @@ export function AuthPanel() {
       )}
 
       {mode === 'login' && (
-        <LoginForm onForgotPassword={() => setMode('forgot')} onSwitchToRegister={() => setMode('register')} />
+        <LoginForm
+          onForgotPassword={() => setMode('forgot')}
+          onSwitchToRegister={() => setMode('register')}
+          redirectTo={redirectTo}
+        />
       )}
-      {mode === 'register' && <RegisterForm onSwitchToLogin={() => setMode('login')} />}
+      {mode === 'register' && <RegisterForm onSwitchToLogin={() => setMode('login')} redirectTo={redirectTo} />}
       {mode === 'forgot' && <ForgotPasswordForm onBackToLogin={() => setMode('login')} />}
     </div>
   );

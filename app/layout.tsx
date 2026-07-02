@@ -26,23 +26,23 @@ const jost = Jost({
 
 export const metadata: Metadata = {
   title: {
-    default: 'Sakshi Beauty Parlour — Pune',
+    default: 'Sakshi Beauty Parlour — Sagar',
     template: '%s | Sakshi Beauty Parlour',
   },
   description:
-    'Premium beauty parlour & bridal studio in Shivaji Nagar, Pune. Expert hair care, skin treatments, bridal makeup, and beauty services for every occasion.',
+    'Premium beauty parlour & bridal studio in Sagar. Expert hair care, skin treatments, bridal makeup, and beauty services for every occasion.',
   keywords: [
-    'beauty parlour pune',
-    'bridal makeup pune',
-    'hair salon shivaji nagar',
+    'beauty parlour sagar',
+    'bridal makeup sagar',
+    'hair salon sagar',
     'sakshi beauty parlour',
-    'facial pune',
-    'threading pune',
+    'facial sagar',
+    'threading sagar',
   ],
   openGraph: {
-    title: 'Sakshi Beauty Parlour — Pune',
+    title: 'Sakshi Beauty Parlour — Sagar',  
     description:
-      'Premium beauty parlour & bridal studio in Shivaji Nagar, Pune. 12+ years, 600+ brides, 4.9★.',
+      'Premium beauty parlour & bridal studio in Sagar. 12+ years, 600+ brides, 4.9★.',
     type: 'website',
   },
 };

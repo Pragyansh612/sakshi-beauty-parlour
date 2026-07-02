@@ -25,9 +25,10 @@ type FormData = z.infer<typeof schema>;
 
 interface RegisterFormProps {
   onSwitchToLogin: () => void;
+  redirectTo?: string;
 }
 
-export function RegisterForm({ onSwitchToLogin }: RegisterFormProps) {
+export function RegisterForm({ onSwitchToLogin, redirectTo }: RegisterFormProps) {
   const router = useRouter();
   const [isSubmitting, setIsSubmitting] = useState(false);
 
@@ -59,7 +60,7 @@ export function RegisterForm({ onSwitchToLogin }: RegisterFormProps) {
 
     if (signUpData.session) {
       toast.success('Account created! Welcome to Sakshi Beauty Parlour.');
-      router.push('/dashboard');
+      router.push(redirectTo ?? '/dashboard');
       router.refresh();
     } else {
       toast.success('Account created! You can sign in now.');

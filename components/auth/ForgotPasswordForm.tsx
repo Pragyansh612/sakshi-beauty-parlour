@@ -23,9 +23,9 @@ export function ForgotPasswordForm({ onBackToLogin }: ForgotPasswordFormProps) {
           ☎ Call +91 89623 39467
         </a>
         <a
-          href="https://wa.me/919179176465"
+          href="https://wa.me/919179176965"
           target="_blank"
-          rel="noopener noreferrer"
+          rel="noopener noreferrer" 
           className="inline-flex items-center justify-center w-full bg-transparent text-[#2e2823] border border-[#d8c6a6] rounded-[30px] px-6 py-[15px] font-body font-medium text-sm no-underline transition-all hover:border-[#b5904f] hover:text-[#b5904f]"
         >
           WhatsApp us

@@ -1,12 +1,12 @@
 import { createClient } from '@/lib/supabase/server';
 import { SlotsManager, type SlotCell } from '@/components/admin/SlotsManager';
 
-const DOW = ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'];
+const DOW = ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
 const MON = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
 
 function startOfWeek(offsetWeeks: number) {
   const now = new Date();
-  const day = now.getDay(); // 0 = Sun
+  const day = now.getDay(); // 0 = Mon
   const diffToMonday = (day + 6) % 7;
   const monday = new Date(now);
   monday.setDate(now.getDate() - diffToMonday + offsetWeeks * 7);

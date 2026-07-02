@@ -335,7 +335,7 @@ export function BookingWizard({
             <div>
               <h2 className="font-heading font-medium text-[26px] md:text-[30px] text-[#2e2823] m-0">Choose a date</h2>
               <p className="text-[14px] font-light text-[#6b5f54] mt-1.5 mb-6">
-                We&apos;re open Mon–Sun, 11:00 AM – 9:00 PM. Pick a day that suits you.
+                We&apos;re open Mon–Sat, 11:00 AM – 9:00 PM. Pick a day that suits you.
               </p>
               <div className="grid grid-cols-4 sm:grid-cols-7 gap-2.5">
                 {days.map((d, i) => {
@@ -573,7 +573,7 @@ export function BookingWizard({
             <span className="font-heading text-[#f6ede0] text-2xl">{service?.price ?? '—'}</span>
           </div>
           <a
-            href="https://wa.me/919179176465"
+            href="https://wa.me/919179176965"
             target="_blank"
             rel="noopener noreferrer"
             className="inline-flex items-center justify-center w-full mt-4 bg-transparent text-[#2e2823] border border-[#d8c6a6] rounded-[30px] px-6 py-3 font-body font-medium text-[12.5px] no-underline transition-all hover:border-[#b5904f] hover:text-[#b5904f]"
