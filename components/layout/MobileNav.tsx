@@ -17,9 +17,11 @@ interface MobileNavProps {
   isOpen: boolean;
   onClose: () => void;
   pathname: string;
+  onSignOut?: () => void;
+  signingOut?: boolean;
 }
 
-export function MobileNav({ isOpen, onClose, pathname }: MobileNavProps) {
+export function MobileNav({ isOpen, onClose, pathname, onSignOut, signingOut }: MobileNavProps) {
   const isActive = (href: string) =>
     href === '/' ? pathname === '/' : pathname.startsWith(href);
 
@@ -101,6 +103,15 @@ export function MobileNav({ isOpen, onClose, pathname }: MobileNavProps) {
               >
                 Book Appointment
               </Link>
+              {onSignOut && (
+                <button
+                  onClick={onSignOut}
+                  disabled={signingOut}
+                  className="block w-full text-center bg-transparent text-[#2e2823] border border-[#d8c6a6] rounded-[30px] px-6 py-3 font-body font-medium text-[13.5px] disabled:opacity-60"
+                >
+                  {signingOut ? 'Signing out…' : 'Sign out'}
+                </button>
+              )}
             </div>
           </motion.div>
         </>

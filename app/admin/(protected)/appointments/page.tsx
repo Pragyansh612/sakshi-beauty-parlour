@@ -22,7 +22,7 @@ export default async function AdminAppointmentsPage() {
   const { data } = await supabase
     .from('appointments')
     .select(
-      'id, reference, artist, status, notes, customer:profiles(full_name), service:services(id, name), slot:time_slots(slot_date, slot_time)'
+      'id, reference, artist, status, notes, customer:profiles(full_name, phone), service:services(id, name), slot:time_slots(slot_date, slot_time)'
     )
     .order('created_at', { ascending: false });
 
@@ -32,7 +32,7 @@ export default async function AdminAppointmentsPage() {
     artist: string | null;
     status: string;
     notes: string | null;
-    customer: { full_name: string } | null;
+    customer: { full_name: string; phone: string } | null;
     service: { id: string; name: string } | null;
     slot: { slot_date: string; slot_time: string } | null;
   };
@@ -43,6 +43,7 @@ export default async function AdminAppointmentsPage() {
     id: r.id,
     reference: r.reference,
     client: r.customer?.full_name ?? '—',
+    phone: r.customer?.phone ?? '—',
     service: r.service?.name ?? '—',
     slotDate: r.slot?.slot_date ?? null,
     when: r.slot ? `${formatSlotDate(r.slot.slot_date)} · ${formatSlotTime(r.slot.slot_time)}` : '—',

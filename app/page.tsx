@@ -1,3 +1,4 @@
+import { Fragment } from 'react';
 import Link from 'next/link';
 import { Navbar } from '@/components/layout/Navbar';
 import { Footer } from '@/components/layout/Footer';
@@ -93,13 +94,13 @@ export default async function HomePage() {
                   { stat: '1000+', label: 'Brides styled' },
                   { stat: '12k+', label: 'Happy clients' },
                 ].map(({ stat, label }, i) => (
-                  <>
-                    {i > 0 && <div key={`div-${i}`} className="w-px h-[38px] bg-[#e7dcc8] hidden sm:block" />}
-                    <div key={stat}>
+                  <Fragment key={stat}>
+                    {i > 0 && <div className="w-px h-[38px] bg-[#e7dcc8] hidden sm:block" />}
+                    <div>
                       <div className="font-heading font-semibold text-[34px] text-[#b5904f] leading-none">{stat}</div>
                       <div className="text-[11px] tracking-[0.1em] uppercase text-[#9b8e84] mt-1 font-light">{label}</div>
                     </div>
-                  </>
+                  </Fragment>
                 ))}
               </div>
             </div>

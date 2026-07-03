@@ -86,7 +86,13 @@ export function DashboardNavbar({ fullName }: DashboardNavbarProps) {
         </div>
       </nav>
 
-      <MobileNav isOpen={mobileOpen} onClose={() => setMobileOpen(false)} pathname={pathname} />
+      <MobileNav
+        isOpen={mobileOpen}
+        onClose={() => setMobileOpen(false)}
+        pathname={pathname}
+        onSignOut={handleSignOut}
+        signingOut={signingOut}
+      />
     </>
   );
 }

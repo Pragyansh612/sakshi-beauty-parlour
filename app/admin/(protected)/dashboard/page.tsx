@@ -41,7 +41,7 @@ export default async function AdminDashboardPage() {
     artist: string | null;
     created_at: string;
     cancelled_at: string | null;
-    customer: { full_name: string } | null;
+    customer: { full_name: string; phone: string } | null;
     service: { name: string; price_from: number } | null;
     slot: { slot_date: string; slot_time: string } | null;
   };
@@ -60,7 +60,7 @@ export default async function AdminDashboardPage() {
     supabase
       .from('appointments')
       .select(
-        'id, status, artist, created_at, cancelled_at, customer:profiles(full_name), service:services(name, price_from), slot:time_slots(slot_date, slot_time)'
+        'id, status, artist, created_at, cancelled_at, customer:profiles(full_name, phone), service:services(name, price_from), slot:time_slots(slot_date, slot_time)'
       )
       .order('created_at', { ascending: false })
       .limit(200),
@@ -178,7 +178,10 @@ export default async function AdminDashboardPage() {
                 {todaySchedule.map((a) => (
                   <tr key={a.id}>
                     <td className="px-4 py-3.5 border-b border-[#f1ece2] text-[13.5px]">{a.slot ? formatSlotTime(a.slot.slot_time) : '—'}</td>
-                    <td className="px-4 py-3.5 border-b border-[#f1ece2] text-[13.5px]">{a.customer?.full_name ?? '—'}</td>
+                    <td className="px-4 py-3.5 border-b border-[#f1ece2] text-[13.5px]">
+                      <div>{a.customer?.full_name ?? '—'}</div>
+                      <div className="text-[11.5px] text-[#8a7d6e]">{a.customer?.phone ?? ''}</div>
+                    </td>
                     <td className="px-4 py-3.5 border-b border-[#f1ece2] text-[13.5px]">{a.service?.name ?? '—'}</td>
                     <td className="px-4 py-3.5 border-b border-[#f1ece2] text-[13.5px]">{a.artist ?? 'Any available'}</td>
                     <td className="px-4 py-3.5 border-b border-[#f1ece2] text-[13.5px]">

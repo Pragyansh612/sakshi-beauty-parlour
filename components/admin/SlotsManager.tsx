@@ -3,7 +3,7 @@
 import { useState } from 'react';
 import { useRouter } from 'next/navigation';
 import { toast } from 'sonner';
-import { toggleSlotStatus, generateDaySlots } from '@/actions/admin/slots';
+import { toggleSlotStatus, generateDaySlots, setDayStatus } from '@/actions/admin/slots';
 
 export interface SlotCell {
   state: 'open' | 'full' | 'blocked' | 'none';
@@ -87,17 +87,20 @@ function AddSlotModal({ onClose, onGenerated }: { onClose: () => void; onGenerat
 export function SlotsManager({
   rows,
   dayLabels,
+  dayStatuses,
   weekLabel,
   weekOffset,
 }: {
   rows: SlotRow[];
-  dayLabels: { dow: string; dnum: number }[];
+  dayLabels: { dow: string; dnum: number; date: string }[];
+  dayStatuses: ('open' | 'blocked' | 'empty')[];
   weekLabel: string;
   weekOffset: number;
   todayIso: string;
 }) {
   const router = useRouter();
   const [pendingId, setPendingId] = useState<string | null>(null);
+  const [pendingDay, setPendingDay] = useState<string | null>(null);
   const [showAddModal, setShowAddModal] = useState(false);
 
   async function handleCellClick(cell: SlotCell) {
@@ -113,6 +116,21 @@ export function SlotsManager({
       return;
     }
     toast.success(nextStatus === 'blocked' ? 'Slot blocked.' : 'Slot opened.');
+    router.refresh();
+  }
+
+  async function handleDayToggle(date: string, currentStatus: 'open' | 'blocked' | 'empty') {
+    if (currentStatus === 'empty') return;
+    setPendingDay(date);
+    const nextStatus = currentStatus === 'blocked' ? 'open' : 'blocked';
+    const result = await setDayStatus({ date, status: nextStatus });
+    setPendingDay(null);
+
+    if (!result.success) {
+      toast.error(result.error ?? 'Something went wrong.');
+      return;
+    }
+    toast.success(nextStatus === 'blocked' ? 'Day closed.' : 'Day opened.');
     router.refresh();
   }
 
@@ -165,11 +183,28 @@ export function SlotsManager({
 
         <div className="min-w-[720px] grid gap-2 items-center" style={{ gridTemplateColumns: '70px repeat(7, 1fr)' }}>
           <div />
-          {dayLabels.map((d) => (
-            <div key={d.dow + d.dnum} className="text-center text-[11.5px] text-[#8a7d6e] font-medium">
-              {d.dow} {d.dnum}
-            </div>
-          ))}
+          {dayLabels.map((d, i) => {
+            const status = dayStatuses[i] ?? 'empty';
+            return (
+              <div key={d.date} className="text-center">
+                <div className="text-[11.5px] text-[#8a7d6e] font-medium mb-1">
+                  {d.dow} {d.dnum}
+                </div>
+                <button
+                  onClick={() => handleDayToggle(d.date, status)}
+                  disabled={status === 'empty' || pendingDay === d.date}
+                  title={status === 'empty' ? 'No slots generated for this day yet' : undefined}
+                  className={`w-full text-[10.5px] font-medium rounded-[6px] px-1.5 py-1 transition-colors disabled:opacity-40 disabled:cursor-not-allowed ${
+                    status === 'blocked'
+                      ? 'bg-[#ece8e0] text-[#7a6f60] hover:bg-[#e2ddd0]'
+                      : 'bg-[#f4e6e6] text-[#a8595a] hover:bg-[#eed6d6]'
+                  }`}
+                >
+                  {pendingDay === d.date ? '…' : status === 'blocked' ? 'Open day' : status === 'empty' ? 'No slots' : 'Close day'}
+                </button>
+              </div>
+            );
+          })}
           {rows.map((row) => (
             <div key={row.time} className="contents">
               <div className="text-xs text-[#6b5f54] text-right pr-1">{row.time}</div>

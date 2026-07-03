@@ -68,11 +68,11 @@ Copy `.env.local.example` to `.env.local` and fill in:
 
 1. Open your Supabase project's **SQL Editor**.
 2. Paste the entire contents of `supabase/schema.sql` and run it. This creates all 9 tables (`profiles`, `service_categories`, `services`, `combo_offers`, `combo_offer_items`, `time_slots`, `appointments`, `bookings`, `gallery_images`, `contact_messages`), the `is_admin()` helper function, every Row Level Security policy, the auto-reference triggers (`AP-2000...`, `BK-1000...`), and seeds the initial `service_categories`/`services`/`combo_offers` rows.
-3. Confirm **Authentication → Providers → Email** is enabled (it is by default). Decide whether to require email confirmation before login (Authentication → Settings) — the register flow in `components/auth/RegisterForm.tsx` handles both cases (auto-login if confirmation is off, "check your email" message if it's on).
+3. Confirm **Authentication → Providers → Email** is enabled (it is by default) and **Confirm email** is **OFF** — login is phone + password only (no OTP, no real email involved); see `lib/phone-auth.ts` and `BLOCKERS.md` (BLOCKER-001) for why the app uses Supabase's email provider under the hood with a synthetic `p<phone>@<host>` address. `app/api/auth/register/route.ts` also passes `email_confirm: true` on every signup, so this works even if Confirm email is left on, but turning it off avoids Supabase attempting to send mail to an address that doesn't exist.
 4. Create two **Storage buckets**:
    - `gallery` — **public** (serves salon photos/achievements to the public Gallery page and the admin Gallery manager)
    - `avatars` — **private** (reserved for future profile photo use; not currently used by any page)
-5. Apply the Storage RLS policies from the bottom of `supabase/schema.sql` (the `-- STORAGE RLS POLICIES` section — they're commented out there since `storage.objects` policies must be created after the buckets exist; uncomment and run them, or paste them directly into the SQL Editor).
+5. Run `supabase/storage-policies.sql` in the SQL Editor (`storage.objects` policies must be created after the buckets exist, so this is a separate file rather than part of `schema.sql`). Without this, the admin Gallery manager's in-browser upload fails with a row-level-security error even for a genuine admin — confirmed as a real bug on this project before the file existed.
 6. Add your local and production URLs to **Authentication → URL Configuration → Redirect URLs** (needed for the forgot-password reset link to work).
 
 ## Seed scripts
@@ -106,18 +106,21 @@ ALTER TABLE gallery_images ADD CONSTRAINT gallery_images_storage_path_key UNIQUE
 
 ## Creating the first admin user
 
-There's no bootstrap flow for this — every account registers as a `customer` (see the `handle_new_user()` trigger in `supabase/schema.sql`). To promote one to `admin`:
+Every account registers as a `customer` by default (see the `handle_new_user()` trigger in `supabase/schema.sql`). Two ways to create/promote an admin — both are idempotent (safe to re-run) and set phone + password directly, no OTP:
 
-1. Register a normal account through `/login` → Register tab.
-2. In the Supabase SQL Editor, run:
+- **From your machine** (needs `SUPABASE_SERVICE_ROLE_KEY` in `.env`/`.env.local`):
+  ```bash
+  npx tsx scripts/seed-admin.mts
+  ```
+  Edit the `ADMIN_PHONE` / `ADMIN_PASSWORD` / `ADMIN_NAME` constants at the top of the script first.
 
-   ```sql
-   UPDATE profiles SET role = 'admin' WHERE email = 'you@example.com';
-   ```
+- **From the Supabase SQL Editor**: run `supabase/seed-admin.sql`. Edit the `admin_phone` / `admin_password` / `admin_name` / `auth_email_domain` variables in the `DO $$ ... $$` block first — `auth_email_domain` must match what `lib/phone-auth.ts#getAuthEmailDomain()` resolves to at runtime (`NEXT_PUBLIC_AUTH_EMAIL_DOMAIN`, else your `NEXT_PUBLIC_SITE_URL` host, else your Supabase project host) or login will fail with "Invalid login credentials" even though the account exists — this exact mismatch (a literal unsubstituted placeholder domain) broke the admin login on this project until it was found and fixed on 2026-07-03.
 
-3. Sign out and back in (or just navigate to `/admin`) — `proxy.ts` middleware checks `profiles.role` on every `/admin/*` request, so the new role takes effect immediately without needing a fresh session.
-
-Repeat for any other staff accounts that need admin access.
+To promote an *existing* customer account to admin instead, just run:
+```sql
+UPDATE profiles SET role = 'admin' WHERE phone = '9876543210';
+```
+Sign out and back in (or just navigate to `/admin`) — `proxy.ts` middleware checks `profiles.role` on every `/admin/*` request, so the new role takes effect immediately without needing a fresh session.
 
 ## Placeholder stock photography
 

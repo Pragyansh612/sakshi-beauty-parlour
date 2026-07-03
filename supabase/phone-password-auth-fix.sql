@@ -58,20 +58,26 @@ WHERE phone LIKE '+91%';
 
 -- ---------------------------------------------------------
 -- 3. Fix auth.users — replace invalid .internal addresses
---    Replace YOUR_PROJECT_REF with your Supabase project ref
---    (same host as NEXT_PUBLIC_SUPABASE_URL), e.g. abcdefghijklmnop
+--    PROJECT_REF is this project's actual Supabase host (matches
+--    NEXT_PUBLIC_SUPABASE_URL). Previously this said
+--    YOUR_PROJECT_REF as a placeholder — running the file without
+--    substituting it left at least one account with a literal,
+--    unreachable `...@YOUR_PROJECT_REF.supabase.co` email, which
+--    silently broke that account's login (fixed for the live
+--    project on 2026-07-03; see supabase/seed-admin.sql for the
+--    admin account specifically).
 -- ---------------------------------------------------------
 -- Old invalid format → valid synthetic email on your Supabase host
 UPDATE auth.users
 SET
-  email = 'p' || SUBSTRING(email FROM '^p([0-9]{10})@') || '@YOUR_PROJECT_REF.supabase.co',
+  email = 'p' || SUBSTRING(email FROM '^p([0-9]{10})@') || '@qssbqtxdvztohcmgwxxp.supabase.co',
   email_confirmed_at = COALESCE(email_confirmed_at, now())
 WHERE email ~ '^p[0-9]{10}@phone\.sakshibeautyparlour\.internal$';
 
 -- If you ran phone-auth-migration.sql, move phone-only users back to email auth
 UPDATE auth.users
 SET
-  email = 'p' || REGEXP_REPLACE(phone, '^\+91', '') || '@YOUR_PROJECT_REF.supabase.co',
+  email = 'p' || REGEXP_REPLACE(phone, '^\+91', '') || '@qssbqtxdvztohcmgwxxp.supabase.co',
   phone = NULL,
   email_confirmed_at = COALESCE(email_confirmed_at, now())
 WHERE phone ~ '^\+91[0-9]{10}$'

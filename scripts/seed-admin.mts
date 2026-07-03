@@ -85,8 +85,9 @@ async function seedAdmin() {
 
   if (existingProfile) {
     userId = existingProfile.id;
-    console.log(`Found existing profile for ${ADMIN_PHONE} (${userId}) — updating password & role.`);
+    console.log(`Found existing profile for ${ADMIN_PHONE} (${userId}) — updating email, password & role.`);
     const { error: updateAuthErr } = await supabase.auth.admin.updateUserById(userId, {
+      email,
       password: ADMIN_PASSWORD,
       email_confirm: true,
     });

@@ -1,7 +1,7 @@
 import { createClient } from '@/lib/supabase/server';
 import { SlotsManager, type SlotCell } from '@/components/admin/SlotsManager';
 
-const DOW = ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
+const DOW = ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'];
 const MON = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
 
 function startOfWeek(offsetWeeks: number) {
@@ -45,12 +45,13 @@ export default async function AdminSlotsPage({
 
   const monday = startOfWeek(weekOffset);
   const weekDates: string[] = [];
-  const dayLabels: { dow: string; dnum: number }[] = [];
+  const dayLabels: { dow: string; dnum: number; date: string }[] = [];
   for (let i = 0; i < 7; i++) {
     const d = new Date(monday);
     d.setDate(monday.getDate() + i);
-    weekDates.push(d.toISOString().slice(0, 10));
-    dayLabels.push({ dow: DOW[i], dnum: d.getDate() });
+    const iso = d.toISOString().slice(0, 10);
+    weekDates.push(iso);
+    dayLabels.push({ dow: DOW[i], dnum: d.getDate(), date: iso });
   }
 
   const supabase = await createClient();
@@ -81,10 +82,17 @@ export default async function AdminSlotsPage({
 
   const weekLabel = `Week of ${dayLabels[0].dnum} ${MON[new Date(monday).getMonth()]}`;
 
+  const dayStatuses: ('open' | 'blocked' | 'empty')[] = weekDates.map((date) => {
+    const daySlots = slots.filter((s) => s.slot_date === date);
+    if (daySlots.length === 0) return 'empty';
+    return daySlots.every((s) => s.status === 'blocked') ? 'blocked' : 'open';
+  });
+
   return (
     <SlotsManager
       rows={rows}
       dayLabels={dayLabels}
+      dayStatuses={dayStatuses}
       weekLabel={weekLabel}
       weekOffset={weekOffset}
       todayIso={new Date().toISOString().slice(0, 10)}

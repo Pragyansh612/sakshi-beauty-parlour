@@ -41,6 +41,33 @@ export async function toggleSlotStatus(
   return { success: true };
 }
 
+const SetDayStatusSchema = z.object({
+  date: z.string().regex(/^\d{4}-\d{2}-\d{2}$/),
+  status: z.enum(['open', 'blocked']),
+});
+
+export async function setDayStatus(
+  data: z.infer<typeof SetDayStatusSchema>
+): Promise<{ success: boolean; error?: string }> {
+  const parsed = SetDayStatusSchema.safeParse(data);
+  if (!parsed.success) return { success: false, error: 'Invalid data.' };
+
+  const { supabase, ok } = await requireAdmin();
+  if (!ok) return { success: false, error: 'Not authorized.' };
+
+  const { error } = await supabase
+    .from('time_slots')
+    .update({ status: parsed.data.status })
+    .eq('slot_date', parsed.data.date);
+
+  if (error) {
+    console.error('Admin set day status error:', error.message);
+    return { success: false, error: 'Could not update this day.' };
+  }
+  revalidatePath('/admin/slots');
+  return { success: true };
+}
+
 const OPEN_HOUR = 11;
 const CLOSE_HOUR = 20.5;
 

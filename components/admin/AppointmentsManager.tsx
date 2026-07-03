@@ -13,6 +13,7 @@ export interface AdminAppointment {
   id: string;
   reference: string;
   client: string;
+  phone: string;
   service: string;
   slotDate: string | null;
   when: string;
@@ -52,7 +53,11 @@ export function AppointmentsManager({ initialAppointments }: { initialAppointmen
     if (search.trim()) {
       const q = search.trim().toLowerCase();
       list = list.filter(
-        (a) => a.client.toLowerCase().includes(q) || a.reference.toLowerCase().includes(q) || a.service.toLowerCase().includes(q)
+        (a) =>
+          a.client.toLowerCase().includes(q) ||
+          a.reference.toLowerCase().includes(q) ||
+          a.service.toLowerCase().includes(q) ||
+          a.phone.toLowerCase().includes(q)
       );
     }
     return list;
@@ -60,7 +65,7 @@ export function AppointmentsManager({ initialAppointments }: { initialAppointmen
 
   function drawerFields(item: AdminAppointment): DrawerField[] {
     return [
-      { key: 'client', label: 'Client', value: item.client, editable: false },
+      { key: 'client', label: 'Client', value: `${item.client} · ${item.phone}`, editable: false },
       { key: 'service', label: 'Service', value: item.service, editable: false },
       { key: 'when', label: 'Date & time', value: item.when, editable: false },
       { key: 'artist', label: 'Artist', value: item.artist, editable: true },
@@ -120,7 +125,7 @@ export function AppointmentsManager({ initialAppointments }: { initialAppointmen
           <input
             value={search}
             onChange={(e) => setSearch(e.target.value)}
-            placeholder="Search client or ref…"
+            placeholder="Search client, phone or ref…"
             className="border border-[#e2dccf] rounded-[9px] px-3.5 py-2.5 text-[13px] bg-white outline-none w-[230px] focus:border-[#b5904f]"
           />
           <div className="inline-flex bg-[#ece8e0] rounded-[9px] p-[3px]">
@@ -164,7 +169,10 @@ export function AppointmentsManager({ initialAppointments }: { initialAppointmen
             {filtered.map((a) => (
               <tr key={a.id}>
                 <td className="px-4 py-3.5 border-b border-[#f1ece2] text-[13.5px] text-[#8a7d6e]">{a.reference}</td>
-                <td className="px-4 py-3.5 border-b border-[#f1ece2] text-[13.5px] font-medium">{a.client}</td>
+                <td className="px-4 py-3.5 border-b border-[#f1ece2] text-[13.5px]">
+                  <div className="font-medium">{a.client}</div>
+                  <div className="text-[11.5px] text-[#8a7d6e]">{a.phone}</div>
+                </td>
                 <td className="px-4 py-3.5 border-b border-[#f1ece2] text-[13.5px]">{a.service}</td>
                 <td className="px-4 py-3.5 border-b border-[#f1ece2] text-[13.5px]">{a.when}</td>
                 <td className="px-4 py-3.5 border-b border-[#f1ece2] text-[13.5px]">{a.artist}</td>
