@@ -1,10 +1,9 @@
-import { createServerClient } from '@supabase/ssr';
 import { cookies } from 'next/headers';
 import { NextResponse } from 'next/server';
 import { z } from 'zod';
 import { createAdminClient } from '@/lib/supabase/admin';
 import { normalizePhone, PHONE_REGEX, phoneToAuthEmail } from '@/lib/phone-auth';
-import type { Database } from '@/types/database';
+import { createSupabaseRouteClient } from '@/lib/supabase/route-client';
 
 const schema = z.object({
   full_name: z.string().min(2, 'Enter your full name'),
@@ -55,24 +54,9 @@ export async function POST(request: Request) {
 
   const cookieStore = await cookies();
   let response = NextResponse.json({ ok: true });
+  const supabase = createSupabaseRouteClient(cookieStore, response);
 
-  const supabase = createServerClient<Database>(
-    process.env.NEXT_PUBLIC_SUPABASE_URL!,
-    process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!,
-    {
-      cookies: {
-        getAll() {
-          return cookieStore.getAll();
-        },
-        setAll(cookiesToSet) {
-          cookiesToSet.forEach(({ name, value, options }) => {
-            cookieStore.set(name, value, options);
-            response.cookies.set(name, value, options);
-          });
-        },
-      },
-    }
-  );
+  await supabase.auth.signOut();
 
   const { error: signInErr } = await supabase.auth.signInWithPassword({ email, password });
   if (signInErr) {

@@ -3,6 +3,8 @@ import { createClient } from '@/lib/supabase/server';
 import { DashboardNavbar } from '@/components/dashboard/DashboardNavbar';
 import { Footer } from '@/components/layout/Footer';
 
+export const dynamic = 'force-dynamic';
+
 export default async function DashboardLayout({
   children,
 }: {

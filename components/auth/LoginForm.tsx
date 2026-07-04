@@ -9,9 +9,7 @@ import { toast } from 'sonner';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { FormField } from '@/components/forms/FormField';
-import { createClient } from '@/lib/supabase/client';
-import { getUserRole } from '@/lib/supabase/auth-helpers';
-import { PHONE_REGEX, normalizePhone, phoneToAuthEmail } from '@/lib/phone-auth';
+import { PHONE_REGEX, normalizePhone } from '@/lib/phone-auth';
 
 const schema = z.object({
   phone: z
@@ -41,24 +39,31 @@ export function LoginForm({ onForgotPassword, onSwitchToRegister, redirectTo }: 
 
   const onSubmit = async (data: FormData) => {
     setIsSubmitting(true);
-    const supabase = createClient();
-    const { data: signInData, error } = await supabase.auth.signInWithPassword({
-      email: phoneToAuthEmail(data.phone),
-      password: data.password,
-    });
+    try {
+      const res = await fetch('/api/auth/login', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        credentials: 'same-origin',
+        body: JSON.stringify(data),
+      });
+      const result = (await res.json()) as { error?: string; role?: 'customer' | 'admin' };
 
-    if (error) {
+      if (!res.ok) {
+        toast.error(result.error ?? 'Sign in failed');
+        return;
+      }
+
+      toast.success('Welcome back!');
+      const destination =
+        redirectTo ??
+        (result.role === 'admin' ? '/admin/dashboard' : '/dashboard');
+      router.push(destination);
+      router.refresh();
+    } catch {
+      toast.error('Sign in failed. Please try again.');
+    } finally {
       setIsSubmitting(false);
-      toast.error(error.message);
-      return;
     }
-
-    const role = signInData.user ? await getUserRole(supabase, signInData.user.id) : null;
-    setIsSubmitting(false);
-
-    toast.success('Welcome back!');
-    router.push(redirectTo ?? (role === 'admin' ? '/admin/dashboard' : '/dashboard'));
-    router.refresh();
   };
 
   return (
@@ -99,7 +104,7 @@ export function LoginForm({ onForgotPassword, onSwitchToRegister, redirectTo }: 
       </div>
 
       <a
-        href="https://wa.me/919179176965"     
+        href="https://wa.me/919179176965"
         target="_blank"
         rel="noopener noreferrer"
         className="inline-flex items-center justify-center w-full bg-transparent text-[#2e2823] border border-[#d8c6a6] rounded-[30px] px-6 py-[15px] font-body font-medium text-sm no-underline transition-all hover:border-[#b5904f] hover:text-[#b5904f]"

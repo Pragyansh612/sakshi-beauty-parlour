@@ -15,9 +15,7 @@ export async function updateSession(request: NextRequest) {
           return request.cookies.getAll();
         },
         setAll(cookiesToSet) {
-          cookiesToSet.forEach(({ name, value }) =>
-            request.cookies.set(name, value)
-          );
+          cookiesToSet.forEach(({ name, value }) => request.cookies.set(name, value));
           supabaseResponse = NextResponse.next({ request });
           cookiesToSet.forEach(({ name, value, options }) =>
             supabaseResponse.cookies.set(name, value, options)
@@ -33,28 +31,46 @@ export async function updateSession(request: NextRequest) {
 
   const { pathname, search } = request.nextUrl;
 
-  // Redirect authenticated users away from /login — honor a pending redirectTo if present
-  if (user && pathname === '/login') {
-    const redirectTo = request.nextUrl.searchParams.get('redirectTo');
-    return NextResponse.redirect(new URL(redirectTo && redirectTo.startsWith('/') ? redirectTo : '/dashboard', request.url));
+  function redirectWithCookies(url: URL) {
+    const redirectResponse = NextResponse.redirect(url);
+    supabaseResponse.cookies.getAll().forEach((cookie) => {
+      redirectResponse.cookies.set(cookie.name, cookie.value, cookie);
+    });
+    return redirectResponse;
   }
 
-  // Protect /dashboard and /book — require any authenticated user
+  if (user && pathname === '/login') {
+    const redirectTo = request.nextUrl.searchParams.get('redirectTo');
+    const isAdmin = await isAdminRole(supabase, user.id);
+    const fallback = isAdmin ? '/admin/dashboard' : '/dashboard';
+    const destination =
+      redirectTo && redirectTo.startsWith('/') ? redirectTo : fallback;
+    return redirectWithCookies(new URL(destination, request.url));
+  }
+
+  if (user && pathname === '/admin/login') {
+    if (await isAdminRole(supabase, user.id)) {
+      const redirectTo = request.nextUrl.searchParams.get('redirectTo');
+      const destination =
+        redirectTo && redirectTo.startsWith('/admin') ? redirectTo : '/admin/dashboard';
+      return redirectWithCookies(new URL(destination, request.url));
+    }
+  }
+
   if (!user && (pathname.startsWith('/dashboard') || pathname.startsWith('/book'))) {
     const loginUrl = new URL('/login', request.url);
     loginUrl.searchParams.set('redirectTo', pathname + search);
-    return NextResponse.redirect(loginUrl);
+    return redirectWithCookies(loginUrl);
   }
 
-  // Protect /admin routes (excluding the admin login page itself) — require admin role
   if (pathname.startsWith('/admin') && pathname !== '/admin/login') {
     if (!user) {
       const loginUrl = new URL('/admin/login', request.url);
       loginUrl.searchParams.set('redirectTo', pathname);
-      return NextResponse.redirect(loginUrl);
+      return redirectWithCookies(loginUrl);
     }
     if (!(await isAdminRole(supabase, user.id))) {
-      return NextResponse.redirect(new URL('/', request.url));
+      return redirectWithCookies(new URL('/', request.url));
     }
   }
 

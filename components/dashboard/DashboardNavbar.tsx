@@ -1,10 +1,10 @@
 'use client';
 
 import Link from 'next/link';
-import { useRouter, usePathname } from 'next/navigation';
+import { usePathname } from 'next/navigation';
 import { useState } from 'react';
 import { Menu } from 'lucide-react';
-import { createClient } from '@/lib/supabase/client';
+import { signOutAndRedirect } from '@/lib/auth/client';
 import { MobileNav } from '@/components/layout/MobileNav';
 
 interface DashboardNavbarProps {
@@ -12,7 +12,6 @@ interface DashboardNavbarProps {
 }
 
 export function DashboardNavbar({ fullName }: DashboardNavbarProps) {
-  const router = useRouter();
   const pathname = usePathname();
   const [signingOut, setSigningOut] = useState(false);
   const [mobileOpen, setMobileOpen] = useState(false);
@@ -21,10 +20,7 @@ export function DashboardNavbar({ fullName }: DashboardNavbarProps) {
 
   async function handleSignOut() {
     setSigningOut(true);
-    const supabase = createClient();
-    await supabase.auth.signOut();
-    router.push('/login');
-    router.refresh();
+    await signOutAndRedirect('/login');
   }
 
   return (

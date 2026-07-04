@@ -9,9 +9,7 @@ import { toast } from 'sonner';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { FormField } from '@/components/forms/FormField';
-import { createClient } from '@/lib/supabase/client';
-import { getUserRole } from '@/lib/supabase/auth-helpers';
-import { PHONE_REGEX, normalizePhone, phoneToAuthEmail } from '@/lib/phone-auth';
+import { PHONE_REGEX, normalizePhone } from '@/lib/phone-auth';
 
 const schema = z.object({
   phone: z
@@ -35,31 +33,34 @@ export function AdminLoginForm({ redirectTo }: { redirectTo: string }) {
 
   const onSubmit = async (data: FormData) => {
     setIsSubmitting(true);
-    const supabase = createClient();
-    const { data: signInData, error } = await supabase.auth.signInWithPassword({
-      email: phoneToAuthEmail(data.phone),
-      password: data.password,
-    });
+    try {
+      const res = await fetch('/api/auth/login', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        credentials: 'same-origin',
+        body: JSON.stringify(data),
+      });
+      const result = (await res.json()) as { error?: string; role?: 'customer' | 'admin' };
 
-    if (error) {
+      if (!res.ok) {
+        toast.error(result.error ?? 'Sign in failed');
+        return;
+      }
+
+      if (result.role !== 'admin') {
+        await fetch('/api/auth/signout', { method: 'POST', credentials: 'same-origin' });
+        toast.error("This account doesn't have admin access.");
+        return;
+      }
+
+      toast.success('Welcome back.');
+      router.push(redirectTo);
+      router.refresh();
+    } catch {
+      toast.error('Sign in failed. Please try again.');
+    } finally {
       setIsSubmitting(false);
-      toast.error(error.message);
-      return;
     }
-
-    const role = signInData.user ? await getUserRole(supabase, signInData.user.id) : null;
-
-    if (role !== 'admin') {
-      await supabase.auth.signOut();
-      setIsSubmitting(false);
-      toast.error("This account doesn't have admin access.");
-      return;
-    }
-
-    setIsSubmitting(false);
-    toast.success('Welcome back.');
-    router.push(redirectTo);
-    router.refresh();
   };
 
   return (

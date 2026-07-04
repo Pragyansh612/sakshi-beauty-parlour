@@ -1,11 +1,11 @@
 'use client';
 
 import Link from 'next/link';
-import { usePathname, useRouter } from 'next/navigation';
+import { usePathname } from 'next/navigation';
 import { useState } from 'react';
 import { Menu, X } from 'lucide-react';
 import { cn } from '@/lib/utils';
-import { createClient } from '@/lib/supabase/client';
+import { signOutAndRedirect } from '@/lib/auth/client';
 
 const NAV = [
   { href: '/admin/dashboard', label: 'Dashboard', icon: '▣' },
@@ -39,16 +39,12 @@ function NavItem({ href, label, icon, onNavigate }: { href: string; label: strin
 }
 
 function SidebarContent({ adminName, onNavigate }: { adminName: string; onNavigate?: () => void }) {
-  const router = useRouter();
   const [signingOut, setSigningOut] = useState(false);
   const initial = adminName.trim().charAt(0).toUpperCase() || 'S';
 
   async function handleSignOut() {
     setSigningOut(true);
-    const supabase = createClient();
-    await supabase.auth.signOut();
-    router.push('/admin/login');
-    router.refresh();
+    await signOutAndRedirect('/admin/login');
   }
 
   return (

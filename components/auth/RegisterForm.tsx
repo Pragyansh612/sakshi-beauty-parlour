@@ -43,6 +43,7 @@ export function RegisterForm({ onSwitchToLogin, redirectTo }: RegisterFormProps)
       const res = await fetch('/api/auth/register', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
+        credentials: 'same-origin',
         body: JSON.stringify(data),
       });
       const result = (await res.json()) as { error?: string };

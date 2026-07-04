@@ -40,9 +40,12 @@ BEGIN
   SELECT id INTO target_user_id FROM auth.users WHERE email = admin_email;
 
   IF target_user_id IS NULL THEN
-    -- Also check by phone, in case the account was created under a
-    -- different auth-email-domain previously.
-    SELECT id INTO target_user_id FROM profiles WHERE phone = admin_phone;
+    -- Only reuse an existing profile when it already belongs to this admin email.
+    SELECT p.id INTO target_user_id
+    FROM profiles p
+    JOIN auth.users u ON u.id = p.id
+    WHERE p.phone = admin_phone
+      AND u.email = admin_email;
   END IF;
 
   IF target_user_id IS NULL THEN
