@@ -27,14 +27,18 @@ const CreateGalleryImageSchema = z.object({
 
 export async function createGalleryImage(
   data: z.infer<typeof CreateGalleryImageSchema>
-): Promise<{ success: boolean; error?: string }> {
+): Promise<{ success: boolean; id?: string; error?: string }> {
   const parsed = CreateGalleryImageSchema.safeParse(data);
   if (!parsed.success) return { success: false, error: 'Invalid image data.' };
 
   const { supabase, ok } = await requireAdmin();
   if (!ok) return { success: false, error: 'Not authorized.' };
 
-  const { error } = await supabase.from('gallery_images').insert(parsed.data);
+  const { data: inserted, error } = await supabase
+    .from('gallery_images')
+    .insert(parsed.data)
+    .select('id')
+    .single();
 
   if (error) {
     console.error('Admin gallery create error:', error.message);
@@ -42,7 +46,7 @@ export async function createGalleryImage(
   }
   revalidatePath('/admin/gallery');
   revalidatePath('/gallery');
-  return { success: true };
+  return { success: true, id: inserted.id };
 }
 
 const UpdateGalleryImageSchema = z.object({

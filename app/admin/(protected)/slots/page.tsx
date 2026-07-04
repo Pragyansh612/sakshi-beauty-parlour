@@ -6,7 +6,7 @@ const MON = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct
 
 function startOfWeek(offsetWeeks: number) {
   const now = new Date();
-  const day = now.getDay(); // 0 = Mon
+  const day = now.getDay(); // 0 = Sun
   const diffToMonday = (day + 6) % 7;
   const monday = new Date(now);
   monday.setDate(now.getDate() - diffToMonday + offsetWeeks * 7);

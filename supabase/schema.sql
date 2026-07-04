@@ -281,6 +281,8 @@ CREATE INDEX idx_appointments_slot_id     ON appointments(slot_id);
 CREATE INDEX idx_appointments_status      ON appointments(status);
 CREATE INDEX idx_appointments_created_at  ON appointments(created_at DESC);
 CREATE UNIQUE INDEX idx_appointments_reference ON appointments(reference);
+CREATE UNIQUE INDEX idx_appointments_active_slot ON appointments(slot_id)
+  WHERE status NOT IN ('cancelled');
 
 ALTER TABLE appointments ENABLE ROW LEVEL SECURITY;
 

@@ -1,5 +1,6 @@
 import Link from 'next/link';
 import { AuthPanel } from '@/components/auth/AuthPanel';
+import { safeRedirectPath } from '@/lib/auth/safe-redirect';
 
 export default async function LoginPage({
   searchParams,
@@ -42,7 +43,9 @@ export default async function LoginPage({
       <div className="flex items-center justify-center px-6 py-12 md:px-10">
         <AuthPanel
           initialMode={mode === 'register' ? 'register' : 'login'}
-          redirectTo={redirectTo && redirectTo.startsWith('/') ? redirectTo : undefined}
+          redirectTo={
+            redirectTo ? safeRedirectPath(redirectTo, '/dashboard') : undefined
+          }
         />
       </div>
     </div>

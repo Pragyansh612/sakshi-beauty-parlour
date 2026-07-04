@@ -41,6 +41,9 @@ export async function createAppointment(
 
   if (error) {
     console.error('Appointment insert error:', error.message);
+    if (error.code === '23505') {
+      return { success: false, error: 'That slot was just taken. Please pick another time.' };
+    }
     return { success: false, error: 'That slot may no longer be available. Please pick another.' };
   }
 

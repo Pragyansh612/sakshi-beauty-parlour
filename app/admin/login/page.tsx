@@ -2,6 +2,7 @@ import { redirect } from 'next/navigation';
 import Link from 'next/link';
 import { createClient } from '@/lib/supabase/server';
 import { isAdminRole } from '@/lib/supabase/auth-helpers';
+import { safeRedirectPath } from '@/lib/auth/safe-redirect';
 import { AdminLoginForm } from '@/components/auth/AdminLoginForm';
 
 export default async function AdminLoginPage({
@@ -10,7 +11,7 @@ export default async function AdminLoginPage({
   searchParams: Promise<{ redirectTo?: string }>;
 }) {
   const { redirectTo } = await searchParams;
-  const target = redirectTo && redirectTo.startsWith('/admin') ? redirectTo : '/admin/dashboard';
+  const target = safeRedirectPath(redirectTo, '/admin/dashboard', { adminOnly: true });
 
   const supabase = await createClient();
   const {

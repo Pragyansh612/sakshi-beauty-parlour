@@ -10,6 +10,7 @@ import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { FormField } from '@/components/forms/FormField';
 import { PHONE_REGEX, normalizePhone } from '@/lib/phone-auth';
+import { safeRedirectPath } from '@/lib/auth/safe-redirect';
 
 const schema = z.object({
   phone: z
@@ -54,9 +55,10 @@ export function LoginForm({ onForgotPassword, onSwitchToRegister, redirectTo }: 
       }
 
       toast.success('Welcome back!');
-      const destination =
-        redirectTo ??
-        (result.role === 'admin' ? '/admin/dashboard' : '/dashboard');
+      const destination = safeRedirectPath(
+        redirectTo,
+        result.role === 'admin' ? '/admin/dashboard' : '/dashboard'
+      );
       router.push(destination);
       router.refresh();
     } catch {

@@ -3,6 +3,7 @@ import { Footer } from '@/components/layout/Footer';
 import { EyebrowLabel } from '@/components/shared/EyebrowLabel';
 import { BookingWizard } from '@/components/booking/BookingWizard';
 import { createClient } from '@/lib/supabase/server';
+import { buildUpcomingDays } from '@/lib/date-format';
 
 function formatPrice(fromPaise: number, toPaise: number | null) {
   const from = Math.round(fromPaise / 100);
@@ -18,9 +19,6 @@ function formatSlotTime(time: string) {
   const hour12 = hour % 12 === 0 ? 12 : hour % 12;
   return `${hour12}:${minStr} ${period}`;
 }
-
-const DOW = ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
-const MON = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
 
 export default async function BookPage({
   searchParams,
@@ -60,22 +58,8 @@ export default async function BookPage({
     }
   }
 
-  const today = new Date();
-  const dateStrings: string[] = [];
-  const days = [];
-  for (let i = 0; i < 14; i++) {
-    const d = new Date(today);
-    d.setDate(today.getDate() + i);
-    const iso = d.toISOString().slice(0, 10);
-    dateStrings.push(iso);
-    days.push({
-      date: iso,
-      dow: DOW[d.getDay()],
-      dnum: d.getDate(),
-      mon: MON[d.getMonth()],
-      full: `${DOW[d.getDay()]}, ${d.getDate()} ${MON[d.getMonth()]}`,
-    });
-  }
+  const days = buildUpcomingDays(14);
+  const dateStrings = days.map((d) => d.date);
 
   const [servicesRes, slotsRes] = await Promise.all([
     supabase

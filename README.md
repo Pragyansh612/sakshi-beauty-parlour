@@ -59,7 +59,7 @@ Copy `.env.local.example` to `.env.local` and fill in:
 |---|---|
 | `NEXT_PUBLIC_SUPABASE_URL` | Your Supabase project URL. Find it in **Supabase Dashboard → Settings → API**. Public — safe to expose to the browser. |
 | `NEXT_PUBLIC_SUPABASE_ANON_KEY` | Your Supabase project's anon/public API key, from the same **Settings → API** page. Public — safe to expose to the browser (Row Level Security policies in `supabase/schema.sql` are what actually protect the data). |
-| `SUPABASE_SERVICE_ROLE_KEY` | Your Supabase project's **service role** key — from the same page. **Secret.** Only used by the one-off scripts in `scripts/` (run from your machine, never bundled into the app or exposed to the browser). Never commit this or use it in `app/`/`components/`/`actions/` code. |
+| `SUPABASE_SERVICE_ROLE_KEY` | Your Supabase project's **service role** key — from the same page. **Secret.** Required server-side for `app/api/auth/register` (creates accounts without sending confirmation emails) and for the one-off scripts in `scripts/`. Never commit this or expose it to the browser. |
 | `NEXT_PUBLIC_SITE_URL` | The site's base URL — `http://localhost:3000` locally, your production domain when deployed. Used to build the Supabase Auth password-reset redirect link. |
 
 `.env.local` is gitignored — never commit it.
@@ -73,7 +73,8 @@ Copy `.env.local.example` to `.env.local` and fill in:
    - `gallery` — **public** (serves salon photos/achievements to the public Gallery page and the admin Gallery manager)
    - `avatars` — **private** (reserved for future profile photo use; not currently used by any page)
 5. Run `supabase/storage-policies.sql` in the SQL Editor (`storage.objects` policies must be created after the buckets exist, so this is a separate file rather than part of `schema.sql`). Without this, the admin Gallery manager's in-browser upload fails with a row-level-security error even for a genuine admin — confirmed as a real bug on this project before the file existed.
-6. Add your local and production URLs to **Authentication → URL Configuration → Redirect URLs** (needed for the forgot-password reset link to work).
+6. If you already ran `schema.sql` before the slot-uniqueness index was added, also run `supabase/slot-uniqueness.sql` (prevents double-booking the same time slot).
+7. Add your local and production URLs to **Authentication → URL Configuration → Redirect URLs** (needed for the forgot-password reset link to work).
 
 ## Seed scripts
 

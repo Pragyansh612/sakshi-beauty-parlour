@@ -67,14 +67,22 @@ export function GalleryManager({ initialImages }: { initialImages: AdminGalleryI
         storage_path: storagePath,
       });
 
-      if (!result.success) {
+      if (!result.success || !result.id) {
         toast.error(result.error ?? `Could not save ${file.name}.`);
         continue;
       }
 
+      const imageId = result.id;
       setImages((prev) => [
         ...prev,
-        { id: crypto.randomUUID(), title, category: tab === 'work' ? 'Our Work' : 'Achievements', tag: tab === 'work' ? 'Work' : 'Achievement', section: tab, storagePath },
+        {
+          id: imageId,
+          title,
+          category: tab === 'work' ? 'Our Work' : 'Achievements',
+          tag: tab === 'work' ? 'Work' : 'Achievement',
+          section: tab,
+          storagePath,
+        },
       ]);
       toast.success(`${file.name} uploaded.`);
     }

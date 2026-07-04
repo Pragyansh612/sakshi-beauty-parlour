@@ -510,7 +510,7 @@ export function BookingWizard({
                     Please sign in or create an account to confirm your {isAppt ? 'appointment' : 'booking'}.
                   </p>
                   <Link
-                    href="/login"
+                    href="/login?redirectTo=%2Fbook"
                     className="inline-flex items-center justify-center mt-3 bg-[#2e2823] text-[#f6ede0] rounded-[30px] px-8 py-3 font-body font-medium text-sm no-underline"
                   >
                     Sign in / Register

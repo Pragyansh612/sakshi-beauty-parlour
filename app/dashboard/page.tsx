@@ -1,13 +1,10 @@
 import { createClient } from '@/lib/supabase/server';
 import { EyebrowLabel } from '@/components/shared/EyebrowLabel';
 import { DashboardTabs, type DashboardItem } from '@/components/dashboard/DashboardTabs';
-
-const DOW = ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
-const MON = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
+import { formatDayLabel } from '@/lib/date-format';
 
 function formatDate(iso: string) {
-  const d = new Date(`${iso}T00:00:00`);
-  return `${DOW[d.getDay()]}, ${d.getDate()} ${MON[d.getMonth()]}`;
+  return formatDayLabel(iso);
 }
 
 function formatSlotTime(time: string) {

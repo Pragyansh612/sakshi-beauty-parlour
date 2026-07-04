@@ -1,6 +1,7 @@
 import { createServerClient } from '@supabase/ssr';
 import { type NextRequest, NextResponse } from 'next/server';
 import type { Database } from '@/types/database';
+import { safeRedirectPath } from '@/lib/auth/safe-redirect';
 import { isAdminRole } from '@/lib/supabase/auth-helpers';
 
 export async function updateSession(request: NextRequest) {
@@ -43,21 +44,19 @@ export async function updateSession(request: NextRequest) {
     const redirectTo = request.nextUrl.searchParams.get('redirectTo');
     const isAdmin = await isAdminRole(supabase, user.id);
     const fallback = isAdmin ? '/admin/dashboard' : '/dashboard';
-    const destination =
-      redirectTo && redirectTo.startsWith('/') ? redirectTo : fallback;
+    const destination = safeRedirectPath(redirectTo, fallback);
     return redirectWithCookies(new URL(destination, request.url));
   }
 
   if (user && pathname === '/admin/login') {
     if (await isAdminRole(supabase, user.id)) {
       const redirectTo = request.nextUrl.searchParams.get('redirectTo');
-      const destination =
-        redirectTo && redirectTo.startsWith('/admin') ? redirectTo : '/admin/dashboard';
+      const destination = safeRedirectPath(redirectTo, '/admin/dashboard', { adminOnly: true });
       return redirectWithCookies(new URL(destination, request.url));
     }
   }
 
-  if (!user && (pathname.startsWith('/dashboard') || pathname.startsWith('/book'))) {
+  if (!user && pathname.startsWith('/dashboard')) {
     const loginUrl = new URL('/login', request.url);
     loginUrl.searchParams.set('redirectTo', pathname + search);
     return redirectWithCookies(loginUrl);

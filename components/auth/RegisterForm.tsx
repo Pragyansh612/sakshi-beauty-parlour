@@ -10,6 +10,7 @@ import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { FormField } from '@/components/forms/FormField';
 import { PHONE_REGEX, normalizePhone } from '@/lib/phone-auth';
+import { safeRedirectPath } from '@/lib/auth/safe-redirect';
 
 const schema = z.object({
   full_name: z.string().min(2, 'Enter your full name'),
@@ -54,7 +55,7 @@ export function RegisterForm({ onSwitchToLogin, redirectTo }: RegisterFormProps)
       }
 
       toast.success('Account created! Welcome to Sakshi Beauty Parlour.');
-      router.push(redirectTo ?? '/dashboard');
+      router.push(safeRedirectPath(redirectTo, '/dashboard'));
       router.refresh();
     } catch {
       toast.error('Registration failed. Please try again.');
