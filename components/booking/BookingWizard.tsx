@@ -249,17 +249,23 @@ export function BookingWizard({
             const num = i + 1;
             const active = step === num;
             const done = step > num;
+            const clickable = num < step;
             return (
               <div key={label} className="flex items-center gap-2.5">
                 <div className="flex items-center gap-2.5">
-                  <div
+                  <button
+                    type="button"
+                    onClick={() => clickable && setStep(num)}
+                    disabled={!clickable}
+                    aria-label={`Go to ${label} step`}
                     className={cn(
                       'w-[34px] h-[34px] rounded-full border-[1.5px] flex items-center justify-center text-[13px] font-medium shrink-0 transition-all',
-                      active || done ? 'border-[#b5904f] bg-[#b5904f] text-white' : 'border-[#d8c6a6] bg-white text-[#9b8e84]'
+                      active || done ? 'border-[#b5904f] bg-[#b5904f] text-white' : 'border-[#d8c6a6] bg-white text-[#9b8e84]',
+                      clickable ? 'cursor-pointer hover:opacity-80' : 'cursor-default'
                     )}
                   >
                     {num}
-                  </div>
+                  </button>
                   <div className={cn('text-[12.5px] whitespace-nowrap', active || done ? 'text-[#2e2823]' : 'text-[#9b8e84]')}>
                     {label}
                   </div>
@@ -272,7 +278,7 @@ export function BookingWizard({
       </div>
 
       {/* BODY */}
-      <section className="max-w-[1240px] mx-auto px-6 md:px-11 pt-8 pb-[74px] grid grid-cols-1 lg:grid-cols-[1fr_350px] gap-8 items-start">
+      <section className="max-w-[1240px] mx-auto px-6 md:px-11 pt-8 pb-28 lg:pb-[74px] grid grid-cols-1 lg:grid-cols-[1fr_350px] gap-8 items-start">
         {/* LEFT PANEL */}
         <div className="bg-white border border-[#eee3d4] rounded-[18px] p-6 md:p-10 min-h-[430px]">
           {/* STEP 1 — SERVICE */}
@@ -500,7 +506,7 @@ export function BookingWizard({
                 <button
                   onClick={handleConfirm}
                   disabled={submitting}
-                  className="w-full mt-5.5 inline-flex items-center justify-center bg-[#b5904f] text-white rounded-[30px] px-8 py-4 font-body font-medium text-[14.5px] transition-all hover:shadow-[0_12px_26px_-10px_rgba(181,144,79,.7)] disabled:opacity-50"
+                  className="hidden lg:inline-flex w-full mt-5.5 items-center justify-center bg-[#b5904f] text-white rounded-[30px] px-8 py-4 font-body font-medium text-[14.5px] transition-all hover:shadow-[0_12px_26px_-10px_rgba(181,144,79,.7)] disabled:opacity-50"
                 >
                   {submitting ? 'Confirming…' : isAppt ? 'Confirm Appointment' : 'Confirm Booking'}
                 </button>
@@ -511,7 +517,7 @@ export function BookingWizard({
                   </p>
                   <Link
                     href="/login?redirectTo=%2Fbook"
-                    className="inline-flex items-center justify-center mt-3 bg-[#2e2823] text-[#f6ede0] rounded-[30px] px-8 py-3 font-body font-medium text-sm no-underline"
+                    className="hidden lg:inline-flex items-center justify-center mt-3 bg-[#2e2823] text-[#f6ede0] rounded-[30px] px-8 py-3 font-body font-medium text-sm no-underline"
                   >
                     Sign in / Register
                   </Link>
@@ -520,18 +526,18 @@ export function BookingWizard({
             </div>
           )}
 
-          {/* NAV */}
-          {step <= 3 && (
-            <div className="flex justify-between items-center mt-8 pt-6 border-t border-[#eee3d4]">
-              <button
-                onClick={() => step > 1 && setStep(step - 1)}
-                className={cn(
-                  'inline-flex items-center justify-center bg-transparent text-[#2e2823] border border-[#d8c6a6] rounded-[30px] px-6 py-3 font-body font-medium text-[13.5px] transition-all hover:border-[#b5904f] hover:text-[#b5904f]',
-                  step === 1 && 'invisible'
-                )}
-              >
-                ← Back
-              </button>
+          {/* NAV (desktop) */}
+          <div className="hidden lg:flex justify-between items-center mt-8 pt-6 border-t border-[#eee3d4]">
+            <button
+              onClick={() => step > 1 && setStep(step - 1)}
+              className={cn(
+                'inline-flex items-center justify-center bg-transparent text-[#2e2823] border border-[#d8c6a6] rounded-[30px] px-6 py-3 font-body font-medium text-[13.5px] transition-all hover:border-[#b5904f] hover:text-[#b5904f]',
+                step === 1 && 'invisible'
+              )}
+            >
+              ← Back
+            </button>
+            {step <= 3 && (
               <button
                 onClick={() => !nextDisabled && step < 4 && setStep(step + 1)}
                 disabled={nextDisabled}
@@ -539,8 +545,8 @@ export function BookingWizard({
               >
                 {step === 3 ? 'Review' : 'Continue'} →
               </button>
-            </div>
-          )}
+            )}
+          </div>
         </div>
 
         {/* RIGHT SUMMARY */}
@@ -582,6 +588,51 @@ export function BookingWizard({
           </a>
         </aside>
       </section>
+
+      {/* MOBILE STICKY ACTION BAR */}
+      <div
+        className="lg:hidden fixed inset-x-0 bottom-0 z-30 bg-white/95 backdrop-blur-sm border-t border-[#eee3d4] px-4 pt-3 flex items-center gap-3"
+        style={{ paddingBottom: 'calc(0.75rem + env(safe-area-inset-bottom))' }}
+      >
+        <button
+          onClick={() => step > 1 && setStep(step - 1)}
+          className={cn(
+            'inline-flex items-center justify-center shrink-0 bg-transparent text-[#2e2823] border border-[#d8c6a6] rounded-[30px] px-5 py-3 font-body font-medium text-[13.5px] transition-all',
+            step === 1 && 'invisible'
+          )}
+        >
+          ← Back
+        </button>
+
+        {step <= 3 && (
+          <button
+            onClick={() => !nextDisabled && setStep(step + 1)}
+            disabled={nextDisabled}
+            className="flex-1 inline-flex items-center justify-center bg-[#2e2823] text-[#f6ede0] rounded-[30px] px-6 py-3.5 font-body font-medium text-[14px] transition-all disabled:opacity-40 disabled:pointer-events-none"
+          >
+            {step === 3 ? 'Review' : 'Continue'} →
+          </button>
+        )}
+
+        {step === 4 && isAuthenticated && (
+          <button
+            onClick={handleConfirm}
+            disabled={submitting}
+            className="flex-1 inline-flex items-center justify-center bg-[#b5904f] text-white rounded-[30px] px-6 py-3.5 font-body font-medium text-[14px] transition-all disabled:opacity-50"
+          >
+            {submitting ? 'Confirming…' : isAppt ? 'Confirm Appointment' : 'Confirm Booking'}
+          </button>
+        )}
+
+        {step === 4 && !isAuthenticated && (
+          <Link
+            href="/login?redirectTo=%2Fbook"
+            className="flex-1 inline-flex items-center justify-center bg-[#2e2823] text-[#f6ede0] rounded-[30px] px-6 py-3.5 font-body font-medium text-[14px] no-underline"
+          >
+            Sign in / Register
+          </Link>
+        )}
+      </div>
     </div>
   );
 }
